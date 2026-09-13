@@ -2,6 +2,7 @@
 
 Source visual truth:
 
+- `qa/medora-icon-framing-source.jpg` (icon framing issue supplied on 2026-09-13)
 - `/workspace/scratch/5f2a17321df2/upload/IMG_3270.jpeg`
 - Supporting interface and icon references: `IMG_3266.jpeg`, `IMG_3267.jpeg`, `IMG_3268.jpeg`
 - Spot-icon references: `/workspace/scratch/5f2a17321df2/upload/IMG_3268(1).jpeg` and `/workspace/scratch/5f2a17321df2/upload/IMG_3269.jpeg`
@@ -9,6 +10,8 @@ Source visual truth:
 
 Implementation evidence:
 
+- `qa/medora-icon-framing-implementation.jpg`
+- Focused before/after comparison: `qa/medora-icon-framing-comparison.jpg`
 - `qa/medora-ethereal-landing.jpg`
 - `qa/medora-ethereal-dashboard.jpg`
 - Combined full-view comparison: `qa/medora-style-comparison.jpg`
@@ -22,6 +25,7 @@ Viewport and normalization:
 - Combined comparison: both source and implementation center-cropped to 1200 x 900 px, displayed side by side at 2400 x 900 px.
 - State: first-load landing page and default dashboard overview, Romanian copy, demo data.
 - Spot-icon source dimensions: 900 x 900 px and 680 x 397 px. Desktop implementation was checked at 1363 x 936 CSS px, DPR 1. Responsive views were rendered inside 370 x 824 CSS px browser frames, with 339–355 px content viewports.
+- Icon-framing source: 1206 x 781 px. Updated browser implementation: 1363 x 936 px at a 1363 x 936 CSS viewport and DPR 1. The focused comparison normalizes both captures into adjacent 600 x 450 px panels without altering their aspect ratios.
 
 Full-view comparison evidence:
 
@@ -36,6 +40,7 @@ Focused comparison evidence:
 - Colors and visual tokens: warm white, blush, lavender, powder blue, mint, and near-black are mapped consistently across landing and dashboard states.
 - Image quality: `dist/medora-pastel-glow.png` is a dedicated 4:3 raster background generated for the interface, with no text or UI baked into it. It remains sharp and free of visible banding at the tested viewport.
 - Icons: landing shortcuts and high-value dashboard cards use eight dedicated transparent PNG spot-icons at 280 x 280 px. Their isometric camera, matte materials, restrained sage/blush/ivory palette, soft shadows, and object scale match the supplied references. Navigation, buttons, and compact controls retain Phosphor regular line icons for clarity.
+- Icon framing: all seven landing frames now measure 92 x 92 CSS px on desktop and share one label baseline. Per-asset optical scaling and vertical offsets compensate for the different subject bounds inside the 280 x 280 PNG canvases. The stray right-edge fragment in `sources.png` is masked within its frame.
 - Copy: all Medora-specific Romanian labels and medical-demo disclaimers remain unchanged and readable.
 
 Comparison history:
@@ -47,6 +52,7 @@ Comparison history:
 - Spot-icon P2: the earlier shortcut row used generic thin line glyphs in repeated tiles, missing the tactile object-led style of the new references. Fixed with a cohesive generated set for medicine, Radar, comparison, watchlist, tools, ATC, sources, and research.
 - Spot-icon P2: using the 3D assets for every small control would reduce legibility and visual hierarchy. Fixed by limiting them to quick access and high-value dashboard cards while preserving line icons for navigation and actions.
 - Responsive P2: the first mobile dashboard pass widened the three statistics beyond the content viewport after adding the 3D assets. Fixed with three `minmax(0,1fr)` tracks, vertically stacked stat content, smaller mobile spot-icons, and safe text wrapping. Final mobile client width and scroll width both measured 339 px.
+- Icon-framing P2: equal PNG canvas sizes concealed large differences in the subjects' visible bounds. Medicine was optically low and small, Tools/ATC/Sources were high, Radar was oversized, and Sources exposed an unrelated edge fragment. Fixed with square 92/72/56 px frames, measured per-icon scale and translation variables, overflow clipping, and a focused mask for Sources. The revised browser capture shows equal visual weight, centered subjects, aligned labels, and no content outside the frames.
 - Post-fix evidence: `qa/medora-style-comparison.jpg`, `qa/medora-ethereal-dashboard.jpg`, and browser-tested interaction states.
 - Post-fix spot-icon evidence: the two source references, generated set, 1363 x 936 desktop render, and 370 x 824 responsive renders were displayed together in one browser comparison. No overlap, broken assets, horizontal overflow, or unreadable labels were observed.
 
