@@ -1,6 +1,7 @@
 # Medora — research + interactive mock
 
 12 septembrie 2026 · Research public + prototip interactiv for Romanian clinicians.
+New version from `Medora-local.zip` (13 septembrie 2026): refreshed landing + dashboard, pastel-glow hero art, spot icons.
 
 Live demo (GitHub Pages): https://roblanc.github.io/medora/
 
@@ -11,6 +12,9 @@ Live demo (GitHub Pages): https://roblanc.github.io/medora/
 - `research.html` — report with sources + 105-tool appendix
 - `research.md` — editable report
 - `instrumente-mediately.csv` — inventory with short names + official links
+- `medora-pastel-glow.png` + `spot-icons/` — hero art + section icons
+- `design-qa.md` + `qa/` — design QA notes + screenshots
+- `server.mjs` (`npm run dev`) — local preview server
 
 No install or API keys. Fonts, styles and mock JS are inlined in HTML.
 External documentation links need internet.
