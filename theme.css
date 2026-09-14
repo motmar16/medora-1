@@ -133,6 +133,11 @@ body,
   background-color: var(--theme-base) !important;
 }
 
+.story { background-color: var(--theme-base) !important; }
+.home h1 span,
+.home .kicker,
+.home .next-glimpse a { color: var(--theme-accent) !important; }
+
 body:not(.cinematic-page),
 .home:not(.cinematic-home),
 .precision-section,
