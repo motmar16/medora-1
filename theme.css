@@ -376,3 +376,48 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 @media (prefers-reduced-motion: reduce) {
   .medora-theme-control * { transition: none !important; }
 }
+
+/* ==========================================================================
+   HeroUI Typography Scale & Rules
+   Reference: https://heroui.com/en/docs/react/components/typography
+   ========================================================================== */
+:root {
+  /* HeroUI Heading Tokens: size / weight / line-height / tracking */
+  --heroui-h1: 600 clamp(28px, 3.2vw, 36px)/1.11 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h1-tracking: -0.02em;
+
+  --heroui-h2: 600 clamp(24px, 2.6vw, 30px)/1.17 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h2-tracking: -0.02em;
+
+  --heroui-h3: 600 clamp(20px, 2.1vw, 24px)/1.25 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h3-tracking: -0.015em;
+
+  --heroui-h4: 600 clamp(18px, 1.8vw, 20px)/1.33 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h4-tracking: -0.015em;
+
+  --heroui-h5: 600 18px/1.39 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h5-tracking: -0.015em;
+
+  --heroui-h6: 600 16px/1.50 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h6-tracking: -0.015em;
+
+  /* HeroUI Body Tokens */
+  --heroui-body: 400 16px/1.75 Inter, -apple-system, sans-serif;
+  --heroui-body-sm: 400 14px/1.50 Inter, -apple-system, sans-serif;
+  --heroui-body-xs: 400 12px/1.25 Inter, -apple-system, sans-serif;
+
+  /* HeroUI Micro-labels / Eyebrow Tokens */
+  --heroui-eyebrow: 700 11px/1.2 Inter, sans-serif;
+  --heroui-eyebrow-tracking: 0.12em;
+}
+
+.heroui-h1 { font: var(--heroui-h1); letter-spacing: var(--heroui-h1-tracking); }
+.heroui-h2 { font: var(--heroui-h2); letter-spacing: var(--heroui-h2-tracking); }
+.heroui-h3 { font: var(--heroui-h3); letter-spacing: var(--heroui-h3-tracking); }
+.heroui-h4 { font: var(--heroui-h4); letter-spacing: var(--heroui-h4-tracking); }
+.heroui-h5 { font: var(--heroui-h5); letter-spacing: var(--heroui-h5-tracking); }
+.heroui-h6 { font: var(--heroui-h6); letter-spacing: var(--heroui-h6-tracking); }
+.heroui-body { font: var(--heroui-body); letter-spacing: normal; }
+.heroui-body-sm { font: var(--heroui-body-sm); letter-spacing: normal; }
+.heroui-body-xs { font: var(--heroui-body-xs); letter-spacing: normal; }
+.heroui-eyebrow { font: var(--heroui-eyebrow); letter-spacing: var(--heroui-eyebrow-tracking); text-transform: uppercase; }
