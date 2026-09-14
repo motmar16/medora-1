@@ -229,8 +229,8 @@ body.medora-app .hero {
 body.medora-app .hero .eyebrow { color: var(--theme-accent) !important; }
 body.medora-app .brandmark { background: var(--theme-deep) !important; color: var(--theme-secondary) !important; }
 body.medora-app .stat-icon,
-body.medora-app .drugicon,
 body.medora-app .avatar { background: var(--theme-wash-1) !important; color: var(--theme-accent) !important; }
+body.medora-app .drugicon { background: transparent !important; }
 body.medora-app .stat-icon.orange { background: var(--theme-wash-2) !important; }
 body.medora-app .stat-icon.rose { background: var(--theme-wash-3) !important; }
 
