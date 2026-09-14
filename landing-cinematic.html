@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f6f0e4">
   <meta name="description" content="Medora centralizează informațiile despre medicamente și schimbările de disponibilitate din România.">
   <title>Medora — Informații despre medicamente</title>
+  <script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
@@ -121,9 +122,11 @@
     @media(max-width:390px){h1{font-size:43px}.module-icon{width:58px;height:50px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
+  <link rel="stylesheet" href="theme.css">
+  <script src="theme.js" defer></script>
 </head>
-<body>
-  <main class="home">
+<body class="cinematic-page">
+  <main class="home cinematic-home">
     <video class="hero-video is-primary" id="hero-video-a" muted autoplay playsinline preload="auto" poster="medora-hero-poster.jpg" aria-hidden="true">
       <source src="medora-hero.mp4" type="video/mp4">
     </video>
