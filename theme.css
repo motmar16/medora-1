@@ -304,8 +304,11 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
     border-color: var(--theme-line) !important;
   }
   body.medora-app .nav button.active {
-    background: color-mix(in srgb, var(--theme-accent-soft) 85%, transparent) !important;
+    background: color-mix(in srgb, var(--theme-accent-soft) 80%, transparent) !important;
     color: var(--theme-accent, #9567bf) !important;
+    border-radius: 10px !important;
+    max-width: 66px !important;
+    height: 44px !important;
   }
   .medora-theme-control { right: 12px; bottom: 78px; }
   .medora-theme-trigger { min-height: 40px; padding: 5px 10px 5px 6px; }
