@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <style>
     :root {
-      --xcode-bg: #111215;
-      --xcode-panel: #1a1c21;
-      --xcode-border: rgba(255, 255, 255, 0.09);
-      --xcode-text: #f0f2f5;
-      --xcode-muted: #8d939e;
-      --xcode-accent: #007aff;
-      --xcode-accent-hover: #1a88ff;
+      --xcode-bg: #fbfaf7;
+      --xcode-panel: rgba(255, 255, 255, 0.78);
+      --xcode-border: rgba(24, 24, 23, 0.09);
+      --xcode-border-strong: rgba(24, 24, 23, 0.18);
+      --xcode-text: #181817;
+      --xcode-muted: #6b7280;
+      --xcode-accent: #181817;
+      --xcode-accent-hover: #2d2f36;
       --device-w: 393px;
       --device-h: 852px;
       --device-scale: 0.88;
@@ -33,12 +34,12 @@
     }
 
     body {
-      background-color: var(--xcode-bg);
-      background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        radial-gradient(circle at 50% 12%, rgba(149, 103, 191, 0.15), transparent 48%),
-        radial-gradient(circle at 80% 85%, rgba(0, 122, 255, 0.09), transparent 40%);
-      background-size: 24px 24px, 100% 100%, 100% 100%;
+      background-color: #fbfaf7;
+      background-image: url('medora-pastel-glow.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
       color: var(--xcode-text);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
@@ -50,20 +51,21 @@
 
     /* Top Xcode / Studio Toolbar */
     .xcode-toolbar {
-      min-height: 54px;
-      background: rgba(26, 28, 33, 0.92);
+      min-height: 56px;
+      background: rgba(255, 255, 255, 0.78);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--xcode-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 18px;
+      padding: 7px 20px;
       z-index: 100;
       position: sticky;
       top: 0;
       gap: 12px;
       flex-wrap: wrap;
+      box-shadow: 0 4px 20px rgba(75, 67, 58, 0.05);
     }
 
     .toolbar-left {
@@ -93,22 +95,24 @@
       align-items: center;
       gap: 8px;
       font-size: 13px;
-      font-weight: 550;
-      color: #e5e8ec;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 5px 12px;
-      border-radius: 7px;
+      font-weight: 600;
+      color: #181817;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 6px 13px;
+      border-radius: 9px;
       border: 1px solid var(--xcode-border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
     .device-title-badge i {
-      color: #38a169;
+      color: #2e8540;
       font-size: 9px;
     }
 
     .device-os-tag {
       color: var(--xcode-muted);
       font-size: 11px;
+      font-weight: 500;
     }
 
     .toolbar-center {
@@ -124,41 +128,48 @@
     }
 
     .dropdown-trigger {
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(255, 255, 255, 0.78);
       border: 1px solid var(--xcode-border);
-      color: #cbd5e0;
+      color: #374151;
       font-size: 12px;
-      font-weight: 550;
+      font-weight: 600;
       padding: 7px 14px;
-      border-radius: 8px;
+      border-radius: 9px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all 0.18s ease;
       white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
 
     .dropdown-trigger:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.22);
-      color: #fff;
+      background: #ffffff;
+      border-color: rgba(24, 24, 23, 0.22);
+      color: #111827;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
     }
 
     .dropdown-trigger.active {
-      background: rgba(255, 255, 255, 0.16);
-      border-color: rgba(255, 255, 255, 0.32);
-      color: #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+      background: #181817;
+      border-color: #181817;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(24, 24, 23, 0.18);
+    }
+
+    .dropdown-trigger.active .caret-icon {
+      color: #cbd5e1;
     }
 
     .dropdown-trigger.android-trigger {
-      border-color: rgba(72, 187, 120, 0.3);
+      border-color: rgba(36, 105, 81, 0.22);
     }
     .dropdown-trigger.android-trigger.active {
-      background: rgba(72, 187, 120, 0.18);
-      border-color: rgba(72, 187, 120, 0.55);
-      color: #68d391;
+      background: #1e5a42;
+      border-color: #1e5a42;
+      color: #ecfdf5;
+      box-shadow: 0 2px 8px rgba(30, 90, 66, 0.22);
     }
 
     .dropdown-trigger .caret-icon {
@@ -176,11 +187,11 @@
       position: absolute;
       top: calc(100% + 7px);
       left: 0;
-      min-width: 270px;
-      background: rgba(22, 24, 30, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 4px 14px rgba(0, 0, 0, 0.45);
+      min-width: 275px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(24, 24, 23, 0.12);
+      border-radius: 14px;
+      box-shadow: 0 22px 55px rgba(45, 35, 28, 0.15), 0 4px 14px rgba(0, 0, 0, 0.06);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
       padding: 6px;
@@ -202,19 +213,19 @@
 
     .dropdown-header {
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 750;
       text-transform: uppercase;
       letter-spacing: 0.9px;
-      color: #718096;
+      color: #78716c;
       padding: 6px 10px 4px;
     }
 
     .dropdown-item {
       background: transparent;
       border: none;
-      color: #cbd5e0;
+      color: #374151;
       padding: 8px 10px;
-      border-radius: 7px;
+      border-radius: 8px;
       font-size: 12px;
       display: flex;
       align-items: center;
@@ -227,13 +238,14 @@
     }
 
     .dropdown-item:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      background: rgba(24, 24, 23, 0.05);
+      color: #111827;
     }
 
     .dropdown-item.active {
-      background: rgba(0, 122, 255, 0.18);
-      color: #fff;
+      background: rgba(149, 103, 191, 0.14);
+      color: #181817;
+      font-weight: 600;
     }
 
     .dropdown-item .item-main {
@@ -255,12 +267,12 @@
     }
 
     .dropdown-item.active .item-sub {
-      color: #90cdf4;
+      color: #7e22ce;
     }
 
     .dropdown-item .item-check {
       font-size: 14px;
-      color: #38a169;
+      color: #7e22ce;
       opacity: 0;
       transition: opacity 0.15s ease;
     }
@@ -279,33 +291,36 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
-      border-radius: 7px;
+      padding: 6px 13px;
+      border-radius: 8px;
       font-size: 12px;
-      font-weight: 550;
+      font-weight: 600;
       text-decoration: none;
       transition: all 0.18s ease;
       cursor: pointer;
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.07);
-      color: #d1d5db;
+      background: rgba(255, 255, 255, 0.78);
+      color: #1f2937;
       border: 1px solid var(--xcode-border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
     .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.13);
-      color: #fff;
+      background: #ffffff;
+      color: #111827;
+      border-color: rgba(24, 24, 23, 0.25);
     }
 
     .btn-primary {
-      background: var(--xcode-accent);
+      background: #181817;
       color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid #181817;
+      box-shadow: 0 2px 8px rgba(24, 24, 23, 0.18);
     }
     .btn-primary:hover {
-      background: var(--xcode-accent-hover);
-      box-shadow: 0 2px 10px rgba(0, 122, 255, 0.35);
+      background: #2d2f36;
+      box-shadow: 0 4px 14px rgba(24, 24, 23, 0.25);
     }
 
     /* Main Simulator Stage */
@@ -338,11 +353,11 @@
       background: var(--device-shell-bg);
       padding: var(--device-bezel);
       box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.14),
+        0 0 0 1px rgba(0, 0, 0, 0.12),
         0 0 0 3.5px var(--device-shell-border),
-        0 0 0 5px #111215,
-        0 35px 95px -15px rgba(0, 0, 0, 0.8),
-        0 15px 35px -10px rgba(0, 0, 0, 0.55);
+        0 0 0 5.5px rgba(25, 25, 30, 0.85),
+        0 35px 95px -15px rgba(45, 35, 28, 0.32),
+        0 15px 35px -10px rgba(45, 35, 28, 0.2);
       transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
                   height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
                   border-radius 0.35s ease,
@@ -589,32 +604,36 @@
 
     /* Bottom Quick Switch Bar */
     .bottom-bar {
-      min-height: 48px;
-      background: rgba(22, 24, 29, 0.92);
-      backdrop-filter: blur(16px);
+      min-height: 50px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-top: 1px solid var(--xcode-border);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      padding: 6px 20px;
+      padding: 8px 20px;
       font-size: 12px;
-      color: var(--xcode-muted);
+      color: #4b5563;
       flex-wrap: wrap;
+      box-shadow: 0 -4px 20px rgba(75, 67, 58, 0.04);
     }
     .quick-route {
       background: none;
       border: none;
-      color: var(--xcode-muted);
-      padding: 4px 9px;
-      border-radius: 5px;
+      color: #4b5563;
+      padding: 5px 12px;
+      border-radius: 8px;
       transition: all 0.15s ease;
       cursor: pointer;
       font-size: 12px;
+      font-weight: 500;
     }
     .quick-route:hover, .quick-route.active {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      background: #181817;
+      box-shadow: 0 2px 6px rgba(24, 24, 23, 0.15);
     }
 
     /* Responsive Simulator Scaling */
