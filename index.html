@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f6f0e4">
   <meta name="description" content="Medora centralizează informațiile despre medicamente și schimbările de disponibilitate din România.">
   <title>Medora — Informații despre medicamente</title>
+  <script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script>
   <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&Element.prototype.animate)document.documentElement.classList.add('ops-entrance-pending')</script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
   <style>
@@ -72,6 +73,8 @@
     @media(max-width:390px){h1{font-size:41px}.module-icon{width:56px;height:56px}.module-icon img{width:57px;height:57px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
+  <link rel="stylesheet" href="theme.css">
+  <script src="theme.js" defer></script>
 </head>
 <body>
   <main class="home">
