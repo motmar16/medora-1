@@ -312,6 +312,49 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 .medora-theme-swatch i { display: block; }
 .medora-theme-trigger:focus-visible,.medora-theme-option:focus-visible { outline: 3px solid var(--theme-accent); outline-offset: 3px; }
 
+/* Sources & Buttons Theme Integration */
+.sourcecard {
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-line) !important;
+}
+.sourcecard-badge {
+  background: var(--theme-wash-1) !important;
+  color: var(--theme-muted) !important;
+  border-color: color-mix(in srgb, var(--theme-accent) 15%, transparent) !important;
+}
+.btn-source {
+  color: var(--theme-deep) !important;
+  border-color: color-mix(in srgb, var(--theme-deep) 14%, transparent) !important;
+}
+.btn-source:hover {
+  border-color: color-mix(in srgb, var(--theme-accent) 40%, transparent) !important;
+  color: var(--theme-deep) !important;
+}
+.btn-source-arrow {
+  background: var(--theme-wash-1) !important;
+  color: var(--theme-accent) !important;
+}
+.btn-source:hover .btn-source-arrow {
+  background: var(--theme-accent) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary {
+  background: linear-gradient(180deg, var(--theme-deep) 0%, color-mix(in srgb, var(--theme-deep) 85%, #000) 100%) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary:hover {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--theme-accent) 60%, var(--theme-deep)) 0%, var(--theme-deep) 100%) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary .btn-source-arrow {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary:hover .btn-source-arrow {
+  background: var(--theme-accent-soft) !important;
+  color: var(--theme-deep) !important;
+}
+
 @media (max-width: 620px) {
   body.medora-app .sidebar {
     background-color: var(--theme-surface) !important;
