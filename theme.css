@@ -182,31 +182,33 @@ body:not(.cinematic-page),
 .ops-bars i { background: var(--theme-accent-soft) !important; }
 .ops-automate { background: linear-gradient(100deg, var(--theme-secondary), var(--theme-accent)) !important; box-shadow: 0 .6cqh 1.35cqw color-mix(in srgb, var(--theme-accent) 34%, transparent) !important; }
 
-.sidebar,
-.topbar,
-.panel,
-.stat,
-.iconbtn,
-.btn,
-.searchbox,
-.field input,
-.field select,
-table,
-dialog {
+body.medora-app .sidebar,
+body.medora-app .topbar,
+body.medora-app .panel,
+body.medora-app .stat,
+body.medora-app .iconbtn,
+body.medora-app .btn,
+body.medora-app .searchbox,
+body.medora-app .field input,
+body.medora-app .field select,
+body.medora-app table,
+body.medora-app dialog {
   background-color: var(--theme-surface) !important;
 }
 
-.sidebar { border-color: var(--theme-line) !important; }
-.nav button.active,
-.pulsecard,
-.comparebar,
-.result,
-.details { background: var(--theme-accent-soft) !important; }
-.hero { background: var(--theme-deep) !important; }
-.brandmark { background: var(--theme-deep) !important; color: var(--theme-secondary) !important; }
-.stat-icon,.drugicon,.avatar { background: var(--theme-wash-1) !important; color: var(--theme-accent) !important; }
-.stat-icon.orange { background: var(--theme-wash-2) !important; }
-.stat-icon.rose { background: var(--theme-wash-3) !important; }
+body.medora-app .sidebar { border-color: var(--theme-line) !important; }
+body.medora-app .nav button.active,
+body.medora-app .pulsecard,
+body.medora-app .comparebar,
+body.medora-app .result,
+body.medora-app .details { background: var(--theme-accent-soft) !important; }
+body.medora-app .hero { background: var(--theme-deep) !important; }
+body.medora-app .brandmark { background: var(--theme-deep) !important; color: var(--theme-secondary) !important; }
+body.medora-app .stat-icon,
+body.medora-app .drugicon,
+body.medora-app .avatar { background: var(--theme-wash-1) !important; color: var(--theme-accent) !important; }
+body.medora-app .stat-icon.orange { background: var(--theme-wash-2) !important; }
+body.medora-app .stat-icon.rose { background: var(--theme-wash-3) !important; }
 
 body > header { background: var(--theme-deep) !important; color: var(--theme-surface) !important; }
 body > header a { color: var(--theme-surface) !important; border-color: color-mix(in srgb, var(--theme-surface) 45%, transparent) !important; }
