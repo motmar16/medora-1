@@ -299,6 +299,14 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 .medora-theme-trigger:focus-visible,.medora-theme-option:focus-visible { outline: 3px solid var(--theme-accent); outline-offset: 3px; }
 
 @media (max-width: 620px) {
+  body.medora-app .sidebar {
+    background-color: var(--theme-surface) !important;
+    border-color: var(--theme-line) !important;
+  }
+  body.medora-app .nav button.active {
+    background: color-mix(in srgb, var(--theme-accent-soft) 85%, transparent) !important;
+    color: var(--theme-accent, #9567bf) !important;
+  }
   .medora-theme-control { right: 12px; bottom: 78px; }
   .medora-theme-trigger { min-height: 40px; padding: 5px 10px 5px 6px; }
   .medora-theme-trigger > span:last-child { display: none; }
