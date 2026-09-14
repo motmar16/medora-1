@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f0e4">
-  <meta name="description" content="Medora centralizează informațiile despre medicamente și schimbările de disponibilitate din România.">
-  <title>Medora — Informații despre medicamente</title>
+  <meta name="description" content="Medora într-o experiență fotografică discret animată, pentru informații clare despre medicamente.">
+  <title>Medora — Fotografie vie</title>
   <script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
   <style>
@@ -121,24 +121,48 @@
     }
     @media(max-width:390px){h1{font-size:43px}.module-icon{width:58px;height:50px}}
     .experience-switch{position:relative}.experience-switch summary{cursor:pointer;list-style:none;color:rgba(255,255,255,.78);font-size:11px;font-weight:650;white-space:nowrap}.experience-switch summary::-webkit-details-marker{display:none}.experience-switch summary:after{content:"⌄";margin-left:5px}.experience-switch[open] summary{color:#fff}.experience-menu{position:absolute;z-index:40;top:calc(100% + 14px);right:0;min-width:174px;padding:7px;background:rgba(20,24,24,.78);border:1px solid rgba(255,255,255,.25);border-radius:13px;box-shadow:0 18px 44px rgba(0,0,0,.25);backdrop-filter:blur(18px)}.experience-menu a{display:block;padding:9px 11px;border-radius:8px;color:rgba(255,255,255,.82);font-size:11px;font-weight:600;white-space:nowrap}.experience-menu a:hover{background:rgba(255,255,255,.1);color:#fff}.experience-menu a[aria-current="page"]{background:rgba(242,168,207,.14);color:#f6c5df}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+    /* Still-alive hero: source image stays untouched; depth comes from masked duplicates. */
+    .ambient-scene{position:absolute;z-index:-4;inset:-10px;overflow:hidden;pointer-events:none;background:#78add4}
+    .ambient-layer{position:absolute;inset:-1.5%;will-change:transform;transition:transform 1.4s cubic-bezier(.2,.72,.2,1)}
+    .ambient-layer img{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 54%;transform:scale(1);animation:ambient-breathe 18s ease-in-out infinite alternate;will-change:transform}
+    .ambient-sky{z-index:1;-webkit-mask-image:linear-gradient(to bottom,#000 0 55%,transparent 76%);mask-image:linear-gradient(to bottom,#000 0 55%,transparent 76%)}
+    .ambient-middle{z-index:2;-webkit-mask-image:linear-gradient(to bottom,transparent 31%,#000 52%,#000 84%,transparent 96%);mask-image:linear-gradient(to bottom,transparent 31%,#000 52%,#000 84%,transparent 96%)}
+    .ambient-foreground{z-index:3;-webkit-mask-image:linear-gradient(to bottom,transparent 68%,#000 91%);mask-image:linear-gradient(to bottom,transparent 68%,#000 91%)}
+    .ambient-sun{position:absolute;z-index:4;left:-22%;top:8%;width:74%;height:72%;border-radius:50%;background:radial-gradient(circle,rgba(255,244,198,.26) 0,rgba(255,229,151,.09) 35%,transparent 69%);filter:blur(30px);mix-blend-mode:screen;opacity:.38;animation:ambient-sunlight 16s ease-in-out infinite alternate;will-change:transform,opacity}
+    .ambient-dust{position:absolute;z-index:5;inset:0 0 37%;overflow:hidden}
+    .ambient-dust i{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);border-radius:50%;background:rgba(255,244,209,.72);box-shadow:0 0 7px rgba(255,239,188,.45);opacity:.12;animation:ambient-dust-drift var(--duration) ease-in-out var(--delay) infinite alternate}
+    .ambient-information{position:absolute;z-index:5;left:47%;top:67%;width:29%;height:16%;opacity:.18;filter:blur(2px);transform:rotate(-4deg);mix-blend-mode:screen;overflow:hidden}
+    .ambient-information:before,.ambient-information:after{content:"";position:absolute;left:-45%;width:62%;height:2px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(220,239,255,.72),rgba(255,235,174,.42),transparent);box-shadow:0 0 10px rgba(218,238,255,.24);animation:ambient-information-flow 15s ease-in-out infinite}
+    .ambient-information:before{top:31%}.ambient-information:after{top:64%;animation-delay:-7s;opacity:.62}
+    .ambient-shade{position:absolute;z-index:6;inset:0;background:linear-gradient(180deg,rgba(7,12,15,.48) 0%,rgba(7,12,15,.08) 38%,rgba(7,12,15,.2) 68%,rgba(7,12,15,.65) 100%),linear-gradient(90deg,rgba(6,10,12,.22),transparent 48%,rgba(6,10,12,.08));pointer-events:none}
+    .ambient-vignette{position:absolute;z-index:7;inset:0;box-shadow:inset 0 0 145px rgba(7,10,12,.26);pointer-events:none}
+    @keyframes ambient-breathe{from{transform:scale(1)}to{transform:scale(1.024)}}
+    @keyframes ambient-sunlight{from{transform:translate3d(-2%,1%,0);opacity:.28}to{transform:translate3d(29%,-3%,0);opacity:.43}}
+    @keyframes ambient-dust-drift{from{transform:translate3d(0,5px,0);opacity:.06}to{transform:translate3d(8px,-10px,0);opacity:.19}}
+    @keyframes ambient-information-flow{0%{transform:translate3d(0,0,0);opacity:0}22%{opacity:.44}68%{opacity:.22}100%{transform:translate3d(225%,0,0);opacity:0}}
+    @media(max-width:760px){.ambient-layer{inset:-2.2%}.ambient-layer img{object-position:48% 54%;animation-duration:20s}.ambient-middle,.ambient-foreground{transform:none!important}.ambient-dust i:nth-child(n+6){display:none}.ambient-information{left:39%;width:43%;opacity:.12}.ambient-vignette{box-shadow:inset 0 0 82px rgba(7,10,12,.24)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.ambient-layer,.ambient-layer img{transform:none!important}.ambient-dust,.ambient-information,.ambient-sun{display:none!important}}
   </style>
   <link rel="stylesheet" href="theme.css?v=4">
   <script src="theme.js?v=4" defer></script>
 </head>
-<body class="cinematic-page">
-  <main class="home cinematic-home">
-    <video class="hero-video is-primary" id="hero-video-a" muted autoplay playsinline preload="auto" poster="medora-hero-poster.jpg" aria-hidden="true">
-      <source src="medora-hero.mp4" type="video/mp4">
-    </video>
-    <video class="hero-video" id="hero-video-b" muted playsinline preload="auto" poster="medora-hero-poster.jpg" aria-hidden="true">
-      <source src="medora-hero.mp4" type="video/mp4">
-    </video>
-    <div class="hero-video-shade" aria-hidden="true"></div>
-    <div class="hero-video-vignette" aria-hidden="true"></div>
+<body class="cinematic-page ambient-page">
+  <main class="home cinematic-home ambient-home" id="ambient-home">
+    <div class="ambient-scene" aria-hidden="true">
+      <div class="ambient-layer ambient-base"><img src="medora-hero-ambient.png" alt=""></div>
+      <div class="ambient-layer ambient-sky"><img src="medora-hero-ambient.png" alt=""></div>
+      <div class="ambient-layer ambient-middle"><img src="medora-hero-ambient.png" alt=""></div>
+      <div class="ambient-layer ambient-foreground"><img src="medora-hero-ambient.png" alt=""></div>
+      <div class="ambient-sun"></div>
+      <div class="ambient-dust"><i style="--x:11%;--y:33%;--size:2px;--duration:14s;--delay:-3s"></i><i style="--x:19%;--y:52%;--size:1px;--duration:17s;--delay:-11s"></i><i style="--x:32%;--y:22%;--size:2px;--duration:19s;--delay:-7s"></i><i style="--x:48%;--y:42%;--size:1px;--duration:16s;--delay:-2s"></i><i style="--x:61%;--y:29%;--size:2px;--duration:20s;--delay:-13s"></i><i style="--x:72%;--y:48%;--size:1px;--duration:15s;--delay:-9s"></i><i style="--x:83%;--y:19%;--size:2px;--duration:18s;--delay:-5s"></i><i style="--x:91%;--y:54%;--size:1px;--duration:21s;--delay:-15s"></i></div>
+      <div class="ambient-information"></div>
+      <div class="ambient-shade"></div>
+      <div class="ambient-vignette"></div>
+    </div>
     <header class="topbar liquid-glass">
       <a class="brand" href="index.html" aria-label="Medora, pagina principală"><span class="brand-mark"><i data-lucide="asterisk"></i></span>medora</a>
-      <div class="top-actions"><span class="market"><i data-lucide="map-pin"></i> România</span><details class="experience-switch"><summary>Variante</summary><nav class="experience-menu" aria-label="Variante landing"><a href="index.html">Originală</a><a href="landing-cinematic.html" aria-current="page">Cinematică</a><a href="landing-ambient.html">Fotografie vie</a></nav></details><a class="open-app" href="medora.html#overview"><span>Deschide aplicația</span><i data-lucide="arrow-up-right"></i></a></div>
+      <div class="top-actions"><span class="market"><i data-lucide="map-pin"></i> România</span><details class="experience-switch"><summary>Variante</summary><nav class="experience-menu" aria-label="Variante landing"><a href="index.html">Originală</a><a href="landing-cinematic.html">Cinematică</a><a href="landing-ambient.html" aria-current="page">Fotografie vie</a></nav></details><a class="open-app" href="medora.html#overview"><span>Deschide aplicația</span><i data-lucide="arrow-up-right"></i></a></div>
     </header>
     <section class="hero" aria-labelledby="hero-title">
       <div class="kicker reveal">Concept interactiv · date demo</div>
@@ -206,49 +230,25 @@
   </section>
 
   <script>
-    const heroVideos=[document.querySelector('#hero-video-a'),document.querySelector('#hero-video-b')];
-    const videoCrossfadeDuration=1100;
-    let activeVideoIndex=0,videoTransitionFrame=0,videoMonitorFrame=0,isVideoTransitioning=false;
-    function crossfadeHeroVideo(){
-      if(isVideoTransitioning)return;
-      isVideoTransitioning=true;
-      const outgoing=heroVideos[activeVideoIndex],incoming=heroVideos[1-activeVideoIndex];
-      incoming.currentTime=0;
-      incoming.play().then(()=>{
-        cancelAnimationFrame(videoTransitionFrame);
-        const startedAt=performance.now();
-        function blend(now){
-          const progress=Math.min(1,(now-startedAt)/videoCrossfadeDuration),eased=progress*progress*(3-2*progress);
-          outgoing.style.opacity=String(1-eased);
-          incoming.style.opacity=String(eased);
-          if(progress<1){videoTransitionFrame=requestAnimationFrame(blend);return}
-          outgoing.pause();
-          outgoing.currentTime=0;
-          outgoing.style.opacity='0';
-          incoming.style.opacity='1';
-          activeVideoIndex=1-activeVideoIndex;
-          isVideoTransitioning=false;
-        }
-        videoTransitionFrame=requestAnimationFrame(blend);
-      }).catch(()=>{
-        outgoing.currentTime=0;
-        outgoing.play().catch(()=>{});
-        isVideoTransitioning=false;
-      });
+    const ambientHome=document.querySelector('#ambient-home');
+    const ambientLayers={sky:document.querySelector('.ambient-sky'),middle:document.querySelector('.ambient-middle'),foreground:document.querySelector('.ambient-foreground')};
+    const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+    let ambientFrame=0,pointerX=0,pointerY=0;
+    function renderAmbientDepth(){
+      ambientFrame=0;
+      ambientLayers.sky.style.transform=`translate3d(${(pointerX*1).toFixed(2)}px,${(pointerY*1).toFixed(2)}px,0)`;
+      ambientLayers.middle.style.transform=`translate3d(${(pointerX*2.5).toFixed(2)}px,${(pointerY*2.5).toFixed(2)}px,0)`;
+      ambientLayers.foreground.style.transform=`translate3d(${(pointerX*5).toFixed(2)}px,${(pointerY*5).toFixed(2)}px,0)`;
     }
-    function monitorHeroVideo(){
-      const active=heroVideos[activeVideoIndex];
-      if(!isVideoTransitioning&&Number.isFinite(active.duration)&&active.duration-active.currentTime<=videoCrossfadeDuration/1000)crossfadeHeroVideo();
-      videoMonitorFrame=requestAnimationFrame(monitorHeroVideo);
+    function setAmbientPointer(event){
+      if(reducedMotion.matches||matchMedia('(hover: none)').matches)return;
+      const bounds=ambientHome.getBoundingClientRect();
+      pointerX=Math.max(-1,Math.min(1,(event.clientX-bounds.left)/bounds.width*2-1));
+      pointerY=Math.max(-1,Math.min(1,(event.clientY-bounds.top)/bounds.height*2-1));
+      if(!ambientFrame)ambientFrame=requestAnimationFrame(renderAmbientDepth);
     }
-    function startHeroVideo(){heroVideos[0].play().catch(()=>{});cancelAnimationFrame(videoMonitorFrame);videoMonitorFrame=requestAnimationFrame(monitorHeroVideo)}
-    heroVideos.forEach(video=>{
-      video.addEventListener('timeupdate',()=>{if(video===heroVideos[activeVideoIndex]&&!isVideoTransitioning&&Number.isFinite(video.duration)&&video.duration-video.currentTime<=videoCrossfadeDuration/1000)crossfadeHeroVideo()});
-      video.addEventListener('ended',()=>{if(video===heroVideos[activeVideoIndex]&&!isVideoTransitioning)crossfadeHeroVideo()});
-    });
-    heroVideos[0].addEventListener('loadeddata',startHeroVideo,{once:true});
-    if(heroVideos[0].readyState>=2)startHeroVideo();
-    document.addEventListener('visibilitychange',()=>{if(!document.hidden)heroVideos[activeVideoIndex].play().catch(()=>{})});
+    ambientHome.addEventListener('pointermove',setAmbientPointer,{passive:true});
+    ambientHome.addEventListener('pointerleave',()=>{pointerX=0;pointerY=0;if(!ambientFrame)ambientFrame=requestAnimationFrame(renderAmbientDepth)});
 
     const medicines=[{name:'Amoxi Demo 500 mg',query:'Amoxi Demo',meta:'Amoxicilină · J01CA04'},{name:'Metfo Demo 850 mg',query:'Metfo Demo',meta:'Metformină · A10BA02'},{name:'Rami Demo 5 mg',query:'Rami Demo',meta:'Ramipril · C09AA05'},{name:'Levo Demo 50 μg',query:'Levo Demo',meta:'Levotiroxină · H03AA01'}];
     const input=document.querySelector('#medicine-search'),suggestions=document.querySelector('#suggestions');
