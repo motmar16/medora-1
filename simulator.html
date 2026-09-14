@@ -658,8 +658,8 @@
       </div>
       <div class="device-title-badge">
         <i class="ph ph-circle-fill"></i>
-        <span id="active-device-name">iPhone 16 Pro</span>
-        <span class="device-os-tag" id="active-os-tag">(iOS 18.0)</span>
+        <span id="active-device-name">iPhone 18 Pro</span>
+        <span class="device-os-tag" id="active-os-tag">(iOS 20.0)</span>
       </div>
     </div>
 
@@ -669,45 +669,45 @@
       <div class="collapsible-dropdown" id="dropdown-apple">
         <button class="dropdown-trigger active" id="trigger-apple" aria-expanded="false" aria-haspopup="true">
           <i class="ph ph-apple-logo"></i>
-          <span id="label-apple">iPhone 16 Pro</span>
+          <span id="label-apple">iPhone 18 Pro</span>
           <i class="ph ph-caret-down caret-icon"></i>
         </button>
         <div class="dropdown-menu" role="menu">
-          <div class="dropdown-header">Seria iPhone 16 (Ultimele modele)</div>
-          <button class="dropdown-item active" data-device="16pro" role="menuitem">
+          <div class="dropdown-header">Seria iPhone 18 & 17 (Ultimele modele)</div>
+          <button class="dropdown-item active" data-device="18pro" role="menuitem">
             <div class="item-main">
-              <span class="item-title">iPhone 16 Pro</span>
-              <span class="item-sub">393 × 852 · 6.3" Dynamic Island</span>
+              <span class="item-title">iPhone 18 Pro <span style="font-size:9px; background:#181817; color:#fff; padding:1px 5px; border-radius:4px; margin-left:4px;">NOU</span></span>
+              <span class="item-sub">393 × 852 · 6.3" A20 Pro · iOS 20</span>
             </div>
             <i class="ph ph-check item-check"></i>
           </button>
-          <button class="dropdown-item" data-device="16promax" role="menuitem">
+          <button class="dropdown-item" data-device="18promax" role="menuitem">
             <div class="item-main">
-              <span class="item-title">iPhone 16 Pro Max</span>
-              <span class="item-sub">440 × 956 · 6.9" Super Retina XDR</span>
+              <span class="item-title">iPhone 18 Pro Max <span style="font-size:9px; background:#181817; color:#fff; padding:1px 5px; border-radius:4px; margin-left:4px;">NOU</span></span>
+              <span class="item-sub">440 × 956 · 6.9" Super Retina XDR · iOS 20</span>
             </div>
             <i class="ph ph-check item-check"></i>
           </button>
-          <button class="dropdown-item" data-device="16" role="menuitem">
+          <button class="dropdown-item" data-device="17air" role="menuitem">
             <div class="item-main">
-              <span class="item-title">iPhone 16</span>
-              <span class="item-sub">393 × 852 · 6.1" Dynamic Island</span>
+              <span class="item-title">iPhone 17 Air</span>
+              <span class="item-sub">412 × 892 · 6.6" Ultra-Slim Profil</span>
             </div>
             <i class="ph ph-check item-check"></i>
           </button>
-          <button class="dropdown-item" data-device="16plus" role="menuitem">
+          <button class="dropdown-item" data-device="17pro" role="menuitem">
             <div class="item-main">
-              <span class="item-title">iPhone 16 Plus</span>
-              <span class="item-sub">430 × 932 · 6.7" Ecran Mare</span>
+              <span class="item-title">iPhone 17 Pro</span>
+              <span class="item-sub">393 × 852 · 6.3" Titanium · iOS 19</span>
             </div>
             <i class="ph ph-check item-check"></i>
           </button>
 
-          <div class="dropdown-header" style="margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;">Modele Anterioare</div>
-          <button class="dropdown-item" data-device="15" role="menuitem">
+          <div class="dropdown-header" style="margin-top: 4px; border-top: 1px solid rgba(24,24,23,0.08); padding-top: 6px;">Generații Anterioare</div>
+          <button class="dropdown-item" data-device="16pro" role="menuitem">
             <div class="item-main">
-              <span class="item-title">iPhone 15 / 14</span>
-              <span class="item-sub">390 × 844 · Format clasic</span>
+              <span class="item-title">iPhone 16 Pro</span>
+              <span class="item-sub">393 × 852 · 6.3" Dynamic Island</span>
             </div>
             <i class="ph ph-check item-check"></i>
           </button>
@@ -964,7 +964,67 @@
 
     // Devices dictionary with latest iPhone and Android models
     const devices = {
-      // Latest Apple iPhones
+      // Latest Apple iPhones (2026/2025 Flagships)
+      '18pro': {
+        name: 'iPhone 18 Pro',
+        shortName: 'iPhone 18 Pro',
+        os: '(iOS 20.0 · A20 Pro)',
+        platform: 'ios',
+        w: '393px',
+        h: '852px',
+        radius: '55px',
+        bezel: '11px',
+        safeTop: '46px',
+        safeBottom: '22px',
+        shellBg: '#1b1c20',
+        shellBorder: '#373a44',
+        hasIsland: true
+      },
+      '18promax': {
+        name: 'iPhone 18 Pro Max',
+        shortName: 'iPhone 18 Pro Max',
+        os: '(iOS 20.0 · A20 Pro)',
+        platform: 'ios',
+        w: '440px',
+        h: '956px',
+        radius: '56px',
+        bezel: '11px',
+        safeTop: '48px',
+        safeBottom: '24px',
+        shellBg: '#18191d',
+        shellBorder: '#363942',
+        hasIsland: true
+      },
+      '17air': {
+        name: 'iPhone 17 Air',
+        shortName: 'iPhone 17 Air',
+        os: '(iOS 19.5 · Ultra-Slim 5.6mm)',
+        platform: 'ios',
+        w: '412px',
+        h: '892px',
+        radius: '52px',
+        bezel: '10px',
+        safeTop: '46px',
+        safeBottom: '22px',
+        shellBg: '#212328',
+        shellBorder: '#3c404b',
+        hasIsland: true
+      },
+      '17pro': {
+        name: 'iPhone 17 Pro',
+        shortName: 'iPhone 17 Pro',
+        os: '(iOS 19.0 · Titanium)',
+        platform: 'ios',
+        w: '393px',
+        h: '852px',
+        radius: '54px',
+        bezel: '12px',
+        safeTop: '48px',
+        safeBottom: '22px',
+        shellBg: '#1e2025',
+        shellBorder: '#383b45',
+        hasIsland: true
+      },
       '16pro': {
         name: 'iPhone 16 Pro',
         shortName: 'iPhone 16 Pro',
@@ -978,66 +1038,6 @@
         safeBottom: '22px',
         shellBg: '#1f2126',
         shellBorder: '#353942',
-        hasIsland: true
-      },
-      '16promax': {
-        name: 'iPhone 16 Pro Max',
-        shortName: 'iPhone 16 Pro Max',
-        os: '(iOS 18.0)',
-        platform: 'ios',
-        w: '440px',
-        h: '956px',
-        radius: '56px',
-        bezel: '12px',
-        safeTop: '50px',
-        safeBottom: '24px',
-        shellBg: '#1c1e22',
-        shellBorder: '#353942',
-        hasIsland: true
-      },
-      '16': {
-        name: 'iPhone 16',
-        shortName: 'iPhone 16',
-        os: '(iOS 18.0)',
-        platform: 'ios',
-        w: '393px',
-        h: '852px',
-        radius: '52px',
-        bezel: '13px',
-        safeTop: '48px',
-        safeBottom: '22px',
-        shellBg: '#23252c',
-        shellBorder: '#393d48',
-        hasIsland: true
-      },
-      '16plus': {
-        name: 'iPhone 16 Plus',
-        shortName: 'iPhone 16 Plus',
-        os: '(iOS 18.0)',
-        platform: 'ios',
-        w: '430px',
-        h: '932px',
-        radius: '54px',
-        bezel: '13px',
-        safeTop: '48px',
-        safeBottom: '22px',
-        shellBg: '#23252c',
-        shellBorder: '#393d48',
-        hasIsland: true
-      },
-      '15': {
-        name: 'iPhone 15 / 14',
-        shortName: 'iPhone 15',
-        os: '(iOS 17.5)',
-        platform: 'ios',
-        w: '390px',
-        h: '844px',
-        radius: '50px',
-        bezel: '13px',
-        safeTop: '48px',
-        safeBottom: '22px',
-        shellBg: '#24262d',
-        shellBorder: '#3a3e49',
         hasIsland: true
       },
       'se': {
@@ -1262,6 +1262,9 @@
       } catch (_) {}
     }
     iframe.addEventListener('load', syncTheme);
+
+    // Initialize with latest flagship
+    selectDevice('18pro');
   </script>
 </body>
 </html>
