@@ -78,4 +78,14 @@ Remaining differences:
 - P3: the source marketing composition uses uploaded document thumbnails; Medora intentionally substitutes product-specific navigation modules.
 - P3: the supplied app references are mobile-oriented while this comparison uses the existing responsive web product at desktop width.
 
+Footer iteration:
+
+- Source visual truth: https://collectui.com/designs/footer-ui-design-inspiration/618ca06d-6fd8-4bd4-965b-890337c28e62
+- Implementation: https://roblanc.github.io/medora/index.html
+- Browser-rendered viewport: 1363 x 936 CSS px, DPR 1, scrolled to the bottom of the page.
+- Full-view evidence: the source footer's four-part composition, quiet cream surface, compact navigation, newsletter control, illustration-led brand area, and separated legal row were preserved while all copy, links, and imagery were adapted to Medora.
+- Focused evidence: the footer uses the existing transparent medical spot assets, consistent system/Georgia typography, the site's warm-neutral and pastel palette, and the same compact control radii as the landing page.
+- Interaction tested: email validation, local success confirmation, internal Medora links, and external source links. The page uses the browser's native cursor; the earlier global cursor suppression and the decorative workflow cursor were removed.
+- Console: no page-origin errors; extension-origin metadata messages are unrelated to the implementation.
+
 final result: passed
