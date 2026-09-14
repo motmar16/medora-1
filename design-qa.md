@@ -88,4 +88,26 @@ Footer iteration:
 - Interaction tested: email validation, local success confirmation, internal Medora links, and external source links. The page uses the browser's native cursor; the earlier global cursor suppression and the decorative workflow cursor were removed.
 - Console: no page-origin errors; extension-origin metadata messages are unrelated to the implementation.
 
+Global theme iteration:
+
+- Source visual truth: the seven Medora palettes defined for this iteration (current iridescent, sage clinic, lavender medical, warm ivory, ice blue, soft pharmacy, and almost-white premium), together with the existing visual references listed above.
+- Browser-rendered implementation: `https://roblanc.github.io/medora/index.html` and `https://roblanc.github.io/medora/medora.html` after GitHub Pages deployment `8dab98e777078adc365f32443dd806b95cdc253f`.
+- Viewport and normalization: 1363 x 936 CSS px, DPR 1. The landing and dashboard were captured directly in the cloud browser at the same viewport; no density normalization was needed.
+- State: `Sage clinic` and `Alb premium` were selected through the visible theme control. The selected value persisted while navigating across `index.html`, `medora.html`, `research.html`, and `landing-cinematic.html`.
+- Full-view evidence: the shared wash, surface, accent, muted, border, and deep-ink tokens update the landing atmosphere, structured-information section, operations triptych, footer, application surfaces, and research page without changing their layout or copy. The cinematic hero intentionally retains its dark video treatment.
+- Focused evidence: the theme picker exposes seven labeled swatches in a compact two-column panel; its selected state is visible, its trigger stays above the mobile bottom navigation, and it uses native pointer behavior. No additional focused crop was needed because the control and the affected hero/application surfaces were legible in the full browser captures.
+- Fonts and typography: unchanged from the approved Medora implementation; theme switching only changes color tokens.
+- Spacing and layout rhythm: unchanged. No horizontal overflow was detected on any of the four routes at the tested viewport.
+- Colors and visual tokens: each option resolves to its documented base, three washes, accent, soft accent, surface, ink, muted, and line colors. The landing headline accent matched the selected `--theme-accent` value.
+- Image quality and asset fidelity: existing transparent 3D medical icons and video assets are unchanged; theme gradients sit behind them without altering their crop or resolution.
+- Copy and content: all Romanian Medora copy is unchanged. Theme labels are concise and distinguishable.
+- Accessibility and interaction: the selector uses a labeled button, `aria-expanded`, a radio group, visible selected states, Escape/outside-click closing, and saved browser preference. Native cursor state was `auto` on `html` and `body`, with `pointer` only on interactive controls.
+- Console and behavior: seven options rendered, theme persistence passed across all four pages, no page-origin console errors were recorded, and no horizontal overflow was detected.
+
+Comparison history:
+
+- Theme P1: the first shared selector rules accidentally matched the landing `.hero`, producing a dark block. Fixed by scoping application-only selectors under `body.medora-app`; post-fix landing capture restored the full pastel light field.
+- Theme P1: the first scoped application pass forced its glass hero to the deep theme color and reduced text contrast. Fixed by restoring a translucent theme surface with deep ink and a themed eyebrow; post-fix dashboard capture showed normal contrast and hierarchy.
+- Theme P2: GitHub Pages briefly served cached `theme.css?v=2`. Fixed by versioning the shared assets as `v=4` and waiting for the final successful Pages deployment before the final comparison.
+
 final result: passed
