@@ -201,6 +201,20 @@ body.medora-app dialog {
   background-color: var(--theme-surface) !important;
 }
 
+body.medora-app .btn.primary {
+  background-color: var(--theme-deep, #193d35) !important;
+  color: #ffffff !important;
+  border-color: var(--theme-deep, #193d35) !important;
+}
+
+body.medora-app .btn.primary:disabled {
+  background-color: #e2e8df !important;
+  color: #8c978b !important;
+  border-color: #d1dcce !important;
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
+
 body.medora-app .sidebar { border-color: var(--theme-line) !important; }
 body.medora-app .nav button.active,
 body.medora-app .pulsecard,
