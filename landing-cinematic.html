@@ -36,8 +36,15 @@
     h1,#hero-title{font-family:"Mazzard H",Inter,ui-sans-serif,sans-serif;font-weight:500;letter-spacing:-.015em}
     h1 span{color:#9567bf;font-style:normal}
     .search{background:rgba(255,255,255,.8);border-color:rgba(255,255,255,.9);box-shadow:0 22px 54px rgba(75,67,58,.12);backdrop-filter:blur(18px)}
-    .search button{color:var(--white);background:var(--deep)}
-    .search button:hover{color:var(--ink);background:var(--pink)}
+    @property --beam-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+    @keyframes beam-spin{to{--beam-angle:360deg}}
+    .search button{position:relative;isolation:isolate;overflow:visible;color:var(--white);background:var(--deep);border:0;border-radius:28px;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .2s ease,box-shadow .2s ease}
+    .search button>*{position:relative;z-index:2}
+    .search button::before{content:"";position:absolute;inset:-1.5px;border-radius:29.5px;padding:2px;background:conic-gradient(from var(--beam-angle,0deg),transparent 0%,transparent 60%,#2ba7ff 76%,#ca45ff 88%,#ff3366 94%,#fe881b 98%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:beam-spin 3s linear infinite;opacity:.9;pointer-events:none;z-index:1}
+    .search button::after{content:"";position:absolute;inset:-3px;border-radius:31px;background:conic-gradient(from var(--beam-angle,0deg),transparent 0%,transparent 60%,rgba(43,167,255,.55) 76%,rgba(202,69,255,.65) 88%,rgba(255,51,102,.65) 94%,rgba(254,136,27,.55) 98%,transparent 100%);filter:blur(7px);animation:beam-spin 3s linear infinite;opacity:.7;pointer-events:none;z-index:0;transition:opacity .2s ease}
+    .search button:hover{transform:translateY(-1px) scale(1.02);color:#fff;background:#111;box-shadow:0 6px 20px rgba(0,0,0,.22)}
+    .search button:hover::after{opacity:1;filter:blur(9px)}
+    .search button:active{transform:scale(.98)}
     .suggestions{border-color:#ded6c8;box-shadow:0 24px 60px rgba(24,24,23,.16)}
     .suggestion:hover,.suggestion:focus-visible{background:#f3ede2}
     .module{color:var(--ink)}.module:hover{color:var(--ink)}
