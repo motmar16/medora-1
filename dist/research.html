@@ -1,0 +1,596 @@
+<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Medora — Research și strategie</title><script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script><link rel="stylesheet" href="theme.css?v=4"><script src="theme.js?v=4" defer></script><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.8 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#26463c;background:#f8f9f4}a{color:#267552;text-underline-offset:4px}header{background:#173f34;color:#e5efcd;padding:30px max(25px,5vw);display:flex;justify-content:space-between;align-items:center;gap:20px}header a{color:#e5efcd;text-decoration:none;font-size:12px;border:1px solid #78966d;padding:9px 15px;border-radius:7px}.brand{font-size:25px;font-weight:650;letter-spacing:-1px}header small{display:block;font-size:10px;letter-spacing:1.5px;margin-top:3px;font-weight:400}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);max-width:1420px;margin:auto;gap:50px;padding:44px 40px}aside{position:sticky;top:25px;align-self:start}aside a{display:block;text-decoration:none;font-size:12px;line-height:1.6;padding:8px 0;color:#6c7c64}aside strong{display:block;text-transform:uppercase;font-size:10px;letter-spacing:1.5px;margin-bottom:15px}article{min-width:0;max-width:1000px}h1{font-size:35px;line-height:1.2;letter-spacing:-1.1px;font-weight:550;margin-top:0}h2{font-size:25px;letter-spacing:-.7px;line-height:1.4;margin-top:55px;padding-top:27px;border-top:1px solid #dfe5d8;scroll-margin-top:25px}h3{font-size:18px;margin-top:30px;font-weight:600}p{margin:16px 0}table{font-size:12px;border-collapse:collapse;width:100%;background:white;border:1px solid #dfe5d8;margin:20px 0;line-height:1.7}th,td{padding:12px 14px;border:1px solid #e5e9e0;vertical-align:top;text-align:left}th{background:#edf2e4;color:#425637;font-size:11px}tbody tr:hover{background:#fafcf6}ul,ol{padding-left:22px}li{margin:7px 0}input{font:inherit;padding:12px;border:1px solid #ccd8c0;border-radius:7px;width:100%;margin:15px 0;color:#26463c}input:focus{outline:2px solid #7e9f66;outline-offset:2px}.appendix{margin-top:45px}.table-scroll{overflow:auto}footer{font-size:12px;color:#84917b;border-top:1px solid #dfe5d8;padding:25px 0;margin-top:35px}@media(max-width:850px){.layout{display:block;padding:30px 20px}aside{position:static;border-bottom:1px solid #dfe5d8;padding-bottom:20px;margin-bottom:30px}aside a{display:inline-block;margin-right:15px;font-size:11px}h1{font-size:30px}h2{font-size:23px}table{font-size:11px;display:block;overflow:auto}th,td{padding:10px;min-width:120px}header{padding:20px}header a{font-size:10px}body{font-size:14px}}@media print{header,aside,input{display:none}.layout{display:block;padding:0}body{background:white;font-size:11px}h1{font-size:25px}h2{font-size:20px;break-after:avoid}h3{break-after:avoid}table{font-size:9px}tr{break-inside:avoid}a{color:inherit}article{max-width:none}}
+</style></head><body><header><div class="brand">medora<small>RESEARCH / ROMÂNIA → GLOBAL</small></div><a href="medora.html">Deschide prototipul interactiv ↗</a></header><div class="layout"><aside><strong>În acest research</strong><a href="#section-1">1. Ce am verificat și limitele inventarului</a><a href="#section-2">2. Inventar funcțional Mediately</a><a href="#section-3">3. Rolul nomenclatorului gratuit ANMDMR</a><a href="#section-4">4. Gapul propus: radarul de disponibilitate</a><a href="#section-5">5. Gaps prioritizate</a><a href="#section-6">6. România → Europa → global</a><a href="#section-7">7. Ce livrează mockul</a><a href="#section-8">8. Întrebări rămase înainte de dezvoltarea produsului real</a><a href="#instrumente">Anexă: 105 instrumente</a><a href="research.md" download>Descarcă Markdown ↓</a><a href="instrumente-mediately.csv" download>Descarcă inventarul CSV ↓</a></aside><article><h1>Medora — research Mediately și oportunitatea din România</h1>
+<p><strong>12 septembrie 2026 · Research public + prototip interactiv</strong></p>
+<p><strong>Recomandare:</strong> pornește cu un catalog gratuit și un radar personalizat de discontinuități, retrageri și modificări. Monetizarea poate veni din monitorizare, colaborare și integrarea în fluxul clinic. O simplă bază de medicamente sau un chat AI ar intra direct în oferta existentă Mediately.</p>
+<p><a href="index.html">Pagina publică de pornire</a> · <a href="medora.html">Dashboard Medora</a> · <a href="instrumente-mediately.csv">Inventarul instrumentelor</a></p>
+<h2 id="section-1">1. Ce am verificat și limitele inventarului</h2>
+<p>Am inspectat site-ul românesc, catalogul public de instrumente, pagina unei fișe de medicament, FAQ-ul indexat, listările iOS/Android, oferta PRO, paginile pharma, licențierea datelor și sursele ANMDMR/EMA. Unele pagini au refuzat accesul instrumentului web; pagina principală și instrumentele au fost verificate și în browser.</p>
+<p>Inventarul acoperă <strong>funcțiile publice identificate</strong>, nu un audit al fiecărui ecran din aplicațiile instalate sau al funcțiilor accesibile exclusiv după plată. „Confirmat” înseamnă prezent în produsul web ori declarat explicit într-o sursă oficială. „Neconfirmat” nu înseamnă „inexistent”. Nu am cumpărat PRO și nu am creat conturi.</p>
+<p>Sursele diferă uneori: aplicația este promovată în 14 țări, oferta API în 13; paginile comerciale prezintă totaluri diferite de instrumente și utilizatori. Nu le-am transformat într-o singură cifră presupus exactă. <a href="https://mediately.co/ro/">Mediately România</a> · <a href="https://mediately.co/ro/data-licensing">Data licensing</a></p>
+<h2 id="section-2">2. Inventar funcțional Mediately</h2>
+<h3>A. Catalog și informații despre medicamente</h3>
+<table>
+<thead>
+<tr>
+<th>Funcție</th>
+<th>Ce oferă</th>
+<th>Acces / confirmare</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Catalog local</td>
+<td>Medicamente înregistrate în România</td>
+<td>Bază gratuită declarată</td>
+</tr>
+<tr>
+<td>Căutare</td>
+<td>Acces rapid la produse și informații medicamentoase</td>
+<td>Web + aplicație</td>
+</tr>
+<tr>
+<td>Identitate produs</td>
+<td>Substanță activă, compoziție, formă, clasă</td>
+<td>Confirmat</td>
+</tr>
+<tr>
+<td>RCP structurat</td>
+<td>Indicații, doze, contraindicații, reacții adverse, interacțiuni, supradozaj</td>
+<td>Confirmat</td>
+</tr>
+<tr>
+<td>RCP original</td>
+<td>Document PDF integral</td>
+<td>Internet necesar pentru PDF, conform listării Android</td>
+</tr>
+<tr>
+<td>Clasificare ATC</td>
+<td>Navigare farmacologică</td>
+<td>Confirmat</td>
+</tr>
+<tr>
+<td>Medicamente similare</td>
+<td>Produse asociate clasificării</td>
+<td>Confirmat; nu echivalează automat cu substituție</td>
+</tr>
+<tr>
+<td>Ambalaje și prețuri</td>
+<td>Informații pentru prezentări</td>
+<td>Confirmat; nu reprezintă stoc live</td>
+</tr>
+<tr>
+<td>Compensare</td>
+<td>Informații despre rambursare</td>
+<td>Confirmat</td>
+</tr>
+</tbody></table>
+<p>Sursa pentru acest grup: <a href="https://play.google.com/store/apps/details?hl=ro&amp;id=com.mediately.drugs.ro">Google Play — descrierea oficială</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Funcție locală suplimentară</th>
+<th>Ce am găsit</th>
+<th>Dovadă</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Regim de eliberare</td>
+<td>Exemplu PRF</td>
+<td>Fișa publică Forxiga</td>
+</tr>
+<tr>
+<td>Condiții de compensare</td>
+<td>Dependență de diagnostic și tip de rețetă</td>
+<td>Fișa publică Forxiga</td>
+</tr>
+<tr>
+<td>Continuarea prescrierii de medicul de familie</td>
+<td>Trimitere la protocolul terapeutic</td>
+<td>Fișa publică Forxiga</td>
+</tr>
+<tr>
+<td>Protocoale terapeutice</td>
+<td>Secțiune asociată medicamentului</td>
+<td>Fișa publică Forxiga</td>
+</tr>
+<tr>
+<td>Instrumente relevante pentru produs</td>
+<td>Legături către algoritmi și scoruri</td>
+<td>Fișa publică Forxiga</td>
+</tr>
+<tr>
+<td>Adăugare în lista de interacțiuni</td>
+<td>Acțiune directă din fișă</td>
+<td>Fișa publică Forxiga</td>
+</tr>
+</tbody></table>
+<p>Acestea sunt observate pe un exemplu; nu presupun aceeași acoperire pentru fiecare produs. <a href="https://mediately.co/ro/drugs/4olDRgSSKo84CFGuLceffljjSfV/forxiga-10-mg-compr-film">Fișa Forxiga</a></p>
+<h3>B. Funcții avansate / PRO</h3>
+<table>
+<thead>
+<tr>
+<th>Funcție</th>
+<th>Ce oferă</th>
+<th>Observație</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Verificarea interacțiunilor</td>
+<td>Evaluarea combinațiilor de medicamente</td>
+<td>PRO</td>
+</tr>
+<tr>
+<td>Rezolvarea interacțiunilor</td>
+<td>Sugestii de alternative cu mai puține interacțiuni</td>
+<td>PRO</td>
+</tr>
+<tr>
+<td>Introducere din fotografie</td>
+<td>Captură de imagine pentru verificarea tratamentului</td>
+<td>Declarată în oferta Business PRO</td>
+</tr>
+<tr>
+<td>Interacțiuni extinse</td>
+<td>Alimente, plante și suplimente</td>
+<td>Declarate</td>
+</tr>
+<tr>
+<td>Restricții rezumate</td>
+<td>Funcție renală/hepatică, sarcină, alăptare</td>
+<td>PRO</td>
+</tr>
+<tr>
+<td>Scurtături pentru dozare</td>
+<td>Copii, vârstnici, afectare renală/hepatică, administrare</td>
+<td>PRO</td>
+</tr>
+<tr>
+<td>Acces offline</td>
+<td>Informații medicamentoase</td>
+<td>Nu presupune AI offline</td>
+</tr>
+<tr>
+<td>Bază de interacțiuni licențiată</td>
+<td>Medbase / INXBASE</td>
+<td>Furnizor declarat</td>
+</tr>
+</tbody></table>
+<p>Sursa: <a href="https://info.mediately.co/ro/business-pro">Business PRO România</a>. Faptul că există un motor licențiat contează: nomenclatorul singur nu poate reproduce verificarea interacțiunilor.</p>
+<table>
+<thead>
+<tr>
+<th>AI și servicii</th>
+<th>Ce oferă</th>
+<th>Observație</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AI Mode / Elly</td>
+<td>Întrebări conversaționale despre medicamente, bazate pe documente locale</td>
+<td>Deja există</td>
+</tr>
+<tr>
+<td>Căutare prin întrebare</td>
+<td>Indicație, condiții speciale, clasă</td>
+<td>Declarată în aplicație</td>
+</tr>
+<tr>
+<td>AI cu acces extins</td>
+<td>Răspunsuri nelimitate promovate în PRO</td>
+<td>Limitele comerciale trebuie reverificate în cont</td>
+</tr>
+<tr>
+<td>AI gratuit limitat</td>
+<td>Cotă zilnică menționată de dezvoltator</td>
+<td>Numărul exact nu este confirmat</td>
+</tr>
+<tr>
+<td>Asistență prioritară</td>
+<td>Inclusă în prezentarea PRO</td>
+<td>Declarată pe pagina RO</td>
+</tr>
+</tbody></table>
+<p>Surse: <a href="https://mediately.co/ro/">Mediately RO</a>, <a href="https://pharma.mediately.co/pro-sponsorship">PRO sponsorship</a>, <a href="https://play.google.com/store/apps/details?id=com.mediately.drugs.ro">răspunsul dezvoltatorului în Google Play</a>. <strong>AI, interacțiuni și alternative nu sunt gaps.</strong></p>
+<h3>C. Instrumente, educație și personalizare</h3>
+<table>
+<thead>
+<tr>
+<th>Funcție</th>
+<th>Ce oferă</th>
+<th>Confirmare</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Calculatoare clinice</td>
+<td>Parametri, estimări și scoruri</td>
+<td>Catalog web inspectat</td>
+</tr>
+<tr>
+<td>Calculatoare de dozare</td>
+<td>Instrumente pentru anumite medicamente</td>
+<td>Catalog web inspectat</td>
+</tr>
+<tr>
+<td>Algoritmi și criterii</td>
+<td>Diagnostic, stadializare, management</td>
+<td>Catalog web inspectat</td>
+</tr>
+<tr>
+<td>Organizare instrumente</td>
+<td>Specialitate, indicație, dozare, noutăți</td>
+<td>Controale vizibile în catalog</td>
+</tr>
+<tr>
+<td>Colecții tematice</td>
+<td>De exemplu dermatită atopică și cancer pulmonar</td>
+<td>Catalog web inspectat</td>
+</tr>
+<tr>
+<td>ICD-10</td>
+<td>Clasificarea bolilor</td>
+<td>Web + ofertă gratuită</td>
+</tr>
+<tr>
+<td>Cursuri și conținut</td>
+<td>Cazuri clinice, video, articole</td>
+<td>Pagina Cursuri</td>
+</tr>
+<tr>
+<td>Personalizare după specialitate</td>
+<td>Conținut adaptat profilului</td>
+<td>Declarată la înscriere</td>
+</tr>
+<tr>
+<td>Educație acreditată</td>
+<td>EMC/CME în anumite piețe și programe</td>
+<td>B2B declară acreditare în 7 țări</td>
+</tr>
+<tr>
+<td>Favorite</td>
+<td>Listă de medicamente favorite</td>
+<td>Documentată în FAQ</td>
+</tr>
+<tr>
+<td>Cont și administrare</td>
+<td>Înregistrare, resetare parolă, specialitate, ștergere cont</td>
+<td>Documentate în FAQ</td>
+</tr>
+</tbody></table>
+<p>Surse: <a href="https://mediately.co/ro/tools">Instrumente RO</a>, <a href="https://mediately.co/ro/cme">Cursuri RO</a>, <a href="https://mediately.co/ro/docs/faq">FAQ</a>, <a href="https://pharma.mediately.co/solutions">Soluții B2B</a>.</p>
+<p><strong>105 intrări distincte</strong> identificate în catalogul public RO, inclusiv colecții și instrumente care includ mai multe scoruri. Lista cu nume scurte și linkuri se află în <a href="instrumente-mediately.csv">CSV-ul anexat</a>. Acest număr nu reprezintă 105 algoritmi validați de noi și nici totalul global. Acreditarea trebuie verificată pe curs; nu toate articolele sau videoclipurile oferă credite EMC în România.</p>
+<h3>D. Platforme, distribuție și abonamente</h3>
+<table>
+<thead>
+<tr>
+<th>Componentă</th>
+<th>Ce oferă / ce am verificat</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Web</td>
+<td>Căutare, fișe, instrumente, interacțiuni, AI și cursuri, cu acces diferit după cont/plan</td>
+</tr>
+<tr>
+<td>iOS</td>
+<td>Listare oficială pentru iPhone și iPad; la verificare cere iOS/iPadOS 18</td>
+</tr>
+<tr>
+<td>Android</td>
+<td>Aplicație oficială, reclame și achiziții în aplicație</td>
+</tr>
+<tr>
+<td>Gratuit + PRO</td>
+<td>Model freemium; nomenclatorul ANMDMR nu este singura alternativă gratuită, Mediately are și el bază gratuită</td>
+</tr>
+<tr>
+<td>Lunar / anual</td>
+<td>Abonamente și variante de ofertă în magazine</td>
+</tr>
+<tr>
+<td>Preț observat iOS RO</td>
+<td>29,99 lei/lună; 299,99 lei/an, alături de alte SKU-uri anuale și lunare</td>
+</tr>
+<tr>
+<td>Trial</td>
+<td>EULA descrie probă de 7 zile; condițiile și reînnoirea trebuie citite la checkout</td>
+</tr>
+<tr>
+<td>Localizare</td>
+<td>14 țări în prezentarea aplicației; date și limbă locale</td>
+</tr>
+</tbody></table>
+<p>Prețurile sunt cele afișate în listarea App Store, nu o ofertă verificată la checkout și nici prețul garantat pe Android/web. <a href="https://apps.apple.com/ro/app/mediately-lista-medicamentelor/id1210316461">App Store România</a> · <a href="https://play.google.com/store/apps/details?hl=ro&amp;id=com.mediately.drugs.ro">Google Play</a> · <a href="https://mediately.co/ro/docs/eula">EULA RO</a></p>
+<p>Țările listate pentru aplicație: Bulgaria, Cehia, Germania, Spania, Franța, Grecia, Croația, Ungaria, Italia, Polonia, România, Serbia, Slovenia, Slovacia. <a href="https://mediately.co/ro/">Prezentarea RO</a></p>
+<h3>E. Parteneriate și venituri B2B</h3>
+<table>
+<thead>
+<tr>
+<th>Produs / serviciu</th>
+<th>Ofertă publică</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Publicitate</td>
+<td>Bannere în ecranul principal, căutare și instrumente; pop-up-uri; conținut sponsorizat</td>
+</tr>
+<tr>
+<td>Targetare</td>
+<td>După țară și specialitate; audiență profesională verificată, conform Mediately</td>
+</tr>
+<tr>
+<td>Sponsorizarea instrumentelor</td>
+<td>Integrarea brandului în instrumente clinice</td>
+</tr>
+<tr>
+<td>Educație sponsorizată</td>
+<td>Campanii educaționale și conținut interactiv</td>
+</tr>
+<tr>
+<td>Mediately Insights</td>
+<td>Măsurarea audienței și rezultatelor campaniilor; dashboard în timp real</td>
+</tr>
+<tr>
+<td>Raportare și consultanță de campanie</td>
+<td>Rapoarte, exemple de rezultate, ofertă la cerere</td>
+</tr>
+</tbody></table>
+<p>Surse: <a href="https://pharma.mediately.co/">Mediately pharma</a>, <a href="https://pharma.mediately.co/solutions">Soluții</a>, <a href="https://info.mediately.co/en/">pagina de informare B2B</a>. Cifrele de audiență și rezultatele campaniilor sunt afirmații comerciale ale companiei, nu măsurători independente.</p>
+<table>
+<thead>
+<tr>
+<th>Extensie B2B / portofoliu</th>
+<th>Ofertă publică</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Business PRO</td>
+<td>Licențe pentru clinici, farmacii și organizații</td>
+</tr>
+<tr>
+<td>Sponsorizarea PRO</td>
+<td>Partenerul alege piața și volumul; primește coduri de acces pentru medici</td>
+</tr>
+<tr>
+<td>Data licensing / API</td>
+<td>Date structurate: RCP, compensare, restricții, aprobări EMA și registre naționale</td>
+</tr>
+<tr>
+<td>Acoperire API</td>
+<td>13 țări listate; Germania nu apare în acea listă</td>
+</tr>
+<tr>
+<td>Digital Doctor</td>
+<td>Sondaj recurent despre comportamentul medicilor, AI, prescriere și relația cu pharma</td>
+</tr>
+<tr>
+<td>RheumaHelper</td>
+<td>Aplicație separată, gratuită, de reumatologie: criterii și scoruri; declară 30+ instrumente, 6 limbi, prezență în 120+ țări</td>
+</tr>
+</tbody></table>
+<p>Surse: <a href="https://info.mediately.co/ro/business-pro">Business PRO</a>, <a href="https://pharma.mediately.co/pro-sponsorship">PRO sponsorship</a>, <a href="https://mediately.co/ro/data-licensing">API</a>, <a href="https://pharma.mediately.co/digital-doctor">Digital Doctor</a>, <a href="https://pharma.mediately.co/rheumahelper">RheumaHelper</a>.</p>
+<p>RheumaHelper include criterii pentru Still, sindrom antifosfolipidic, spondiloartrite, fibromialgie, gută, polimialgie, artrită psoriazică/reumatoidă, Sjögren, lupus și scleroză sistemică; scoruri ASDAS, BASDAI, BVAS, CDAI/SDAI, DAPSA, DAS28, PASI, SELENA-SLEDAI și indice de leziuni vasculitice. Este un produs distinct, nu confirmarea disponibilității acelorași module în Mediately RO. <a href="https://pharma.mediately.co/rheumahelper">RheumaHelper</a></p>
+<h2 id="section-3">3. Rolul nomenclatorului gratuit ANMDMR</h2>
+<p>Observația ta este corectă: medicul poate căuta gratuit denumire comercială, DCI, formă, ATC, CIM și deținător APP. Fișa include concentrație, prescripție, ambalaj, autorizație și legături către RCP/prospect. Există și export Excel. Pagina verificată afișa actualizarea din 01.09.2026. <a href="https://nomenclator.anm.ro/medicamente?page=1625">Nomenclator ANMDMR</a></p>
+<p><strong>Implicație de produs:</strong> accesul la aceleași rânduri nu justifică singur un abonament. Valoarea de testat este timpul economisit: căutare bună pe mobil, normalizare, legarea surselor, istoricul schimbărilor și notificări relevante. Catalogul poate fi gratuit; monitorizarea avansată și colaborarea pot fi plătite.</p>
+<p>Accesul gratuit nu dovedește dreptul de redistribuire comercială, existența unui API public sau un SLA. Acestea rămân verificări contractuale înainte de ingestia de producție. Nomenclatorul dovedește statutul de autorizare, nu disponibilitatea la raft.</p>
+<h2 id="section-4">4. Gapul propus: radarul de disponibilitate</h2>
+<p><strong>Verdict: ipoteză puternică pentru MVP, nu unicitate demonstrată.</strong> Nu am găsit o funcție public documentată Mediately care să combine listă urmărită, schimbări de disponibilitate pe prezentare, istoric și alerte proactive personalizate. Cercetarea publică nu exclude existența unor funcții în cont, aplicație sau piețe individuale.</p>
+<p>Datele de pornire există: ANMDMR publică notificări ale deținătorilor APP despre întreruperi temporare sau permanente ale comercializării. Nu trebuie inventată o „predicție AI” când evenimentul a fost deja notificat. <a href="https://www.anm.ro/medicamente-de-uz-uman/autorizare-medicamente/notificari-discontinuitate-medicamente/">Notificări ANMDMR</a></p>
+<p>Pentru întrebări privind lipsa unui medicament există și canalul oficial <a href="mailto:lipsamedicament@anm.ro">lipsamedicament@anm.ro</a>. Acesta oferă un traseu de informare, nu o integrare automată de stoc. <a href="https://www.anm.ro/medicamente-de-uz-uman/informeaza-despre-lipsa-unui-medicament/">ANMDMR — lipsa unui medicament</a></p>
+<h3>Evenimente care trebuie păstrate distincte</h3>
+<table>
+<thead>
+<tr>
+<th>Eveniment</th>
+<th>Ce poate afirma produsul</th>
+<th>Ce nu poate deduce</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Discontinuitate temporară</td>
+<td>Întrerupere notificată, cu interval dacă există</td>
+<td>Lipsă în toate farmaciile</td>
+</tr>
+<tr>
+<td>Discontinuitate permanentă</td>
+<td>Încetarea comercializării notificată</td>
+<td>Retragere pentru siguranță</td>
+</tr>
+<tr>
+<td>Retragere / blocare de lot</td>
+<td>Loturile și măsura exactă din document</td>
+<td>Retragerea întregului brand</td>
+</tr>
+<tr>
+<td>Suspendare / retragere APP</td>
+<td>Statutul și decizia oficială</td>
+<td>Un sinonim pentru lipsă de stoc</td>
+</tr>
+<tr>
+<td>Reluarea comercializării</td>
+<td>Revenire anunțată în documentul sursă</td>
+<td>Disponibilitate imediată locală</td>
+</tr>
+<tr>
+<td>Semnalare de la farmacie</td>
+<td>Observație locală cu dată</td>
+<td>Confirmare națională</td>
+</tr>
+<tr>
+<td>Estimare de deficit</td>
+<td>Predicție cu probabilitate și model validat</td>
+<td>Certitudine sau notificare oficială</td>
+</tr>
+</tbody></table>
+<p>Distincțiile sunt susținute de existența fluxurilor separate de discontinuitate, comunicări și măsuri asupra unor loturi. <a href="https://www.anm.ro/agentie/comunicate-de-presa/">ANMDMR — comunicate</a> · <a href="https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/medicine-shortages-availability-issues/medicine-shortage-communications-msc">EMA — medicine shortage communications</a></p>
+<h3>Flux recomandat</h3>
+<ol>
+<li>Medicul urmărește o prezentare sau toate produsele unei DCI.</li>
+<li>Serviciul citește versiunea nouă a sursei și păstrează documentul original.</li>
+<li>Identifică produsul după cod național, DCI, concentrație, formă și ambalaj; potrivirile incerte merg la verificare.</li>
+<li>Creează sau actualizează evenimentul. Separă data publicării de data intrării în vigoare.</li>
+<li>Deduplică schimbările; trimite doar noutatea relevantă, cu link și ora ultimei verificări.</li>
+<li>Medicul vede comparația administrativă a prezentărilor. Substituția terapeutică necesită alt nivel de validare.</li>
+<li>O revenire ori corecție generează actualizare. Dispariția dintr-un fișier nu înseamnă automat „rezolvat”.</li>
+</ol>
+<p>Avantajul greu de copiat ar fi istoricul curat, potrivirile corecte între surse și integrarea în activitatea medicului. Un email cu un PDF public este ușor de reprodus.</p>
+<h2 id="section-5">5. Gaps prioritizate</h2>
+<p>Evaluare de produs, nu fapte dovedite despre absența funcțiilor concurentului. P0 = prima versiune; P1 = după validare; P2 = investiție ulterioară.</p>
+<table>
+<thead>
+<tr>
+<th>Oportunitate</th>
+<th>Situație față de Mediately</th>
+<th>Beneficiu</th>
+<th>Prioritate / dependență</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Radar personalizat de discontinuități și reveniri</td>
+<td>Neconfirmat public</td>
+<td>Medicul află înainte să repete o prescripție problematică</td>
+<td>P0; ingestie și verificare editorială</td>
+</tr>
+<tr>
+<td>Istoric cu sursă și versiuni</td>
+<td>Neconfirmat ca flux complet</td>
+<td>Explică exact ce s-a schimbat</td>
+<td>P0; arhivare și comparație</td>
+</tr>
+<tr>
+<td>Alerte de siguranță pe lot / produs urmărit</td>
+<td>Flux personalizat neconfirmat</td>
+<td>Reduce căutarea manuală a comunicărilor</td>
+<td>P0/P1; mapare corectă, surse separate</td>
+</tr>
+<tr>
+<td>Comparație administrativă: DCI, concentrație, formă, ambalaj, statut</td>
+<td>Alternative există deja; combinația propusă rămâne de verificat</td>
+<td>Reduce navigarea între prezentări</td>
+<td>P0; nu recomanda substituție automată</td>
+</tr>
+<tr>
+<td>Schimbări de RCP și protocoale, afișate ca diferențe</td>
+<td>RCP/protocoale există; monitorizare neconfirmată</td>
+<td>Medicul vede doar modificările</td>
+<td>P1; versiuni și revizie clinică</td>
+</tr>
+<tr>
+<td>Schimbări de compensare și reguli de prescriere</td>
+<td>Informația curentă există; alerte/diff neconfirmate</td>
+<td>Util în medicina de familie</td>
+<td>P1; surse CNAS/MS și condiții detaliate</td>
+</tr>
+<tr>
+<td>Stoc local cu data ultimei confirmări</td>
+<td>Stoc live neconfirmat</td>
+<td>Evită drumurile fără rezultat</td>
+<td>P2; parteneriate cu farmacii/distribuitori</td>
+</tr>
+<tr>
+<td>Formularul clinicii și liste partajate</td>
+<td>Business PRO există; funcția specifică neconfirmată</td>
+<td>Echipa urmărește aceleași produse</td>
+<td>P1; roluri și audit</td>
+</tr>
+<tr>
+<td>API de evenimente și webhooks</td>
+<td>API de date există deja</td>
+<td>Alerte direct în software-ul cabinetului</td>
+<td>P1; diferențiere prin evenimente, nu prin eticheta API</td>
+</tr>
+<tr>
+<td>Identificarea aceleiași substanțe în alte țări</td>
+<td>Localizare existentă; flux transfrontalier neconfirmat</td>
+<td>Sprijin pentru profesioniști și pacienți mobili</td>
+<td>P2; identificatori, limbi și reguli locale</td>
+</tr>
+<tr>
+<td>Experiență simplă fără presiune AI</td>
+<td>Preferință de UX, nu funcție absentă</td>
+<td>Căutare rapidă și încredere</td>
+<td>P0; test cu utilizatori</td>
+</tr>
+</tbody></table>
+<p>Idei de evitat ca poziționare principală: „avem AI”, „avem interacțiuni”, „avem calculatoare”, „avem API”, „avem aplicație mobilă”. Mediately oferă deja aceste categorii. Un preț mai mic este tactică, nu avantaj defensibil.</p>
+<h2 id="section-6">6. România → Europa → global</h2>
+<h3>Prima nișă și MVP</h3>
+<p>Ipoteză inițială: medici de familie și farmaciști care întâlnesc repetat probleme de disponibilitate în tratamente cronice. Verific-o prin 10–15 interviuri despre cazuri reale recente, nu prin întrebarea generală „ați folosi o astfel de aplicație?”.</p>
+<p><strong>MVP:</strong> catalog căutabil, fișă cu documente oficiale, urmărire pe produs/DCI, radar cu istoric, rezumat de alerte și comparație administrativă. Web responsive/PWA înaintea a două aplicații native separate. Mockul de față este HTML responsive; nu este încă PWA instalabilă.</p>
+<p><strong>Ulterior:</strong> aplicații iOS/Android pentru push și acces offline, extindere de conținut clinic, echipe și integrare. Un motor propriu de interacțiuni și recomandări terapeutice cere un efort distinct de licențiere, validare și întreținere.</p>
+<h3>Model comercial de testat</h3>
+<table>
+<thead>
+<tr>
+<th>Plan propus</th>
+<th>Ce ar conține</th>
+<th>Ipoteză comercială</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gratuit</td>
+<td>Catalog, RCP, căutare, radar public și un set mic de urmărit</td>
+<td>Achiziție și încredere</td>
+</tr>
+<tr>
+<td>Individual</td>
+<td>Urmărire extinsă, filtre, istoric, alerte configurabile</td>
+<td>Disponibilitatea de plată trebuie testată</td>
+</tr>
+<tr>
+<td>Clinică / farmacie</td>
+<td>Liste comune, roluri, audit și formulare interne</td>
+<td>Abonament organizațional</td>
+</tr>
+<tr>
+<td>Integrare</td>
+<td>API de evenimente, webhooks, monitorizarea unui formular</td>
+<td>Contract B2B</td>
+</tr>
+</tbody></table>
+<p>Nu am estimat veniturile și nu propun un preț definitiv fără interviuri și costuri ale surselor. Mediately are deja venituri din PRO, pharma și licențiere; competiția doar pe prețul abonamentului ar ignora acest model.</p>
+<h3>Parteneriate utile pentru tine</h3>
+<ul>
+<li>Asociații profesionale și medici editori: validarea utilității și distribuție.</li>
+<li>Farmacii/distribuitori: disponibilitate locală, dacă există flux contractual de date.</li>
+<li>Furnizori de software pentru cabinete: distribuție în momentul prescrierii.</li>
+<li>Clinici și rețele: pilot cu formular comun, alerte și audit.</li>
+<li>Furnizori de conținut clinic: interacțiuni și calculatoare licențiate, dacă extinzi scopul.</li>
+<li>Pharma: eventual educație și finanțare etichetată; păstrează clasamentul și alertele independente de sponsorizare.</li>
+</ul>
+<p>Acestea sunt categorii de parteneri propuse. Nu există parteneriate încheiate prin acest research.</p>
+<h3>Extindere</h3>
+<p>Construiește un nucleu cu DCI, concentrație, unități, formă, cale, ambalaj și identificatori locali; atașează separat autorizarea, compensarea și disponibilitatea fiecărei țări. Alege următoarea piață după calitatea surselor, accesul contractual și distribuție, nu numai după mărimea populației.</p>
+<p>EMA oferă cataloage publice și trimiteri către registre naționale. ESMP nu trebuie tratat ca un API public complet de stoc pentru Europa; accesul operațional este destinat autorităților și deținătorilor APP. <a href="https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/medicine-shortages-availability-issues/public-information-medicine-shortages">Informații publice EMA</a> · <a href="https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/medicine-shortages-availability-issues/european-shortages-monitoring-platform">ESMP</a></p>
+<h3>Praguri propuse pentru continuarea investiției</h3>
+<ul>
+<li>Înainte de pilot: toate alertele au document, dată, tip și prezentare identificabilă; potrivirile ambigue sunt oprite pentru revizie.</li>
+<li>Pilot: măsoară utilizarea repetată, timpul până la găsirea informației și câte alerte duc la o verificare utilă.</li>
+<li>Monetizare: cere un angajament comercial real de la utilizatori sau organizații, nu doar feedback pozitiv.</li>
+<li>Extindere: adaugă o singură piață și verifică aceeași calitate de mapare înainte să scalezi.</li>
+</ul>
+<h2 id="section-7">7. Ce livrează mockul</h2>
+<p><strong>Medora</strong> este un nume de lucru; disponibilitatea mărcii și domeniului nu a fost verificată. Identitate proprie: verde închis, crem, accente vegetale, navigare laterală pe desktop și bară inferioară pe telefon. Accentul cade pe activitatea medicului și radarul de schimbări.</p>
+<p>Funcționează local: căutarea fără diacritice, căutarea după DCI/ATC, filtre de alerte, fișe și istoric, adăugarea/eliminarea din lista urmărită, persistență în browser, comparația a două prezentări, preferințe de alerte cu previzualizare și calculator IMC.</p>
+<p>Sunt simulate: cele 8 produse comerciale, cele 3 evenimente și datele lor. Nu există sincronizare ANMDMR, cont real, motor AI, calcul de interacțiuni, stoc live, email sau push. Documentele oficiale se deschid prin linkurile sursă. Comparația nu stabilește echivalență terapeutică.</p>
+<h3>Tur de test de două minute</h3>
+<ol>
+<li>Apasă „amoxicilină” în căutarea sugerată; apar două prezentări.</li>
+<li>Selectează ambele și apasă „Compară selecția”.</li>
+<li>Deschide o fișă și urmărește produsul; verifică „Lista mea”.</li>
+<li>Intră în „Radar alerte”, filtrează „Permanente” sau activează „Doar lista mea”.</li>
+<li>Configurează tipurile și frecvența alertelor; vezi previzualizarea locală.</li>
+<li>În „Instrumente”, calculează IMC pentru 70 kg și 175 cm: 22,9 kg/m².</li>
+</ol>
+<p>Fișierul medora.html funcționează și deschis direct din browser. Pentru linkul intern de research, păstrează fișierele livrate în același folder. Persistența locală depinde de setările browserului; varianta servită prin localhost oferă un comportament mai previzibil.</p>
+<h2 id="section-8">8. Întrebări rămase înainte de dezvoltarea produsului real</h2>
+<ul>
+<li>Oferă Mediately în conturi PRO sau în aplicații alerte de discontinuitate care nu sunt documentate public?</li>
+<li>Ce surse pot fi reutilizate comercial, în ce format și cu ce actualizare?</li>
+<li>Care este acoperirea reală a notificărilor de reluare și a datelor pe ambalaj?</li>
+<li>Cât de des se întâlnește problema în nișa inițială și cine plătește pentru rezolvare?</li>
+<li>Ce module clinice merită licențiate și cine își asumă revizia medicală?</li>
+<li>Pentru funcțiile terapeutice viitoare: ce încadrare și obligații rezultă din scopul medical declarat? Acest research nu este o evaluare de conformitate.</li>
+</ul>
+<p><strong>Direcție recomandată:</strong> „Află ce s-a schimbat la medicamentele pe care le prescrii.” Catalogul aduce utilizatorul; monitorizarea relevantă și datele verificabile îl pot face să revină.</p>
+<section class="appendix"><h2 id="instrumente">Anexă — 105 intrări în catalogul RO</h2><p>Nume prescurtate; linkuri către paginile oficiale. Verificarea prezenței în catalog nu este validare medicală a algoritmilor.</p><input id="tool-search" aria-label="Caută un instrument" placeholder="Caută un instrument: SCORE, dozare, Crohn…"><div class="table-scroll"><table><thead><tr><th>Nr.</th><th>Instrument / colecție</th><th>Sursă</th></tr></thead><tbody id="tool-list"><tr><td>1</td><td>Evaluare preoperatorie pulmonară</td><td><a href="https://mediately.co/ro/tools/LCAssesmentForSurgery" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>2</td><td>Stadializare ganglioni NSCLC</td><td><a href="https://mediately.co/ro/tools/LRNSCLCalgorithm" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>3</td><td>APACHE II</td><td><a href="https://mediately.co/ro/tools/APACHE2" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>4</td><td>Calciu corectat (Payne)</td><td><a href="https://mediately.co/ro/tools/CalciumCorrection" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>5</td><td>Suprafață cutanată afectată</td><td><a href="https://mediately.co/ro/tools/AffectedBSA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>6</td><td>Vârstă vasculară</td><td><a href="https://mediately.co/ro/tools/VascularAgeVeryHigh" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>7</td><td>eGFR: CKD-EPI și MDRD</td><td><a href="https://mediately.co/ro/tools/GfrCdkMdrd" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>8</td><td>FRAX</td><td><a href="https://mediately.co/ro/tools/FRAX" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>9</td><td>Conversie HbA1c</td><td><a href="https://mediately.co/ro/tools/HbA1cCalc" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>10</td><td>HOMA-IR</td><td><a href="https://mediately.co/ro/tools/HOMAInsResist" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>11</td><td>IMC</td><td><a href="https://mediately.co/ro/tools/BMI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>12</td><td>QTc</td><td><a href="https://mediately.co/ro/tools/QTc" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>13</td><td>NEWS2</td><td><a href="https://mediately.co/ro/tools/NEWS2" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>14</td><td>Dozare ciprofloxacină</td><td><a href="https://mediately.co/ro/tools/CiprofloxacinDosing" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>15</td><td>Dozare enoxaparină</td><td><a href="https://mediately.co/ro/tools/NewClexaneDosing" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>16</td><td>qSOFA</td><td><a href="https://mediately.co/ro/tools/QSOFA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>17</td><td>SCORE2 și SCORE2-OP</td><td><a href="https://mediately.co/ro/tools/SCORE2-NEW" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>18</td><td>Suprafață corporală (BSA)</td><td><a href="https://mediately.co/ro/tools/BSA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>19</td><td>LDL și non-HDL</td><td><a href="https://mediately.co/ro/tools/CalculatedLDL-C" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>20</td><td>Ghiduri canadiene pentru scleroză multiplă</td><td><a href="https://mediately.co/ro/tools/CanadianGuidelinesMS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>21</td><td>CAT</td><td><a href="https://mediately.co/ro/tools/CAT" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>22</td><td>CDEIS</td><td><a href="https://mediately.co/ro/tools/CDEIS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>23</td><td>MDQ</td><td><a href="https://mediately.co/ro/tools/MoodDisorderQuestionnaire" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>24</td><td>MPN-SAF TSS</td><td><a href="https://mediately.co/ro/tools/MPN-SAF" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>25</td><td>NYHA</td><td><a href="https://mediately.co/ro/tools/NYHA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>26</td><td>TNM cancer pulmonar</td><td><a href="https://mediately.co/ro/tools/LCTNMClassification" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>27</td><td>TNM cancer mamar</td><td><a href="https://mediately.co/ro/tools/BreastCancerTNM" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>28</td><td>Clearance creatinină</td><td><a href="https://mediately.co/ro/tools/CreatinineClearance" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>29</td><td>Colecție dermatită atopică</td><td><a href="https://mediately.co/ro/tools/AtopicDermatitisCorner" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>30</td><td>CPS+EG</td><td><a href="https://mediately.co/ro/tools/CPSEGBreastCancer" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>31</td><td>Criterii McDonald</td><td><a href="https://mediately.co/ro/tools/McDonaldMS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>32</td><td>Răspuns iMWG în mielom</td><td><a href="https://mediately.co/ro/tools/IMWGMMResponse" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>33</td><td>Data estimată a nașterii</td><td><a href="https://mediately.co/ro/tools/EDD" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>34</td><td>Simptome subiective dermatită atopică</td><td><a href="https://mediately.co/ro/tools/NRSforAD" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>35</td><td>Hipercolesterolemie familială (Dutch Lipid)</td><td><a href="https://mediately.co/ro/tools/FH" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>36</td><td>DLQI</td><td><a href="https://mediately.co/ro/tools/DLQI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>37</td><td>Dozare amoxicilină/clavulanat</td><td><a href="https://mediately.co/ro/tools/AmoxClavDosing" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>38</td><td>Dozare azitromicină</td><td><a href="https://mediately.co/ro/tools/AzithromycinDosing" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>39</td><td>Dozare cefiximă</td><td><a href="https://mediately.co/ro/tools/CefiximeDosing" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>40</td><td>Dozare co-trimoxazol</td><td><a href="https://mediately.co/ro/tools/SulfTrimDosingRO" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>41</td><td>Durere inflamatorie de spate</td><td><a href="https://mediately.co/ro/tools/IBP" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>42</td><td>EASI</td><td><a href="https://mediately.co/ro/tools/EASI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>43</td><td>ESIF</td><td><a href="https://mediately.co/ro/tools/ESIF" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>44</td><td>Răspuns la tratament LLC</td><td><a href="https://mediately.co/ro/tools/iwCLLTreatmentResponse" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>45</td><td>Geneva pentru profilaxia TEV</td><td><a href="https://mediately.co/ro/tools/GenevaProphylaxis" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>46</td><td>GRACE</td><td><a href="https://mediately.co/ro/tools/GRACE" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>47</td><td>HAS-BLED</td><td><a href="https://mediately.co/ro/tools/HAS-BLED" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>48</td><td>ICE</td><td><a href="https://mediately.co/ro/tools/TecvayliAdverseEvents+ICElink" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>49</td><td>Greutate ideală, ajustată și slabă</td><td><a href="https://mediately.co/ro/tools/BodyWeights" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>50</td><td>IMDC</td><td><a href="https://mediately.co/ro/tools/IMDCModel" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>51</td><td>CDAI Crohn</td><td><a href="https://mediately.co/ro/tools/CDAICrohn" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>52</td><td>CLL-IPI</td><td><a href="https://mediately.co/ro/tools/CLL-IPI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>53</td><td>IPSS</td><td><a href="https://mediately.co/ro/tools/IPSS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>54</td><td>Karnofsky</td><td><a href="https://mediately.co/ro/tools/Karnofsky" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>55</td><td>Lung-molGPA și DS-GPA</td><td><a href="https://mediately.co/ro/tools/LungCancerGPA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>56</td><td>MAGGIC</td><td><a href="https://mediately.co/ro/tools/Maggic" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>57</td><td>Algoritmi hipertensiune arterială pulmonară</td><td><a href="https://mediately.co/ro/tools/PAHalgorithms" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>58</td><td>Mayo endoscopic</td><td><a href="https://mediately.co/ro/tools/MayoEndoscopic" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>59</td><td>MEWS</td><td><a href="https://mediately.co/ro/tools/MEWS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>60</td><td>MIDAS</td><td><a href="https://mediately.co/ro/tools/MIDAS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>61</td><td>mMRC</td><td><a href="https://mediately.co/ro/tools/mMRC" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>62</td><td>NRS-2002</td><td><a href="https://mediately.co/ro/tools/NRS2002" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>63</td><td>PaO2/FiO2 (Horovitz)</td><td><a href="https://mediately.co/ro/tools/HorovitzLung" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>64</td><td>PASI</td><td><a href="https://mediately.co/ro/tools/PASI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>65</td><td>PESI</td><td><a href="https://mediately.co/ro/tools/PESI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>66</td><td>PREDICT cancer mamar</td><td><a href="https://mediately.co/ro/tools/BreastCancerPredict" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>67</td><td>Predictori policitemia vera</td><td><a href="https://mediately.co/ro/tools/PVPredictors" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>68</td><td>PSSI</td><td><a href="https://mediately.co/ro/tools/PSSI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>69</td><td>Tratament NSCLC locoregional</td><td><a href="https://mediately.co/ro/tools/LocallyAdvancedNSCLC" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>70</td><td>Wells pentru embolie pulmonară</td><td><a href="https://mediately.co/ro/tools/Wells" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>71</td><td>Roma IV pentru IBS</td><td><a href="https://mediately.co/ro/tools/Rome4IBS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>72</td><td>Rutgeerts</td><td><a href="https://mediately.co/ro/tools/RutgeertsScore" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>73</td><td>EDSS</td><td><a href="https://mediately.co/ro/tools/EDSS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>74</td><td>Glasgow (GCS)</td><td><a href="https://mediately.co/ro/tools/GCS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>75</td><td>Hamilton (HDRS/HAM-D)</td><td><a href="https://mediately.co/ro/tools/HDRS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>76</td><td>MADRS</td><td><a href="https://mediately.co/ro/tools/MADRS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>77</td><td>NIHSS</td><td><a href="https://mediately.co/ro/tools/NIHSS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>78</td><td>Rankin modificat</td><td><a href="https://mediately.co/ro/tools/MRS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>79</td><td>CHA2DS2-VA</td><td><a href="https://mediately.co/ro/tools/CHA2DS2-VA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>80</td><td>CURB-65</td><td><a href="https://mediately.co/ro/tools/CURB-65" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>81</td><td>Glasgow-Blatchford</td><td><a href="https://mediately.co/ro/tools/GlasgowBlatchford" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>82</td><td>Geneva revizuit</td><td><a href="https://mediately.co/ro/tools/GenevaRevised" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>83</td><td>Maddrey, GAHS și Lille</td><td><a href="https://mediately.co/ro/tools/MaddreyGAHSLille" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>84</td><td>MELD și MELD-Na</td><td><a href="https://mediately.co/ro/tools/MELD" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>85</td><td>NAPSI</td><td><a href="https://mediately.co/ro/tools/NAPSI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>86</td><td>sPESI</td><td><a href="https://mediately.co/ro/tools/SPESI" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>87</td><td>SCORAD</td><td><a href="https://mediately.co/ro/tools/SCORAD" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>88</td><td>SCORE2-Diabetes</td><td><a href="https://mediately.co/ro/tools/SCORE2Diabetes" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>89</td><td>Alvarado</td><td><a href="https://mediately.co/ro/tools/AlvaradoScore" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>90</td><td>APGAR</td><td><a href="https://mediately.co/ro/tools/APGAR" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>91</td><td>Caprini</td><td><a href="https://mediately.co/ro/tools/DVT" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>92</td><td>Centor / McIsaac</td><td><a href="https://mediately.co/ro/tools/CentorScore" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>93</td><td>Child-Pugh</td><td><a href="https://mediately.co/ro/tools/CHILD-PUGH" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>94</td><td>Padua</td><td><a href="https://mediately.co/ro/tools/Padua" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>95</td><td>HEART</td><td><a href="https://mediately.co/ro/tools/HEART" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>96</td><td>PERC</td><td><a href="https://mediately.co/ro/tools/PERC" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>97</td><td>PSI/PORT</td><td><a href="https://mediately.co/ro/tools/PSIPORT" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>98</td><td>SOFA</td><td><a href="https://mediately.co/ro/tools/SOFA" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>99</td><td>ELTS, Sokal și Hasford</td><td><a href="https://mediately.co/ro/tools/ELTS" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>100</td><td>NFS și FIB-4</td><td><a href="https://mediately.co/ro/tools/NAFLD" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>101</td><td>SES-CD</td><td><a href="https://mediately.co/ro/tools/SES-CD" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>102</td><td>Risc osteoporoză SCORE</td><td><a href="https://mediately.co/ro/tools/OsteoporosisSCORE" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>103</td><td>Stadializare Binet</td><td><a href="https://mediately.co/ro/tools/BinetStagingCLL" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>104</td><td>Stadializare Rai</td><td><a href="https://mediately.co/ro/tools/RaiStagingCLL" target="_blank" rel="noopener">Mediately ↗</a></td></tr><tr><td>105</td><td>Colecție cancer pulmonar</td><td><a href="https://mediately.co/ro/tools/LungCancerCorner" target="_blank" rel="noopener">Mediately ↗</a></td></tr></tbody></table></div><p id="tool-count">105 instrumente / colecții</p></section><footer>Research realizat la 12 septembrie 2026. Toate concluziile competitive au limitele descrise în raport.</footer></article></div><script>document.querySelector('#tool-search').addEventListener('input',e=>{const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');let n=0;document.querySelectorAll('#tool-list tr').forEach(r=>{const show=norm(r.textContent).includes(norm(e.target.value));r.hidden=!show;if(show)n++});document.querySelector('#tool-count').textContent=n+' instrumente / colecții'});</script></body></html>

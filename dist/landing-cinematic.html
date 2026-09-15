@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f0e4">
+  <meta name="description" content="Medora centralizează informațiile despre medicamente și schimbările de disponibilitate din România.">
+  <title>Medora — Informații despre medicamente</title>
+  <script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+    @font-face{font-family:"Mazzard H";font-style:normal;font-weight:400;font-display:swap;src:url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff2") format("woff2"),url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff") format("woff"),url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.ttf") format("truetype")}
+    @font-face{font-family:"Mazzard H";font-style:normal;font-weight:500;font-display:swap;src:url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff2") format("woff2"),url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff") format("woff"),url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.ttf") format("truetype")}
+    :root{--forest:#f6f0e4;--deep:#181817;--soft:#a7b77c;--mint:#f2a8cf;--mint-soft:#f8dcec;--paper:#f6f0e4;--white:#fffdfa;--ink:#181817;--line:rgba(24,24,23,.13);--muted:rgba(24,24,23,.58);--sage:#a7b77c;--pink:#f2a8cf;--yellow:#f2d35e;--blue:#b9cff0;--teal:#0e8176;--navy:#17154a}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:var(--deep);color:var(--white);font:16px/1.5 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:0}a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inherit}a,button,input{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+    .home{min-height:100svh;overflow:hidden;background:var(--forest);border-radius:0 0 8px 8px}.topbar{width:min(1120px,calc(100% - 64px));height:96px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:inline-flex;align-items:center;gap:12px;font-size:35px;font-weight:720}.brand-mark{display:grid;place-items:center;width:34px;height:34px;color:var(--deep);background:var(--mint);border-radius:8px}.brand-mark svg{width:22px;height:22px;stroke-width:2}.top-actions{display:flex;align-items:center;gap:12px}.market{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}.market svg{width:14px;height:14px}.open-app{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 17px;color:var(--ink);background:var(--paper);border:1px solid rgba(255,255,255,.35);border-radius:8px;font-size:13px;font-weight:650;transition:transform .2s ease,background .2s ease}.open-app:hover{transform:translateY(-2px);background:var(--white)}.open-app svg{width:17px;height:17px}.auth-btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 16px;color:var(--ink);background:rgba(255,255,255,.75);border:1px solid rgba(24,24,23,.14);border-radius:8px;font-size:13px;font-weight:650;backdrop-filter:blur(10px);transition:all .2s ease}.auth-btn:hover{background:var(--white);transform:translateY(-2px);border-color:var(--ink)}
+    .hero{width:min(1040px,calc(100% - 64px));margin:auto;padding:84px 0 86px;text-align:center}.kicker{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px;color:var(--mint);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}.kicker:before{content:"";width:6px;height:6px;background:var(--mint);border-radius:50%;box-shadow:0 0 0 5px rgba(221,243,164,.12)}h1{max-width:900px;margin:0 auto 36px;font-size:68px;line-height:1.05;font-weight:620;letter-spacing:0;text-wrap:balance}h1 span{color:var(--mint)}
+    .search-area{position:relative;width:min(850px,100%);margin:auto;z-index:5}.search{display:flex;align-items:center;gap:13px;width:100%;height:72px;padding:7px 8px 7px 22px;background:var(--white);border:1px solid rgba(255,255,255,.55);border-radius:40px;box-shadow:0 18px 50px rgba(3,28,23,.22)}.search>svg{width:22px;height:22px;color:#6f817a;flex:0 0 auto}.search input{width:100%;min-width:0;border:0;outline:0;color:var(--ink);background:transparent;font-size:17px}.search input::placeholder{color:#899891}.search button{height:56px;min-width:122px;padding:0 21px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:28px;background:var(--mint-soft);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;transition:background .2s ease,transform .2s ease}.search button:hover{background:var(--mint);transform:translateX(2px)}.search button svg{width:17px;height:17px}
+    .suggestions{position:absolute;top:81px;left:18px;right:18px;overflow:hidden;padding:8px;color:var(--ink);text-align:left;background:var(--white);border:1px solid #dce6df;border-radius:8px;box-shadow:0 24px 60px rgba(3,28,23,.28)}.suggestions[hidden]{display:none}.suggestion{width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;border:0;border-radius:6px;background:transparent;text-align:left;cursor:pointer}.suggestion:hover,.suggestion:focus-visible{background:#f0f4ed}.suggestion svg{width:18px;height:18px;color:#5d746b}.suggestion span{display:block;font-size:13px;font-weight:650}.suggestion small{display:block;margin-top:2px;color:#7b8a84;font-size:10px}.source-note{margin:18px auto 0;color:var(--muted);font-size:12px}.source-note a{text-decoration:underline;text-underline-offset:4px}
+    .modules{width:min(920px,100%);margin:54px auto 0;display:grid;grid-template-columns:repeat(7,1fr);gap:18px}.module{min-width:0;display:flex;flex-direction:column;align-items:center;gap:9px;color:rgba(255,255,255,.86);font-size:12px;transition:transform .24s cubic-bezier(.2,.8,.2,1),color .2s ease}.module:hover{transform:translateY(-5px);color:var(--white)}.module-icon{width:92px;height:86px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:rgba(255,255,255,.5);box-shadow:0 14px 34px rgba(80,71,61,.08);backdrop-filter:blur(16px);transition:background .2s ease,border-color .2s ease,box-shadow .2s ease}.module:hover .module-icon{background:rgba(255,255,255,.88);border-color:#fff;box-shadow:0 18px 42px rgba(80,71,61,.13)}.module-icon img{width:84px;height:84px;object-fit:contain;transition:transform .25s cubic-bezier(.2,.8,.2,1)}.module:hover .module-icon img{transform:translateY(-2px) scale(1.045)}
+    .next-glimpse{width:min(1120px,calc(100% - 64px));margin:auto;padding:28px 0 36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:24px;color:var(--muted);font-size:12px}.next-glimpse strong{color:var(--white);font-weight:650}.next-glimpse a{display:inline-flex;align-items:center;gap:7px;color:var(--mint)}.next-glimpse svg{width:16px;height:16px}.reveal{opacity:0;transform:translateY(18px);animation:enter .7s cubic-bezier(.2,.8,.2,1) forwards}.hero .kicker{animation-delay:.08s}.hero h1{animation-delay:.16s}.search-area{animation-delay:.24s}.source-note{animation-delay:.3s}.modules{animation-delay:.36s}@keyframes enter{to{opacity:1;transform:translateY(0)}}
+
+    .story{height:300svh;background:var(--paper);color:var(--ink);position:relative}.story-stage{position:sticky;top:0;min-height:100svh;width:min(1180px,calc(100% - 64px));margin:auto;padding:72px 0;display:grid;grid-template-columns:minmax(280px,.72fr) minmax(520px,1.28fr);align-items:center;gap:70px;overflow:hidden}.story-copy{position:relative;z-index:2}.story-label{display:flex;align-items:center;gap:10px;margin-bottom:23px;color:#6c7c75;font-size:10px;font-weight:750;letter-spacing:1.5px;text-transform:uppercase}.story-label svg{width:16px;height:16px}.story h2{min-height:152px;margin:0 0 19px;font-size:52px;line-height:1.08;font-weight:580;letter-spacing:0;text-wrap:balance}.story-description{min-height:82px;max-width:390px;margin:0;color:#6f7d77;font-size:15px;line-height:1.8}.steps-indicator{display:flex;align-items:center;gap:9px;margin-top:34px}.step-dot{width:28px;height:4px;border:0;border-radius:2px;background:#d8dfda;transition:width .45s ease,background .45s ease}.step-dot.active{width:54px;background:var(--forest)}.step-number{margin-left:8px;color:#89948f;font-size:10px;letter-spacing:1px}
+    .product-scene{position:relative;min-height:620px;display:grid;place-items:center;perspective:1200px}.product-scene:before{content:"MEDORA";position:absolute;right:-50px;top:17px;color:#e9ede8;font-size:120px;font-weight:800;letter-spacing:3px;writing-mode:vertical-rl}.app-window{position:relative;z-index:1;width:min(610px,100%);height:570px;overflow:hidden;background:var(--white);border:1px solid #dce4de;border-radius:8px;box-shadow:0 35px 90px rgba(20,55,47,.15);transform:translate3d(0,calc((.5 - var(--progress,0)) * 18px),0) rotateX(calc((.5 - var(--progress,0)) * 2deg));transition:box-shadow .5s ease}.app-head{height:74px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e3e9e5}.app-brand{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:720}.app-brand .brand-mark{width:27px;height:27px}.app-brand .brand-mark svg{width:17px;height:17px}.demo-status{display:flex;align-items:center;gap:7px;color:#75817c;font-size:9px;text-transform:uppercase;letter-spacing:1px}.demo-status:before{content:"";width:6px;height:6px;background:#759349;border-radius:50%}.app-body{padding:27px}.app-kicker{color:#839089;font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase}.app-title{margin:7px 0 20px;font-size:28px;font-weight:620}.mini-search{height:48px;display:flex;align-items:center;gap:9px;padding:0 13px;border:1px solid #dfe6e1;border-radius:8px;color:#7a8982;font-size:11px}.mini-search svg{width:17px;height:17px}.mini-search strong{margin-left:auto;color:var(--forest);font-size:10px}.alerts{margin-top:22px;border-top:1px solid #e4e9e6}.alert-line{min-height:76px;display:grid;grid-template-columns:11px 1fr auto;align-items:center;gap:13px;border-bottom:1px solid #e4e9e6;opacity:.38;transform:translateX(0);transition:opacity .55s ease,transform .55s ease,background .55s ease;padding:0 4px}.alert-line .signal{width:8px;height:8px;border-radius:50%;background:#bc8746}.alert-line:nth-child(2) .signal{background:#a95d4c}.alert-line:nth-child(3) .signal{background:#6f9261}.alert-line strong{display:block;font-size:12px;font-weight:650}.alert-line small{display:block;margin-top:5px;color:#829088;font-size:9px}.alert-line>svg{width:17px;height:17px;color:#8a9891}.detail-drawer{position:absolute;inset:auto 0 0;height:208px;padding:22px 27px;background:var(--forest);color:var(--white);transform:translateY(100%);transition:transform .7s cubic-bezier(.2,.8,.2,1)}.drawer-top{display:flex;align-items:start;justify-content:space-between;gap:20px}.drawer-top span{color:var(--mint);font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}.drawer-top svg{width:18px;height:18px;color:var(--mint)}.detail-drawer h3{margin:9px 0 4px;font-size:20px;font-weight:560}.detail-drawer p{margin:0;color:rgba(255,255,255,.68);font-size:10px}.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:19px}.timeline div{border-top:1px solid rgba(255,255,255,.2);padding-top:10px}.timeline small{display:block;color:rgba(255,255,255,.55);font-size:8px}.timeline strong{display:block;margin-top:4px;font-size:10px;font-weight:550}
+    .story[data-step="1"] .alert-line:first-child,.story[data-step="2"] .alert-line:first-child,.story[data-step="3"] .alert-line:first-child{opacity:1;transform:translateX(6px);background:#f6f8f5}.story[data-step="2"] .alert-line:nth-child(2),.story[data-step="3"] .alert-line:nth-child(2){opacity:1;transform:translateX(6px)}.story[data-step="3"] .alert-line{opacity:.22;transform:translateY(-35px)}.story[data-step="3"] .detail-drawer{transform:translateY(0)}
+    .final-cta{background:var(--mint);color:var(--ink);padding:100px 32px}.final-inner{width:min(920px,100%);margin:auto;text-align:center}.final-label{font-size:10px;font-weight:750;letter-spacing:1.5px;text-transform:uppercase}.final-cta h2{margin:18px auto 30px;max-width:760px;font-size:54px;line-height:1.08;font-weight:590;text-wrap:balance}.final-button{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:0 20px;background:var(--forest);color:var(--white);border-radius:8px;font-size:13px;font-weight:650}.final-button svg{width:18px;height:18px}
+    body{color:var(--ink)}
+    .home{color:var(--ink);background-color:#fbfaf7;background-image:url('medora-pastel-glow.png');background-size:cover;background-position:center}
+    .brand-mark{color:var(--ink);background:var(--pink)}
+    .market,.source-note,.next-glimpse{color:#716d64}
+    .open-app{color:var(--white);background:var(--deep);border-color:var(--deep)}
+    .open-app:hover{color:var(--white);background:#2b2a28}
+    .kicker{color:#785f18}.kicker:before{background:var(--pink);box-shadow:0 0 0 5px rgba(242,168,207,.2)}
+    .story h2,.final-cta h2{font-family:'Instrument Serif',Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.025em}
+    h1,#hero-title{font-family:"Mazzard H",Inter,ui-sans-serif,sans-serif;font-weight:500;letter-spacing:-.015em}
+    h1 span{color:#9567bf;font-style:normal}
+    .search{background:rgba(255,255,255,.8);border-color:rgba(255,255,255,.9);box-shadow:0 22px 54px rgba(75,67,58,.12);backdrop-filter:blur(18px)}
+    @property --beam-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+    @keyframes beam-spin{to{--beam-angle:360deg}}
+    .search button{position:relative;isolation:isolate;overflow:visible;color:var(--white);background:var(--deep);border:0;border-radius:28px;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .2s ease,box-shadow .2s ease}
+    .search button>*{position:relative;z-index:2}
+    .search button::before{content:"";position:absolute;inset:-1.5px;border-radius:29.5px;padding:2px;background:conic-gradient(from var(--beam-angle,0deg),transparent 0%,transparent 60%,#2ba7ff 76%,#ca45ff 88%,#ff3366 94%,#fe881b 98%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:beam-spin 3s linear infinite;opacity:.9;pointer-events:none;z-index:1}
+    .search button::after{content:"";position:absolute;inset:-3px;border-radius:31px;background:conic-gradient(from var(--beam-angle,0deg),transparent 0%,transparent 60%,rgba(43,167,255,.55) 76%,rgba(202,69,255,.65) 88%,rgba(255,51,102,.65) 94%,rgba(254,136,27,.55) 98%,transparent 100%);filter:blur(7px);animation:beam-spin 3s linear infinite;opacity:.7;pointer-events:none;z-index:0;transition:opacity .2s ease}
+    .search button:hover{transform:translateY(-1px) scale(1.02);color:#fff;background:#111;box-shadow:0 6px 20px rgba(0,0,0,.22)}
+    .search button:hover::after{opacity:1;filter:blur(9px)}
+    .search button:active{transform:scale(.98)}
+    .suggestions{border-color:#ded6c8;box-shadow:0 24px 60px rgba(24,24,23,.16)}
+    .suggestion:hover,.suggestion:focus-visible{background:#f3ede2}
+    .module{color:var(--ink)}.module:hover{color:var(--ink)}
+    .module-icon{color:#58524c;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:rgba(255,255,255,.58);box-shadow:0 14px 34px rgba(80,71,61,.08);backdrop-filter:blur(16px)}
+    .module:nth-child(2) .module-icon{color:#b84e91}
+    .module:nth-child(3) .module-icon{color:#667fbc}
+    .module:nth-child(4) .module-icon{color:#b48b13}
+    .module:nth-child(5) .module-icon{color:#68804a}
+    .module:nth-child(6) .module-icon{color:#a2649c}
+    .module:nth-child(7) .module-icon{color:#5379a8}
+    .module:hover .module-icon{background:rgba(255,255,255,.92);border-color:#fff;box-shadow:0 18px 42px rgba(80,71,61,.12)}
+    .module-icon svg{stroke-width:1.35}
+    .next-glimpse{border-color:var(--line)}.next-glimpse strong{color:var(--ink)}.next-glimpse a{color:#9e226f}
+    .story{background:#fbfaf7}.story-label{color:#716d64}.step-dot{background:#d7cfc0}.step-dot.active{background:var(--deep)}
+    .product-scene:before{color:#efebe5}.app-window{background:rgba(255,255,255,.82);border-color:#fff;border-radius:34px;box-shadow:0 35px 90px rgba(74,66,58,.13);backdrop-filter:blur(18px)}
+    .app-head,.alerts,.alert-line{border-color:#e7dfd2}.demo-status:before{background:var(--sage)}
+    .story[data-step="1"] .alert-line:first-child,.story[data-step="2"] .alert-line:first-child,.story[data-step="3"] .alert-line:first-child{background:#f4eee3}
+    .detail-drawer{background:var(--deep)}.drawer-top span,.drawer-top svg{color:var(--pink)}
+    .final-cta{background-color:#fbfaf7;background-image:url('medora-pastel-glow.png');background-size:cover;background-position:center}.final-button{background:var(--deep);color:var(--white);border-radius:28px;padding-inline:25px}
+    @media(max-width:920px){.hero{padding-top:62px}h1{font-size:58px;max-width:760px}.modules{grid-template-columns:repeat(4,1fr);max-width:610px}.story-stage{grid-template-columns:1fr;gap:24px;padding:42px 0;align-content:center}.story-copy{max-width:680px}.story h2{min-height:0;font-size:43px}.story-description{min-height:0}.steps-indicator{margin-top:22px}.product-scene{min-height:500px}.app-window{height:455px}.app-head{height:61px}.app-body{padding:20px}.app-title{font-size:23px;margin-bottom:14px}.alerts{margin-top:15px}.alert-line{min-height:59px}.detail-drawer{height:174px}.product-scene:before{display:none}}
+    @media(max-width:620px){.topbar{width:calc(100% - 34px);height:78px}.brand{font-size:27px;gap:8px}.brand-mark{width:30px;height:30px}.brand-mark svg{width:19px;height:19px}.market{display:none}.open-app{min-height:40px;padding:0 12px;font-size:10px}.open-app svg{width:15px;height:15px}.hero{width:calc(100% - 34px);padding:72px 0 74px}.kicker{margin-bottom:21px;font-size:9px;letter-spacing:1.2px}h1{margin-bottom:31px;font-size:47px;line-height:1.07}.search{height:64px;padding-left:17px;gap:8px}.search input{font-size:12px}.search button{height:50px;min-width:50px;width:50px;padding:0}.search button span{display:none}.suggestions{top:72px;left:8px;right:8px}.source-note{max-width:330px;font-size:10px;line-height:1.6}.modules{margin-top:44px;grid-template-columns:repeat(4,1fr);gap:24px 8px}.module{gap:8px;font-size:10px}.module-icon{width:72px;height:68px;border-radius:20px}.module-icon img{width:68px;height:68px}.modules .module:nth-child(5){grid-column:1}.next-glimpse{width:calc(100% - 34px);padding:24px 0 30px;font-size:10px}.story{height:320svh}.story-stage{width:calc(100% - 34px);padding:32px 0;gap:20px}.story-label{margin-bottom:13px;font-size:8px}.story h2{font-size:34px;min-height:74px;margin-bottom:10px}.story-description{min-height:55px;font-size:11px;line-height:1.6}.steps-indicator{margin-top:13px}.product-scene{min-height:438px;align-items:start}.app-window{height:425px}.app-head{height:56px;padding:0 16px}.app-brand{font-size:17px}.demo-status{font-size:7px}.app-body{padding:16px}.app-title{font-size:21px}.mini-search{height:43px}.alert-line{min-height:57px}.detail-drawer{height:176px;padding:18px 17px}.detail-drawer h3{font-size:17px}.timeline{gap:6px}.final-cta{padding:78px 22px}.final-cta h2{font-size:40px}}
+    @media(max-width:390px){h1{font-size:41px}.module-icon{width:56px;height:56px}}
+
+    /* Cinematic video experiment — scoped to the first viewport. */
+    .home{position:relative;isolation:isolate;min-height:100svh;color:#fff;background:#050504;border-radius:0;display:flex;flex-direction:column}
+    .hero-video{position:absolute;z-index:-3;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 52%;opacity:0;will-change:opacity;pointer-events:none}
+    .hero-video.is-primary{opacity:1}
+    .hero-video-shade{position:absolute;z-index:-2;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,7,6,.6) 0%,rgba(5,7,6,.16) 31%,rgba(5,7,6,.2) 58%,rgba(5,7,6,.76) 100%),linear-gradient(90deg,rgba(3,5,4,.3),transparent 42%,rgba(3,5,4,.12))}
+    .hero-video-vignette{position:absolute;z-index:-1;inset:0;pointer-events:none;box-shadow:inset 0 0 160px rgba(0,0,0,.36)}
+    .liquid-glass{position:relative;overflow:hidden;border:0;background:rgba(255,255,255,.055);background-blend-mode:luminosity;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:inset 0 1px 1px rgba(255,255,255,.14),0 16px 46px rgba(0,0,0,.12)}
+    .liquid-glass:before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.48) 0%,rgba(255,255,255,.16) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.16) 80%,rgba(255,255,255,.48) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:2}
+    .liquid-glass>*{position:relative;z-index:3}
+    .topbar{position:relative;z-index:20;width:min(1120px,calc(100% - 48px));height:auto;min-height:64px;margin:22px auto 0;padding:10px 14px 10px 18px;border-radius:999px}
+    .brand{color:#fff;font-size:30px;text-shadow:0 2px 18px rgba(0,0,0,.24)}
+    .brand-mark{color:#171615;background:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.66);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .market{color:rgba(255,255,255,.76)}
+    .open-app{color:#fff;background:rgba(255,255,255,.08);border:0;border-radius:999px;box-shadow:inset 0 1px 1px rgba(255,255,255,.18)}
+    .open-app:hover{color:#171615;background:rgba(255,255,255,.92)}
+    .hero{position:relative;z-index:5;width:min(1040px,calc(100% - 64px));flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:auto;padding:24px 0 34px;transform:translateY(-1.5vh);text-align:center}
+    .kicker{margin-bottom:18px;color:rgba(255,255,255,.8);text-shadow:0 2px 18px rgba(0,0,0,.45)}
+    .kicker:before{background:#f2a8cf;box-shadow:0 0 0 5px rgba(242,168,207,.18)}
+    h1{max-width:780px;margin-bottom:24px;color:#fff;font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-size:60px;font-weight:400;line-height:1.02;letter-spacing:-.025em;text-shadow:0 3px 28px rgba(0,0,0,.38)}
+    h1 span{color:#fff;font-style:italic}
+    .search-area{width:min(560px,100%)}
+    .search{height:64px;color:#fff;background:rgba(8,10,9,.14);border:0;box-shadow:inset 0 1px 1px rgba(255,255,255,.16),0 20px 48px rgba(0,0,0,.18);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+    .search>svg{color:rgba(255,255,255,.78)}
+    .search input{color:#fff}
+    .search input::placeholder{color:rgba(255,255,255,.62)}
+    .search button{width:50px;min-width:50px;height:50px;padding:0;border-radius:50%;color:#171615;background:#fff}
+    .search button span{display:none}
+    .search button:hover{color:#171615;background:#f8dcec;transform:translateX(2px)}
+    .source-note{margin-top:13px;color:rgba(255,255,255,.68);text-shadow:0 2px 14px rgba(0,0,0,.5)}
+    .modules{width:min(880px,100%);margin-top:25px;padding:9px 12px 10px;gap:8px;border-radius:32px;background:rgba(4,6,5,.11)}
+    .module,.module:hover{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+    .module{--icon-scale:1;--icon-y:0%;gap:2px;font-size:10px}
+    .module-icon{width:72px;height:64px;border:0;border-radius:18px;background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+    .module:hover .module-icon{background:rgba(255,255,255,.09);border-color:transparent;box-shadow:none}
+    .module-icon img{width:71px;height:71px;transform-origin:50% 82%;transform:translateY(var(--icon-y)) scale(var(--icon-scale))}
+    .module:hover .module-icon img{transform:translateY(calc(var(--icon-y) - 2px)) scale(var(--icon-scale))}
+    .module:nth-child(1){--icon-scale:1.1;--icon-y:-1%}
+    .module:nth-child(2){--icon-scale:.86;--icon-y:0%}
+    .module:nth-child(4){--icon-scale:.96;--icon-y:-3%}
+    .module:nth-child(5){--icon-scale:.9;--icon-y:21%}
+    .module:nth-child(6){--icon-scale:1;--icon-y:23%}
+    .module:nth-child(7){--icon-scale:1;--icon-y:21%}
+    .next-glimpse{position:relative;z-index:5;width:min(1120px,calc(100% - 64px));padding:15px 0 18px;border-color:rgba(255,255,255,.24);color:rgba(255,255,255,.68)}
+    .next-glimpse strong{color:#fff}.next-glimpse a{color:#fff}
+    @media(max-width:920px){
+      .hero{padding-top:24px}.modules{grid-template-columns:repeat(7,1fr);max-width:820px}h1{font-size:62px}
+    }
+    @media(max-width:620px){
+      .hero-video{object-position:54% 50%;transform:scale(1.13)}
+      .hero-video-shade{background:linear-gradient(180deg,rgba(4,6,5,.6) 0%,rgba(4,6,5,.2) 27%,rgba(4,6,5,.24) 58%,rgba(4,6,5,.82) 100%)}
+      .hero-video-vignette{box-shadow:inset 0 0 90px rgba(0,0,0,.33)}
+      .topbar{width:calc(100% - 28px);min-height:56px;height:auto;margin-top:14px;padding:8px 9px 8px 12px}
+      .brand{font-size:24px}.brand-mark{width:29px;height:29px}.open-app{min-height:40px;padding:0 12px;font-size:10px}
+      .hero{width:calc(100% - 28px);padding:22px 0 24px;transform:translateY(-.5vh)}
+      .kicker{margin-bottom:15px;font-size:8px}h1{max-width:355px;margin-bottom:24px;font-size:47px;line-height:.98}
+      .search{height:60px;padding:5px 5px 5px 17px}.search button{width:50px;min-width:50px;height:50px}
+      .source-note{margin-top:12px;font-size:9px;line-height:1.45}
+      .modules{width:100%;margin-top:19px;padding:8px 5px 9px;grid-template-columns:repeat(7,74px);gap:2px;overflow-x:auto;justify-content:start;border-radius:25px;scrollbar-width:none;scroll-snap-type:x proximity}
+      .modules::-webkit-scrollbar{display:none}.module{scroll-snap-align:start;font-size:9px}.module-icon{width:60px;height:52px}.module-icon img{width:57px;height:57px}.modules .module:nth-child(5){grid-column:auto}
+      .next-glimpse{width:calc(100% - 28px);padding:13px 0 16px;font-size:9px}
+    }
+    @media(max-width:390px){h1{font-size:43px}.module-icon{width:58px;height:50px}}
+    .topbar.liquid-glass{overflow:visible!important}
+    .experience-switch{position:relative;z-index:100}
+    .experience-switch summary{cursor:pointer;list-style:none;color:rgba(255,255,255,.9);font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all .2s ease;user-select:none}
+    .experience-switch summary::-webkit-details-marker{display:none}
+    .experience-switch summary:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.45);color:#fff}
+    .experience-switch summary:after{content:"▾";font-size:10px;margin-left:4px;transition:transform .2s ease}
+    .experience-switch[open] summary{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.55);color:#fff}
+    .experience-switch[open] summary:after{transform:rotate(180deg)}
+    .experience-menu{position:absolute;z-index:1000;top:calc(100% + 10px);right:0;min-width:190px;padding:8px;background:rgba(15,22,19,.95);border:1px solid rgba(255,255,255,.24);border-radius:14px;box-shadow:0 20px 48px rgba(0,0,0,.55),0 4px 16px rgba(0,0,0,.35);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;gap:4px;animation:menuPop .18s cubic-bezier(.16,1,.3,1) forwards}
+    @keyframes menuPop{from{opacity:0;transform:translateY(-6px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .experience-menu a{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;color:rgba(255,255,255,.88);font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .15s ease}
+    .experience-menu a:hover{background:rgba(255,255,255,.14);color:#fff;transform:translateX(2px)}
+    .experience-menu a[aria-current="page"]{background:rgba(217,56,74,.22);border:1px solid rgba(217,56,74,.4);color:#ff98a5;font-weight:650}
+    .experience-menu a[aria-current="page"]:after{content:"✓";font-size:12px;color:#ff98a5;margin-left:8px}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+  <link rel="stylesheet" href="theme.css?v=4">
+  <script src="theme.js?v=4" defer></script>
+</head>
+<body class="cinematic-page">
+  <main class="home cinematic-home">
+    <video class="hero-video is-primary" id="hero-video-a" muted autoplay playsinline preload="auto" poster="medora-hero-poster.jpg" aria-hidden="true">
+      <source src="medora-hero.mp4" type="video/mp4">
+    </video>
+    <video class="hero-video" id="hero-video-b" muted playsinline preload="auto" poster="medora-hero-poster.jpg" aria-hidden="true">
+      <source src="medora-hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-shade" aria-hidden="true"></div>
+    <div class="hero-video-vignette" aria-hidden="true"></div>
+    <header class="topbar liquid-glass">
+      <a class="brand" href="index.html" aria-label="Medora, pagina principală"><span class="brand-mark"><i data-lucide="asterisk"></i></span>medora</a>
+      <div class="top-actions"><span class="market"><i data-lucide="map-pin"></i> România</span><details class="experience-switch"><summary>Variante</summary><nav class="experience-menu" aria-label="Variante landing"><a href="index.html">Originală</a><a href="landing-cinematic.html" aria-current="page">Cinematică</a><a href="landing-ambient.html">Fotografie vie</a><a href="auth.html">Flux Cont (CollectUI)</a></nav></details><a class="auth-btn" href="auth.html"><span>Cont</span></a><a class="open-app" href="medora.html#overview"><span>Deschide aplicația</span><i data-lucide="arrow-up-right"></i></a></div>
+    </header>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="kicker reveal">Concept interactiv · date demo</div>
+      <h1 class="reveal" id="hero-title">Informația potrivită. <span>Înainte de prescripție.</span></h1>
+      <div class="search-area reveal">
+        <form class="search liquid-glass" id="search-form" action="medora.html#catalog" method="get"><i data-lucide="search"></i><input id="medicine-search" name="q" aria-label="Caută medicamente" placeholder="Medicament, substanță sau cod ATC" autocomplete="off" aria-controls="suggestions" aria-expanded="false"><button type="submit" aria-label="Caută"><span>Caută</span><i data-lucide="arrow-right"></i></button></form>
+        <div class="suggestions" id="suggestions" role="listbox" hidden></div>
+      </div>
+      <p class="source-note reveal">Catalog și schimbări de disponibilitate · Surse: <a href="https://nomenclator.anm.ro/medicamente" target="_blank" rel="noopener">ANMDMR</a>, <a href="https://www.ema.europa.eu/" target="_blank" rel="noopener">EMA</a></p>
+      <nav class="modules liquid-glass reveal" aria-label="Acces rapid">
+        <a class="module" href="medora.html#catalog"><span class="module-icon"><img src="spot-icons/medicine.png" alt="" aria-hidden="true"></span><span>Medicamente</span></a>
+        <a class="module" href="medora.html#radar"><span class="module-icon"><img src="spot-icons/radar.png" alt="" aria-hidden="true"></span><span>Radar</span></a>
+        <a class="module" href="medora.html?q=amoxicilină#catalog"><span class="module-icon"><img src="spot-icons/compare.png" alt="" aria-hidden="true"></span><span>Compară</span></a>
+        <a class="module" href="medora.html#watch"><span class="module-icon"><img src="spot-icons/watchlist.png" alt="" aria-hidden="true"></span><span>Lista mea</span></a>
+        <a class="module" href="medora.html#tools"><span class="module-icon"><img src="spot-icons/tools.png" alt="" aria-hidden="true"></span><span>Instrumente</span></a>
+        <a class="module" href="medora.html?q=C09AA05#catalog"><span class="module-icon"><img src="spot-icons/atc.png" alt="" aria-hidden="true"></span><span>ATC</span></a>
+        <a class="module" href="medora.html#sources"><span class="module-icon"><img src="spot-icons/sources.png" alt="" aria-hidden="true"></span><span>Surse</span></a>
+      </nav>
+    </section>
+  </main>
+
+  <section class="story" id="story" data-step="1" aria-labelledby="story-title">
+    <div class="story-stage">
+      <div class="story-copy">
+        <div class="story-label"><i data-lucide="activity"></i> Radar Medora</div>
+        <h2 id="story-title">Găsește prezentarea potrivită.</h2>
+        <p class="story-description" id="story-description">Caută după denumire, substanță activă sau cod ATC și ajungi direct la informația relevantă.</p>
+        <div class="steps-indicator" aria-label="Pasul demonstrației">
+          <span class="step-dot active"></span><span class="step-dot"></span><span class="step-dot"></span><span class="step-number">01 / 03</span>
+        </div>
+      </div>
+
+      <div class="product-scene" aria-label="Demonstrație animată a Radarului Medora">
+        <div class="app-window" id="app-window">
+          <div class="app-head">
+            <div class="app-brand"><span class="brand-mark"><i data-lucide="asterisk"></i></span>medora</div>
+            <span class="demo-status">date demonstrative</span>
+          </div>
+          <div class="app-body">
+            <div class="app-kicker">Spațiul tău de lucru</div>
+            <div class="app-title">Medicamente urmărite</div>
+            <div class="mini-search"><i data-lucide="search"></i> Caută în lista ta <strong>⌘ K</strong></div>
+            <div class="alerts">
+              <div class="alert-line"><span class="signal"></span><span><strong>Amoxi Demo 500 mg</strong><small>Discontinuitate temporară · actualizat astăzi</small></span><i data-lucide="chevron-right"></i></div>
+              <div class="alert-line"><span class="signal"></span><span><strong>Metfo Demo 850 mg</strong><small>Comercializare oprită · 1 decembrie 2026</small></span><i data-lucide="chevron-right"></i></div>
+              <div class="alert-line"><span class="signal"></span><span><strong>Levo Demo 50 μg</strong><small>Comercializare reluată · 10 septembrie 2026</small></span><i data-lucide="chevron-right"></i></div>
+            </div>
+          </div>
+          <div class="detail-drawer">
+            <div class="drawer-top"><div><span>Istoric verificabil</span><h3>Amoxi Demo 500 mg</h3><p>Amoxicilină · Capsule · J01CA04</p></div><i data-lucide="file-check-2"></i></div>
+            <div class="timeline"><div><small>01 OCT</small><strong>Întrerupere</strong></div><div><small>15 NOV</small><strong>Revenire estimată</strong></div><div><small>SURSĂ</small><strong>ANMDMR</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" aria-labelledby="final-title">
+    <div class="final-inner">
+      <div class="final-label">Medora · concept interactiv</div>
+      <h2 id="final-title">De la prima căutare la schimbarea care contează.</h2>
+      <a class="final-button" href="medora.html#overview">Explorează aplicația <i data-lucide="arrow-up-right"></i></a>
+    </div>
+  </section>
+
+  <script>
+    const heroVideos=[document.querySelector('#hero-video-a'),document.querySelector('#hero-video-b')];
+    const videoCrossfadeDuration=1100;
+    let activeVideoIndex=0,videoTransitionFrame=0,videoMonitorFrame=0,isVideoTransitioning=false;
+    function crossfadeHeroVideo(){
+      if(isVideoTransitioning)return;
+      isVideoTransitioning=true;
+      const outgoing=heroVideos[activeVideoIndex],incoming=heroVideos[1-activeVideoIndex];
+      incoming.currentTime=0;
+      incoming.play().then(()=>{
+        cancelAnimationFrame(videoTransitionFrame);
+        const startedAt=performance.now();
+        function blend(now){
+          const progress=Math.min(1,(now-startedAt)/videoCrossfadeDuration),eased=progress*progress*(3-2*progress);
+          outgoing.style.opacity=String(1-eased);
+          incoming.style.opacity=String(eased);
+          if(progress<1){videoTransitionFrame=requestAnimationFrame(blend);return}
+          outgoing.pause();
+          outgoing.currentTime=0;
+          outgoing.style.opacity='0';
+          incoming.style.opacity='1';
+          activeVideoIndex=1-activeVideoIndex;
+          isVideoTransitioning=false;
+        }
+        videoTransitionFrame=requestAnimationFrame(blend);
+      }).catch(()=>{
+        outgoing.currentTime=0;
+        outgoing.play().catch(()=>{});
+        isVideoTransitioning=false;
+      });
+    }
+    function monitorHeroVideo(){
+      const active=heroVideos[activeVideoIndex];
+      if(!isVideoTransitioning&&Number.isFinite(active.duration)&&active.duration-active.currentTime<=videoCrossfadeDuration/1000)crossfadeHeroVideo();
+      videoMonitorFrame=requestAnimationFrame(monitorHeroVideo);
+    }
+    function startHeroVideo(){heroVideos[0].play().catch(()=>{});cancelAnimationFrame(videoMonitorFrame);videoMonitorFrame=requestAnimationFrame(monitorHeroVideo)}
+    heroVideos.forEach(video=>{
+      video.addEventListener('timeupdate',()=>{if(video===heroVideos[activeVideoIndex]&&!isVideoTransitioning&&Number.isFinite(video.duration)&&video.duration-video.currentTime<=videoCrossfadeDuration/1000)crossfadeHeroVideo()});
+      video.addEventListener('ended',()=>{if(video===heroVideos[activeVideoIndex]&&!isVideoTransitioning)crossfadeHeroVideo()});
+    });
+    heroVideos[0].addEventListener('loadeddata',startHeroVideo,{once:true});
+    if(heroVideos[0].readyState>=2)startHeroVideo();
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)heroVideos[activeVideoIndex].play().catch(()=>{})});
+
+    const medicines=[{name:'Amoxi Demo 500 mg',query:'Amoxi Demo',meta:'Amoxicilină · J01CA04'},{name:'Metfo Demo 850 mg',query:'Metfo Demo',meta:'Metformină · A10BA02'},{name:'Rami Demo 5 mg',query:'Rami Demo',meta:'Ramipril · C09AA05'},{name:'Levo Demo 50 μg',query:'Levo Demo',meta:'Levotiroxină · H03AA01'}];
+    const input=document.querySelector('#medicine-search'),suggestions=document.querySelector('#suggestions');
+    function renderIcons(){if(window.lucide)window.lucide.createIcons({attrs:{'aria-hidden':'true'}})}
+    function closeSuggestions(){suggestions.hidden=true;input.setAttribute('aria-expanded','false')}
+    function showSuggestions(value=''){const query=value.trim().toLocaleLowerCase('ro');const results=medicines.filter(item=>`${item.name} ${item.meta}`.toLocaleLowerCase('ro').includes(query)).slice(0,4);if(!results.length)return closeSuggestions();suggestions.innerHTML=results.map(item=>`<button class="suggestion" type="button" role="option" data-value="${item.query}"><img src="spot-icons/medicine.png" alt="" aria-hidden="true" style="width:24px;height:24px;object-fit:contain;flex-shrink:0"><span>${item.name}<small>${item.meta}</small></span></button>`).join('');suggestions.hidden=false;input.setAttribute('aria-expanded','true');renderIcons()}
+    input.addEventListener('focus',()=>showSuggestions(input.value));input.addEventListener('input',()=>showSuggestions(input.value));input.addEventListener('keydown',event=>{if(event.key==='Escape')closeSuggestions()});suggestions.addEventListener('click',event=>{const option=event.target.closest('[data-value]');if(!option)return;input.value=option.dataset.value;closeSuggestions();document.querySelector('#search-form').requestSubmit()});document.addEventListener('click',event=>{if(!event.target.closest('.search-area'))closeSuggestions()});
+
+    const story=document.querySelector('#story'),storyTitle=document.querySelector('#story-title'),storyDescription=document.querySelector('#story-description'),stepNumber=document.querySelector('.step-number'),stepDots=[...document.querySelectorAll('.step-dot')],appWindow=document.querySelector('#app-window');
+    const storySteps=[
+      {title:'Găsește prezentarea potrivită.',description:'Caută după denumire, substanță activă sau cod ATC și ajungi direct la informația relevantă.'},
+      {title:'Urmărește ce se schimbă.',description:'Separă întreruperile temporare, opririle permanente și reluările comercializării fără să pierzi contextul.'},
+      {title:'Vezi istoricul, nu doar statusul.',description:'Fiecare schimbare păstrează data, sursa și traseul evenimentului, într-o singură vedere clară.'}
+    ];
+    let activeStep=-1,scrollTick=false;
+    function updateStory(){scrollTick=false;const rect=story.getBoundingClientRect(),distance=Math.max(1,story.offsetHeight-innerHeight),progress=Math.min(1,Math.max(0,-rect.top/distance)),step=Math.min(2,Math.floor(progress*3));appWindow.style.setProperty('--progress',progress.toFixed(3));if(step===activeStep)return;activeStep=step;story.dataset.step=String(step+1);storyTitle.textContent=storySteps[step].title;storyDescription.textContent=storySteps[step].description;stepNumber.textContent=`0${step+1} / 03`;stepDots.forEach((dot,index)=>dot.classList.toggle('active',index===step))}
+    function requestStoryUpdate(){if(scrollTick)return;scrollTick=true;requestAnimationFrame(updateStory)}
+    addEventListener('scroll',requestStoryUpdate,{passive:true});addEventListener('resize',requestStoryUpdate);document.addEventListener('DOMContentLoaded',()=>{renderIcons();updateStory()});
+  </script>
+</body>
+</html>

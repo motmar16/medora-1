@@ -5,6 +5,6 @@
     "dev": "node server.mjs",
     "start": "node server.mjs",
     "preview": "node server.mjs",
-    "build": "echo 'no build step required'"
+    "build": "node build.mjs"
   }
 }

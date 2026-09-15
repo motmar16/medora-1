@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1013">
+  <meta name="description" content="Autentificare și înregistrare în Medora — Catalog farmaceutic, alerte de stoc și instrumente clinice.">
+  <title>Medora — Autentificare & Înregistrare</title>
+  <script>
+    try {
+      document.documentElement.dataset.medoraTheme = localStorage.getItem('medora-theme') || 'iridescent';
+    } catch(e) {
+      document.documentElement.dataset.medoraTheme = 'iridescent';
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;450;500;600;700&display=swap');
+    @font-face {
+      font-family: "Mazzard H";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff2") format("woff2"),
+           url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff") format("woff"),
+           url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Mazzard H";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff2") format("woff2"),
+           url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff") format("woff"),
+           url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.ttf") format("truetype");
+    }
+
+    :root {
+      --bg-dark: #0b1013;
+      --card-bg: rgba(14, 18, 17, 0.88);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --glass-highlight: rgba(255, 255, 255, 0.24);
+      --mint: #f2a8cf;
+      --mint-glow: rgba(242, 168, 207, 0.28);
+      --accent-purple: #9567bf;
+      --text-white: #fffdfa;
+      --text-dim: rgba(255, 253, 250, 0.65);
+      --text-dimmer: rgba(255, 253, 250, 0.42);
+      --input-bg: rgba(255, 255, 255, 0.055);
+      --input-border: rgba(255, 255, 255, 0.12);
+      --input-focus-border: rgba(255, 255, 255, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-white);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100svh;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient scene identical to landing-ambient.html */
+    .ambient-scene {
+      position: fixed;
+      z-index: 0;
+      inset: -20px;
+      overflow: hidden;
+      pointer-events: none;
+      background: #78add4;
+    }
+    .ambient-layer {
+      position: absolute;
+      inset: -2.5%;
+      will-change: transform;
+      transition: transform 0.8s cubic-bezier(0.2, 0.72, 0.2, 1);
+    }
+    .ambient-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 50% 52%;
+      transform: scale(1.02);
+      animation: ambient-breathe 18s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    .ambient-sky {
+      z-index: 1;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0 55%, transparent 76%);
+      mask-image: linear-gradient(to bottom, #000 0 55%, transparent 76%);
+    }
+    .ambient-middle {
+      z-index: 2;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 31%, #000 52%, #000 84%, transparent 96%);
+      mask-image: linear-gradient(to bottom, transparent 31%, #000 52%, #000 84%, transparent 96%);
+    }
+    .ambient-foreground {
+      z-index: 3;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 68%, #000 91%);
+      mask-image: linear-gradient(to bottom, transparent 68%, #000 91%);
+    }
+    .ambient-sun {
+      position: absolute;
+      z-index: 4;
+      left: -15%;
+      top: 6%;
+      width: 76%;
+      height: 74%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 244, 198, 0.32) 0, rgba(255, 229, 151, 0.12) 38%, transparent 70%);
+      filter: blur(34px);
+      mix-blend-mode: screen;
+      opacity: 0.42;
+      animation: ambient-sunlight 16s ease-in-out infinite alternate;
+      will-change: transform, opacity;
+    }
+    .ambient-dust {
+      position: absolute;
+      z-index: 5;
+      inset: 0;
+      overflow: hidden;
+    }
+    .ambient-dust i {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: rgba(255, 244, 209, 0.85);
+      box-shadow: 0 0 8px rgba(255, 239, 188, 0.6);
+      opacity: 0.15;
+      animation: ambient-dust-drift var(--duration) ease-in-out var(--delay) infinite alternate;
+    }
+    .ambient-information {
+      position: absolute;
+      z-index: 5;
+      left: 45%;
+      top: 65%;
+      width: 34%;
+      height: 18%;
+      opacity: 0.22;
+      filter: blur(2px);
+      transform: rotate(-4deg);
+      mix-blend-mode: screen;
+      overflow: hidden;
+    }
+    .ambient-information:before, .ambient-information:after {
+      content: "";
+      position: absolute;
+      left: -45%;
+      width: 62%;
+      height: 2px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, transparent, rgba(220, 239, 255, 0.72), rgba(255, 235, 174, 0.42), transparent);
+      box-shadow: 0 0 10px rgba(218, 238, 255, 0.24);
+      animation: ambient-information-flow 15s ease-in-out infinite;
+    }
+    .ambient-information:before { top: 31%; }
+    .ambient-information:after { top: 64%; animation-delay: -7s; opacity: 0.62; }
+    .ambient-shade {
+      position: absolute;
+      z-index: 6;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(7, 12, 15, 0.22) 0%, rgba(7, 12, 15, 0.02) 36%, rgba(7, 12, 15, 0.08) 68%, rgba(7, 12, 15, 0.32) 100%),
+        linear-gradient(90deg, rgba(6, 10, 12, 0.14) 0%, transparent 45%, rgba(6, 10, 12, 0.04) 100%);
+      pointer-events: none;
+    }
+    .ambient-vignette {
+      position: absolute;
+      z-index: 7;
+      inset: 0;
+      box-shadow: inset 0 0 110px rgba(7, 10, 12, 0.18);
+      pointer-events: none;
+    }
+
+    @keyframes ambient-breathe {
+      from { transform: scale(1.02); }
+      to { transform: scale(1.05); }
+    }
+    @keyframes ambient-sunlight {
+      from { transform: translate3d(-2%, 1%, 0); opacity: 0.38; }
+      to { transform: translate3d(24%, -3%, 0); opacity: 0.54; }
+    }
+    @keyframes ambient-dust-drift {
+      from { transform: translate3d(0, 8px, 0); opacity: 0.12; }
+      to { transform: translate3d(12px, -14px, 0); opacity: 0.32; }
+    }
+    @keyframes ambient-information-flow {
+      0% { transform: translate3d(0, 0, 0); opacity: 0; }
+      22% { opacity: 0.44; }
+      68% { opacity: 0.22; }
+      100% { transform: translate3d(225%, 0, 0); opacity: 0; }
+    }
+
+    /* Main Auth Container (Collect UI layout recreation) */
+    .auth-stage {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      min-height: 100svh;
+      padding: clamp(20px, 3.5vw, 48px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Floating Window Card with Asymmetric Split */
+    .auth-window {
+      position: relative;
+      width: min(1060px, 100%);
+      min-height: 640px;
+      border-radius: 28px;
+      display: grid;
+      grid-template-columns: 430px 1fr;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow:
+        0 30px 90px -15px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+      transition: box-shadow 0.4s ease, border-color 0.4s ease;
+      animation: window-appear 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes window-appear {
+      from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Left Form Column (Dark Frosted Glass) */
+    .auth-form-column {
+      position: relative;
+      background: var(--card-bg);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(36px);
+      -webkit-backdrop-filter: blur(36px);
+      padding: 38px 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+      z-index: 2;
+    }
+
+    /* Top Brand & Tabs Row */
+    .auth-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .auth-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-white);
+      font-family: "Mazzard H", Inter, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--mint);
+      color: #121413;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px rgba(242, 168, 207, 0.35);
+    }
+    .brand-mark svg {
+      width: 17px;
+      height: 17px;
+      stroke-width: 2.2;
+    }
+
+    /* Mode Pill Switcher (Înregistrare / Autentificare) */
+    .mode-switch {
+      display: inline-flex;
+      padding: 3px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      position: relative;
+    }
+    .mode-tab {
+      background: transparent;
+      border: 0;
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-tab:hover {
+      color: var(--text-white);
+    }
+    .mode-tab.active {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--text-white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Form Headlines */
+    .form-intro {
+      margin-top: 4px;
+    }
+    .form-title {
+      font-family: "Mazzard H", Inter, sans-serif;
+      font-size: 30px;
+      line-height: 1.17; /* HeroUI h2 line-height rule */
+      font-weight: 600; /* HeroUI h2 weight */
+      letter-spacing: -0.02em; /* HeroUI tight tracking */
+      color: var(--text-white);
+      margin-bottom: 8px;
+      transition: opacity 0.2s ease;
+    }
+    .form-desc {
+      font-size: 14px; /* HeroUI body-sm */
+      line-height: 1.50; /* HeroUI body-sm line-height */
+      font-weight: 400;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* Inputs & Form Controls */
+    .form-body {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 4px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .field-group.hidden {
+      display: none;
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      padding-left: 4px;
+    }
+    .label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .forgot-pwd-link {
+      font-size: 11.5px;
+      color: var(--mint);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .forgot-pwd-link:hover {
+      text-decoration: underline;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .input-wrap svg.input-icon {
+      position: absolute;
+      left: 15px;
+      width: 17px;
+      height: 17px;
+      color: var(--text-dimmer);
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+    .pill-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 42px 0 42px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 24px;
+      color: var(--text-white);
+      font-size: 13.5px;
+      outline: none;
+      transition: all 0.24s ease;
+    }
+    .pill-input::placeholder {
+      color: var(--text-dimmer);
+    }
+    .pill-input:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.38);
+      box-shadow: 0 0 0 3px rgba(242, 168, 207, 0.16);
+    }
+    .pill-input:focus ~ .input-icon {
+      color: var(--mint);
+    }
+
+    .toggle-pwd-btn {
+      position: absolute;
+      right: 14px;
+      background: transparent;
+      border: 0;
+      color: var(--text-dimmer);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 4px;
+      transition: color 0.2s ease;
+    }
+    .toggle-pwd-btn:hover {
+      color: var(--text-white);
+    }
+    .toggle-pwd-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Checkbox & Terms */
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--text-dim);
+      padding: 2px 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .checkbox-row a {
+      color: var(--text-white);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.2s ease;
+    }
+    .checkbox-row input[type="checkbox"]:checked {
+      background: var(--mint);
+      border-color: var(--mint);
+    }
+    .checkbox-row input[type="checkbox"]:checked::after {
+      content: "";
+      width: 4px;
+      height: 8px;
+      border: solid #121413;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translate(-0.5px, -1px);
+    }
+
+    /* Primary CTA Button (Collect UI style: high contrast solid white pill with glow) */
+    .submit-btn {
+      position: relative;
+      width: 100%;
+      height: 48px;
+      border: 0;
+      border-radius: 24px;
+      background: #ffffff;
+      color: #121514;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      margin-top: 4px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      background: #fdfaf6;
+      box-shadow: 0 12px 32px rgba(255, 255, 255, 0.22);
+    }
+    .submit-btn:active {
+      transform: translateY(0) scale(0.985);
+    }
+    .submit-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+    }
+    .submit-btn:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Social Divider */
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .divider:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .divider span {
+      position: relative;
+      background: #111614;
+      padding: 0 12px;
+      font-size: 11px;
+      color: var(--text-dimmer);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Social Auth Pills */
+    .social-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .social-pill-btn {
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 21px;
+      color: var(--text-white);
+      font-size: 12.5px;
+      font-weight: 550;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .social-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+    .social-icon {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    /* Footer switcher link */
+    .auth-footer-prompt {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-dim);
+      padding-top: 8px;
+    }
+    .switch-trigger-btn {
+      background: transparent;
+      border: 0;
+      color: var(--mint);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-left: 4px;
+      transition: opacity 0.2s ease;
+    }
+    .switch-trigger-btn:hover {
+      opacity: 0.85;
+    }
+
+    /* Right Section (Transparent Visual Viewport exposing living ambient scene) */
+    .auth-visual-column {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 34px 38px;
+      overflow: hidden;
+      z-index: 1;
+      background: transparent;
+    }
+
+    /* Top Action in Right Viewport (Back to site & Live Sync status) */
+    .visual-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 3;
+    }
+    .live-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(12, 16, 15, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #75d488;
+      box-shadow: 0 0 0 0 rgba(117, 212, 136, 0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(117, 212, 136, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(117, 212, 136, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(117, 212, 136, 0); }
+    }
+
+    .back-home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: rgba(12, 16, 15, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+    .back-home-link:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateX(-2px);
+    }
+    .back-home-link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Ambient Hero Quote Card (Centered with High Contrast) */
+    .ambient-quote-card {
+      position: relative;
+      z-index: 3;
+      padding: 28px 30px;
+      background: rgba(12, 16, 15, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 22px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: auto 0 8px 0;
+    }
+    .quote-kicker {
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #f2a8cf;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .quote-kicker::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f2a8cf;
+      box-shadow: 0 0 8px rgba(242, 168, 207, 0.6);
+    }
+    .quote-headline {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 30px;
+      line-height: 1.16;
+      font-style: italic;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+    }
+    .quote-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.94);
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .quote-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      padding-top: 16px;
+      margin-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .quote-stat {
+      text-align: center;
+    }
+    .quote-stat strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .quote-stat span {
+      display: block;
+      font-size: 11px;
+      font-weight: 550;
+      color: rgba(255, 255, 255, 0.85);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-top: 3px;
+    }
+    .stat-sep {
+      width: 1px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* Toast Notification for Demo Submit */
+    .toast-feedback {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(50px);
+      opacity: 0;
+      visibility: hidden;
+      background: rgba(18, 24, 22, 0.95);
+      border: 1px solid rgba(242, 168, 207, 0.5);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 550;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-feedback.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    .toast-feedback svg {
+      color: #75d488;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 920px) {
+      .auth-window {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        border-radius: 24px;
+      }
+      .auth-form-column {
+        padding: 32px 24px 28px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .auth-visual-column {
+        display: none; /* Mobile focuses on the form with the ambient scene glowing behind */
+      }
+      .mobile-exit-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+    }
+    @media (min-width: 921px) {
+      .mobile-exit-row {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Living Photo Ambient Background (from landing-ambient.html) -->
+  <div class="ambient-scene" aria-hidden="true" id="ambient-scene">
+    <div class="ambient-layer ambient-base"><img src="medora-hero-ambient.png" alt=""></div>
+    <div class="ambient-layer ambient-sky"><img src="medora-hero-ambient.png" alt=""></div>
+    <div class="ambient-layer ambient-middle"><img src="medora-hero-ambient.png" alt=""></div>
+    <div class="ambient-layer ambient-foreground"><img src="medora-hero-ambient.png" alt=""></div>
+    <div class="ambient-sun"></div>
+    <div class="ambient-dust">
+      <i style="--x:11%;--y:33%;--size:2px;--duration:14s;--delay:-3s"></i>
+      <i style="--x:19%;--y:52%;--size:1px;--duration:17s;--delay:-11s"></i>
+      <i style="--x:32%;--y:22%;--size:2px;--duration:19s;--delay:-7s"></i>
+      <i style="--x:48%;--y:42%;--size:1px;--duration:16s;--delay:-2s"></i>
+      <i style="--x:61%;--y:29%;--size:2px;--duration:20s;--delay:-13s"></i>
+      <i style="--x:72%;--y:48%;--size:1px;--duration:15s;--delay:-9s"></i>
+      <i style="--x:83%;--y:19%;--size:2px;--duration:18s;--delay:-5s"></i>
+      <i style="--x:91%;--y:54%;--size:1px;--duration:21s;--delay:-15s"></i>
+    </div>
+    <div class="ambient-information"></div>
+    <div class="ambient-shade"></div>
+    <div class="ambient-vignette"></div>
+  </div>
+
+  <main class="auth-stage">
+    <!-- Asymmetric Glassmorphic Auth Card (Collect UI Inspired) -->
+    <div class="auth-window">
+      
+      <!-- LEFT COLUMN: Dark Frosted Glass Form -->
+      <section class="auth-form-column" aria-labelledby="form-title">
+        
+        <!-- Mobile Exit Bar -->
+        <div class="mobile-exit-row">
+          <a class="auth-brand" href="index.html" aria-label="Medora">
+            <span class="brand-mark"><i data-lucide="asterisk"></i></span>
+            medora
+          </a>
+          <a href="landing-ambient.html" class="back-home-link" aria-label="Înapoi">
+            <i data-lucide="arrow-left"></i><span>Înapoi</span>
+          </a>
+        </div>
+
+        <!-- Header: Brand & Mode Toggle -->
+        <div>
+          <div class="auth-header-row">
+            <a class="auth-brand" href="index.html" aria-label="Medora, acasă">
+              <span class="brand-mark"><i data-lucide="asterisk"></i></span>
+              medora
+            </a>
+
+            <div class="mode-switch" role="tablist" aria-label="Selectează tipul autentificării">
+              <button type="button" class="mode-tab active" id="tab-signup" role="tab" aria-selected="true">Înregistrare</button>
+              <button type="button" class="mode-tab" id="tab-signin" role="tab" aria-selected="false">Autentificare</button>
+            </div>
+          </div>
+
+          <div class="form-intro">
+            <h1 class="form-title" id="form-title">Creează cont</h1>
+            <p class="form-desc" id="form-desc">Accesează catalogul complet, salvează medicamente și monitorizează alertele oficiale în timp real.</p>
+          </div>
+        </div>
+
+        <!-- Form Elements -->
+        <form id="auth-form" class="form-body" novalidate autocomplete="on">
+          
+          <!-- Full Name Field (Sign Up Only) -->
+          <div class="field-group" id="group-name">
+            <label class="field-label" for="user-name">Nume complet</label>
+            <div class="input-wrap">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="user-name" name="name" class="pill-input" placeholder="Dr. Andrei Popescu" autocomplete="name" required>
+            </div>
+          </div>
+
+          <!-- Email Address -->
+          <div class="field-group" id="group-email">
+            <label class="field-label" for="user-email">Adresă de email</label>
+            <div class="input-wrap">
+              <i data-lucide="mail" class="input-icon"></i>
+              <input type="email" id="user-email" name="email" class="pill-input" placeholder="medic@spital.ro" autocomplete="email" required>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="field-group" id="group-password">
+            <div class="label-row">
+              <label class="field-label" for="user-password">Parolă</label>
+              <a href="#reset-password" class="forgot-pwd-link" id="forgot-link" style="display: none;">Ai uitat parola?</a>
+            </div>
+            <div class="input-wrap">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="user-password" name="password" class="pill-input" placeholder="Minim 8 caractere" autocomplete="current-password" required>
+              <button type="button" class="toggle-pwd-btn" id="toggle-password" aria-label="Afișează/ascunde parola">
+                <i data-lucide="eye" id="eye-icon"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Checkbox Terms (Sign Up Only) -->
+          <label class="checkbox-row" id="group-terms">
+            <input type="checkbox" id="terms-agree" required checked>
+            <span>Sunt de acord cu <a href="#terms">Termenii de utilizare</a> și <a href="#privacy">Politica de confidențialitate</a> Medora.</span>
+          </label>
+
+          <!-- Primary High-Contrast Pill CTA -->
+          <button type="submit" class="submit-btn" id="submit-btn">
+            <span id="submit-label">Creează cont gratuit</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+
+          <!-- Social Divider -->
+          <div class="divider">
+            <span>sau continuă cu</span>
+          </div>
+
+          <!-- Social OAuth Buttons -->
+          <div class="social-row">
+            <button type="button" class="social-pill-btn" id="btn-google" aria-label="Continuă cu Google">
+              <svg class="social-icon" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Google</span>
+            </button>
+
+            <button type="button" class="social-pill-btn" id="btn-apple" aria-label="Continuă cu Apple">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-1.07 1.72-.94 2.74 1 .08 2.03-.49 2.65-1.24z"/>
+              </svg>
+              <span>Apple</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Bottom Mode Switcher -->
+        <div class="auth-footer-prompt">
+          <span id="footer-text">Ai deja un cont?</span>
+          <button type="button" class="switch-trigger-btn" id="switch-mode-btn">Conectează-te</button>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Transparent Viewport showcasing Living Ambient Background -->
+      <section class="auth-visual-column" aria-label="Previzualizare Medora">
+        
+        <!-- Top Toolbar inside visual pane -->
+        <div class="visual-topbar">
+          <div class="live-status-badge">
+            <span class="pulse-dot"></span>
+            <span>Date oficiale sincronizate ANMDMR & EMA</span>
+          </div>
+
+          <a href="landing-ambient.html" class="back-home-link">
+            <i data-lucide="arrow-left"></i>
+            <span>Înapoi la Medora</span>
+          </a>
+        </div>
+
+        <!-- Glass Hero Card hovering over the landscape -->
+        <div class="ambient-quote-card">
+          <div class="quote-kicker">Standard clinic · România</div>
+          <div class="quote-headline">„Informația potrivită. Înainte de prescripție.”</div>
+          <p class="quote-desc">Peste 6.500 de produse farmaceutice, rezumate RCP oficiale, alerte de discontinuitate în timp real și ghiduri de decizie clinică într-un singur ecran.</p>
+          
+          <div class="quote-stats-grid">
+            <div class="quote-stat">
+              <strong>6.500+</strong>
+              <span>Medicamente</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="quote-stat">
+              <strong>24/7</strong>
+              <span>Alerte stoc</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="quote-stat">
+              <strong>100%</strong>
+              <span>Date verificate</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Demo Feedback Toast -->
+  <div class="toast-feedback" id="toast-feedback" role="status" aria-live="polite">
+    <i data-lucide="check-circle-2"></i>
+    <span id="toast-message">Contul tău a fost creat cu succes!</span>
+  </div>
+
+  <script>
+    // Tab switching & form logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabSignUp = document.getElementById('tab-signup');
+      const tabSignIn = document.getElementById('tab-signin');
+      const switchModeBtn = document.getElementById('switch-mode-btn');
+      
+      const formTitle = document.getElementById('form-title');
+      const formDesc = document.getElementById('form-desc');
+      const groupName = document.getElementById('group-name');
+      const groupTerms = document.getElementById('group-terms');
+      const forgotLink = document.getElementById('forgot-link');
+      const submitLabel = document.getElementById('submit-label');
+      const footerText = document.getElementById('footer-text');
+      
+      const authForm = document.getElementById('auth-form');
+      const togglePwdBtn = document.getElementById('toggle-password');
+      const pwdInput = document.getElementById('user-password');
+      const eyeIcon = document.getElementById('eye-icon');
+      const toast = document.getElementById('toast-feedback');
+      const toastMsg = document.getElementById('toast-message');
+
+      let currentMode = 'signup'; // 'signup' or 'signin'
+
+      function setMode(mode) {
+        currentMode = mode;
+        if (mode === 'signup') {
+          tabSignUp.classList.add('active');
+          tabSignUp.setAttribute('aria-selected', 'true');
+          tabSignIn.classList.remove('active');
+          tabSignIn.setAttribute('aria-selected', 'false');
+
+          formTitle.textContent = 'Creează cont';
+          formDesc.textContent = 'Accesează catalogul complet, salvează medicamente și monitorizează alertele oficiale în timp real.';
+          groupName.classList.remove('hidden');
+          document.getElementById('user-name').setAttribute('required', '');
+          groupTerms.style.display = 'flex';
+          forgotLink.style.display = 'none';
+          submitLabel.textContent = 'Creează cont gratuit';
+          footerText.textContent = 'Ai deja un cont?';
+          switchModeBtn.textContent = 'Conectează-te';
+        } else {
+          tabSignIn.classList.add('active');
+          tabSignIn.setAttribute('aria-selected', 'true');
+          tabSignUp.classList.remove('active');
+          tabSignUp.setAttribute('aria-selected', 'false');
+
+          formTitle.textContent = 'Bine ai revenit';
+          formDesc.textContent = 'Introdu credențialele pentru a accesa portofoliul salvat, alertele și istoricul deciziilor.';
+          groupName.classList.add('hidden');
+          document.getElementById('user-name').removeAttribute('required');
+          groupTerms.style.display = 'none';
+          forgotLink.style.display = 'inline';
+          submitLabel.textContent = 'Conectează-te';
+          footerText.textContent = 'Nu ai un cont?';
+          switchModeBtn.textContent = 'Înregistrează-te gratuit';
+        }
+      }
+
+      tabSignUp.addEventListener('click', () => setMode('signup'));
+      tabSignIn.addEventListener('click', () => setMode('signin'));
+      switchModeBtn.addEventListener('click', () => {
+        setMode(currentMode === 'signup' ? 'signin' : 'signup');
+      });
+
+      // Password visibility toggle
+      togglePwdBtn.addEventListener('click', () => {
+        const isPwd = pwdInput.type === 'password';
+        pwdInput.type = isPwd ? 'text' : 'password';
+        if (window.lucide) {
+          togglePwdBtn.innerHTML = isPwd 
+            ? '<i data-lucide="eye-off"></i>' 
+            : '<i data-lucide="eye"></i>';
+          lucide.createIcons();
+        }
+      });
+
+      // Toast feedback display
+      function showToast(msg) {
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3600);
+      }
+
+      // Form submission simulation
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('user-email').value;
+        if (!email) return;
+
+        if (currentMode === 'signup') {
+          showToast(`Cont creat pentru ${email}! Redirecționare către Medora...`);
+        } else {
+          showToast(`Bine ai revenit! Redirecționare către Medora...`);
+        }
+        setTimeout(() => {
+          window.location.href = 'medora.html#overview';
+        }, 1600);
+      });
+
+      // Social auth buttons simulation
+      document.getElementById('btn-google').addEventListener('click', () => {
+        showToast('Conectare securizată cu Google...');
+        setTimeout(() => { window.location.href = 'medora.html#overview'; }, 1200);
+      });
+      document.getElementById('btn-apple').addEventListener('click', () => {
+        showToast('Conectare securizată cu Apple ID...');
+        setTimeout(() => { window.location.href = 'medora.html#overview'; }, 1200);
+      });
+
+      // Ambient Parallax on Mousemove (identical to landing-ambient.html)
+      const scene = document.getElementById('ambient-scene');
+      const middle = scene.querySelector('.ambient-middle');
+      const fg = scene.querySelector('.ambient-foreground');
+      const dust = scene.querySelector('.ambient-dust');
+
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.addEventListener('pointermove', (e) => {
+          const x = (e.clientX / window.innerWidth - 0.5) * 2;
+          const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+          if (middle) middle.style.transform = `translate3d(${x * 9}px, ${y * 5}px, 0)`;
+          if (fg) fg.style.transform = `translate3d(${x * 16}px, ${y * 9}px, 0)`;
+          if (dust) dust.style.transform = `translate3d(${x * -11}px, ${y * -7}px, 0)`;
+        }, { passive: true });
+      }
+
+      // Initialize Lucide icons
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

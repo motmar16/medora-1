@@ -1,0 +1,423 @@
+:root,
+html[data-medora-theme="iridescent"] {
+  --theme-base: #fbfaf7;
+  --theme-surface: #fffdfa;
+  --theme-wash-1: #fef2f1;
+  --theme-wash-2: #e5f1fa;
+  --theme-wash-3: #f6edfb;
+  --theme-accent: #9567bf;
+  --theme-accent-soft: #f2dff5;
+  --theme-secondary: #f2a8cf;
+  --theme-deep: #181817;
+  --theme-muted: #77736a;
+  --theme-line: #ddd6c8;
+}
+
+html[data-medora-theme="sage"] {
+  --theme-base: #f7f8f2;
+  --theme-surface: #fffef9;
+  --theme-wash-1: #e4edd8;
+  --theme-wash-2: #ddf1e8;
+  --theme-wash-3: #f5e3e8;
+  --theme-accent: #72865d;
+  --theme-accent-soft: #e7eedc;
+  --theme-secondary: #a9c7b2;
+  --theme-deep: #263026;
+  --theme-muted: #697265;
+  --theme-line: #d9dfd2;
+}
+
+html[data-medora-theme="lavender"] {
+  --theme-base: #fcfaff;
+  --theme-surface: #fffefe;
+  --theme-wash-1: #ede4fa;
+  --theme-wash-2: #e2eefa;
+  --theme-wash-3: #f8e2ef;
+  --theme-accent: #8064a8;
+  --theme-accent-soft: #ede5f6;
+  --theme-secondary: #d5a9ca;
+  --theme-deep: #28213a;
+  --theme-muted: #746d7e;
+  --theme-line: #e1dbe8;
+}
+
+html[data-medora-theme="ivory"] {
+  --theme-base: #fbf7ef;
+  --theme-surface: #fffdf8;
+  --theme-wash-1: #f4e6d4;
+  --theme-wash-2: #f8ddd2;
+  --theme-wash-3: #dfe8d5;
+  --theme-accent: #856f58;
+  --theme-accent-soft: #efe5d8;
+  --theme-secondary: #c8957f;
+  --theme-deep: #332b24;
+  --theme-muted: #786f65;
+  --theme-line: #e4d9ca;
+}
+
+html[data-medora-theme="ice"] {
+  --theme-base: #f8fbfc;
+  --theme-surface: #ffffff;
+  --theme-wash-1: #dcecf5;
+  --theme-wash-2: #ddf4f1;
+  --theme-wash-3: #e9e7f7;
+  --theme-accent: #527487;
+  --theme-accent-soft: #e1edf2;
+  --theme-secondary: #90b7c5;
+  --theme-deep: #1f3038;
+  --theme-muted: #66777f;
+  --theme-line: #d8e3e7;
+}
+
+html[data-medora-theme="pharmacy"] {
+  --theme-base: #fafbf7;
+  --theme-surface: #fffefa;
+  --theme-wash-1: #dde9d4;
+  --theme-wash-2: #f5e8bb;
+  --theme-wash-3: #f3dce6;
+  --theme-accent: #657a55;
+  --theme-accent-soft: #e4ecd9;
+  --theme-secondary: #c99bad;
+  --theme-deep: #253021;
+  --theme-muted: #697363;
+  --theme-line: #dce1d4;
+}
+
+html[data-medora-theme="premium"] {
+  --theme-base: #fdfcfb;
+  --theme-surface: #ffffff;
+  --theme-wash-1: #faf0f1;
+  --theme-wash-2: #eff5fa;
+  --theme-wash-3: #f3eff8;
+  --theme-accent: #756582;
+  --theme-accent-soft: #eee9f1;
+  --theme-secondary: #c8aeb9;
+  --theme-deep: #242127;
+  --theme-muted: #746f78;
+  --theme-line: #e5e0e5;
+}
+
+:root {
+  --theme-glow:
+    radial-gradient(circle at 12% 18%, var(--theme-wash-1) 0, transparent 34%),
+    radial-gradient(circle at 88% 14%, var(--theme-wash-2) 0, transparent 36%),
+    radial-gradient(circle at 53% 64%, var(--theme-wash-3) 0, transparent 40%),
+    linear-gradient(145deg, var(--theme-base), var(--theme-surface));
+}
+
+html {
+  --forest: var(--theme-base);
+  --paper: var(--theme-base);
+  --white: var(--theme-surface);
+  --ink: var(--theme-deep);
+  --deep: var(--theme-deep);
+  --muted: var(--theme-muted);
+  --line: var(--theme-line);
+  --mint: var(--theme-secondary);
+  --mint-soft: var(--theme-accent-soft);
+  --soft: var(--theme-accent);
+  --sage: var(--theme-accent);
+  --pink: var(--theme-secondary);
+  --blue: var(--theme-wash-2);
+  --lime: var(--theme-accent-soft);
+  --green: var(--theme-accent);
+}
+
+html, body { cursor: auto !important; }
+
+body,
+.home,
+.precision-section,
+.final-cta,
+.medora-footer {
+  background-color: var(--theme-base) !important;
+}
+
+.story { background-color: var(--theme-base) !important; }
+.home h1 span,
+.home .kicker,
+.home .next-glimpse a { color: var(--theme-accent) !important; }
+
+body:not(.cinematic-page),
+.home:not(.cinematic-home),
+.precision-section,
+.final-cta,
+.medora-footer {
+  background-image: var(--theme-glow) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.precision-section,
+.precision-desktop,
+.precision-mobile,
+.precision-heading h2,
+.precision-badge {
+  color: var(--theme-deep) !important;
+}
+
+.precision-heading p,
+.precision-mobile-items .precision-item {
+  color: var(--theme-muted) !important;
+}
+
+.precision-heading h2 .precision-gradient {
+  background-image: linear-gradient(90deg, var(--theme-accent), var(--theme-secondary) 52%, var(--theme-deep)) !important;
+}
+
+.precision-chip-mark svg {
+  stroke: var(--theme-accent) !important;
+}
+
+.operations-section {
+  --ops-page: var(--theme-base) !important;
+  --ops-surface: var(--theme-surface) !important;
+  --ops-panel: var(--theme-surface) !important;
+  --ops-ink: var(--theme-deep) !important;
+  --ops-muted: var(--theme-muted) !important;
+  --ops-accent: var(--theme-accent) !important;
+  --ops-accent-soft: var(--theme-accent-soft) !important;
+  --ops-green: var(--theme-accent) !important;
+}
+
+.operations-scene { background: var(--theme-base) !important; }
+.ops-panel { background: linear-gradient(180deg, var(--theme-surface), var(--theme-wash-1)) !important; }
+.ops-card:last-child .ops-panel { background: linear-gradient(180deg, var(--theme-surface), var(--theme-wash-2)) !important; }
+.ops-timeline { color: var(--theme-accent) !important; }
+.ops-bars i { background: var(--theme-accent-soft) !important; }
+.ops-automate { background: linear-gradient(100deg, var(--theme-secondary), var(--theme-accent)) !important; box-shadow: 0 .6cqh 1.35cqw color-mix(in srgb, var(--theme-accent) 34%, transparent) !important; }
+
+body.medora-app .sidebar,
+body.medora-app .topbar,
+body.medora-app .panel,
+body.medora-app .stat,
+body.medora-app .iconbtn,
+body.medora-app .btn,
+body.medora-app .searchbox,
+body.medora-app .field input,
+body.medora-app .field select,
+body.medora-app table,
+body.medora-app dialog {
+  background-color: var(--theme-surface) !important;
+}
+
+body.medora-app .btn.primary {
+  background-color: var(--theme-deep, #193d35) !important;
+  color: #ffffff !important;
+  border-color: var(--theme-deep, #193d35) !important;
+}
+
+body.medora-app .btn.primary:disabled {
+  background-color: #e2e8df !important;
+  color: #8c978b !important;
+  border-color: #d1dcce !important;
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
+
+body.medora-app .sidebar { border-color: var(--theme-line) !important; }
+body.medora-app .nav button.active,
+body.medora-app .pulsecard,
+body.medora-app .comparebar,
+body.medora-app .result,
+body.medora-app .details { background: var(--theme-accent-soft) !important; }
+body.medora-app .hero {
+  background: color-mix(in srgb, var(--theme-surface) 76%, transparent) !important;
+  color: var(--theme-deep) !important;
+  border-color: color-mix(in srgb, var(--theme-surface) 92%, transparent) !important;
+}
+body.medora-app .hero .eyebrow { color: var(--theme-accent) !important; }
+body.medora-app .brandmark { background: var(--theme-deep) !important; color: var(--theme-secondary) !important; }
+body.medora-app .stat-icon,
+body.medora-app .avatar { background: var(--theme-wash-1) !important; color: var(--theme-accent) !important; }
+body.medora-app .drugicon { background: transparent !important; }
+body.medora-app .stat-icon.orange { background: var(--theme-wash-2) !important; }
+body.medora-app .stat-icon.rose { background: var(--theme-wash-3) !important; }
+
+body > header { background: var(--theme-deep) !important; color: var(--theme-surface) !important; }
+body > header a { color: var(--theme-surface) !important; border-color: color-mix(in srgb, var(--theme-surface) 45%, transparent) !important; }
+.layout aside a, article a { color: var(--theme-accent) !important; }
+article h2, article footer, .layout aside { border-color: var(--theme-line) !important; }
+article table, article input { border-color: var(--theme-line) !important; background: var(--theme-surface) !important; color: var(--theme-deep) !important; }
+article th { background: var(--theme-accent-soft) !important; color: var(--theme-deep) !important; }
+
+.medora-theme-control {
+  position: fixed;
+  z-index: 9999;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 9px;
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--theme-deep);
+}
+
+.medora-theme-trigger {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 13px 7px 9px;
+  border: 1px solid color-mix(in srgb, var(--theme-deep) 12%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-surface) 88%, transparent);
+  color: var(--theme-deep);
+  box-shadow: 0 12px 35px color-mix(in srgb, var(--theme-deep) 13%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.medora-theme-dots { width: 29px; height: 29px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 3px; border-radius: 50%; background: var(--theme-surface); }
+.medora-theme-dots i { display: block; border-radius: 50%; }
+.medora-theme-dots i:nth-child(1) { background: var(--theme-wash-1); }
+.medora-theme-dots i:nth-child(2) { background: var(--theme-wash-2); }
+.medora-theme-dots i:nth-child(3) { background: var(--theme-wash-3); }
+.medora-theme-dots i:nth-child(4) { background: var(--theme-accent); }
+
+.medora-theme-menu {
+  width: min(292px, calc(100vw - 36px));
+  padding: 9px;
+  border: 1px solid color-mix(in srgb, var(--theme-deep) 11%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--theme-surface) 94%, transparent);
+  box-shadow: 0 20px 55px color-mix(in srgb, var(--theme-deep) 16%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.medora-theme-menu[hidden] { display: none; }
+.medora-theme-title { padding: 7px 9px 9px; color: var(--theme-muted); font-size: 10px; font-weight: 750; letter-spacing: 1.2px; text-transform: uppercase; }
+.medora-theme-options { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.medora-theme-option {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--theme-deep);
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+.medora-theme-option:hover { background: color-mix(in srgb, var(--theme-accent-soft) 70%, transparent); }
+.medora-theme-option[aria-checked="true"] { border-color: var(--theme-accent); background: var(--theme-accent-soft); font-weight: 700; }
+.medora-theme-swatch { width: 27px; height: 27px; flex: 0 0 27px; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; padding: 2px; border: 1px solid rgba(0,0,0,.06); border-radius: 8px; background: #fff; overflow: hidden; }
+.medora-theme-swatch i { display: block; }
+.medora-theme-trigger:focus-visible,.medora-theme-option:focus-visible { outline: 3px solid var(--theme-accent); outline-offset: 3px; }
+
+/* Sources & Buttons Theme Integration */
+.sourcecard {
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-line) !important;
+}
+.sourcecard-badge {
+  background: var(--theme-wash-1) !important;
+  color: var(--theme-muted) !important;
+  border-color: color-mix(in srgb, var(--theme-accent) 15%, transparent) !important;
+}
+.btn-source {
+  color: var(--theme-deep) !important;
+  border-color: color-mix(in srgb, var(--theme-deep) 14%, transparent) !important;
+}
+.btn-source:hover {
+  border-color: color-mix(in srgb, var(--theme-accent) 40%, transparent) !important;
+  color: var(--theme-deep) !important;
+}
+.btn-source-arrow {
+  background: var(--theme-wash-1) !important;
+  color: var(--theme-accent) !important;
+}
+.btn-source:hover .btn-source-arrow {
+  background: var(--theme-accent) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary {
+  background: linear-gradient(180deg, var(--theme-deep) 0%, color-mix(in srgb, var(--theme-deep) 85%, #000) 100%) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary:hover {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--theme-accent) 60%, var(--theme-deep)) 0%, var(--theme-deep) 100%) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary .btn-source-arrow {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+}
+.btn-source.btn-source-primary:hover .btn-source-arrow {
+  background: var(--theme-accent-soft) !important;
+  color: var(--theme-deep) !important;
+}
+
+@media (max-width: 620px) {
+  body.medora-app .sidebar {
+    background-color: var(--theme-surface) !important;
+    border-color: var(--theme-line) !important;
+  }
+  body.medora-app .nav button.active {
+    background: color-mix(in srgb, var(--theme-accent-soft) 80%, transparent) !important;
+    color: var(--theme-accent, #9567bf) !important;
+    border-radius: 10px !important;
+    max-width: 66px !important;
+    height: 44px !important;
+  }
+  .medora-theme-control { right: 12px; bottom: 78px; }
+  .medora-theme-trigger { min-height: 40px; padding: 5px 10px 5px 6px; }
+  .medora-theme-trigger > span:last-child { display: none; }
+  .medora-theme-menu { width: min(286px, calc(100vw - 24px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medora-theme-control * { transition: none !important; }
+}
+
+/* ==========================================================================
+   HeroUI Typography Scale & Rules
+   Reference: https://heroui.com/en/docs/react/components/typography
+   ========================================================================== */
+:root {
+  /* HeroUI Heading Tokens: size / weight / line-height / tracking */
+  --heroui-h1: 600 clamp(28px, 3.2vw, 36px)/1.11 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h1-tracking: -0.02em;
+
+  --heroui-h2: 600 clamp(24px, 2.6vw, 30px)/1.17 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h2-tracking: -0.02em;
+
+  --heroui-h3: 600 clamp(20px, 2.1vw, 24px)/1.25 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h3-tracking: -0.015em;
+
+  --heroui-h4: 600 clamp(18px, 1.8vw, 20px)/1.33 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h4-tracking: -0.015em;
+
+  --heroui-h5: 600 18px/1.39 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h5-tracking: -0.015em;
+
+  --heroui-h6: 600 16px/1.50 Inter, "Mazzard H", -apple-system, sans-serif;
+  --heroui-h6-tracking: -0.015em;
+
+  /* HeroUI Body Tokens */
+  --heroui-body: 400 16px/1.75 Inter, -apple-system, sans-serif;
+  --heroui-body-sm: 400 14px/1.50 Inter, -apple-system, sans-serif;
+  --heroui-body-xs: 400 12px/1.25 Inter, -apple-system, sans-serif;
+
+  /* HeroUI Micro-labels / Eyebrow Tokens */
+  --heroui-eyebrow: 700 11px/1.2 Inter, sans-serif;
+  --heroui-eyebrow-tracking: 0.12em;
+}
+
+.heroui-h1 { font: var(--heroui-h1); letter-spacing: var(--heroui-h1-tracking); }
+.heroui-h2 { font: var(--heroui-h2); letter-spacing: var(--heroui-h2-tracking); }
+.heroui-h3 { font: var(--heroui-h3); letter-spacing: var(--heroui-h3-tracking); }
+.heroui-h4 { font: var(--heroui-h4); letter-spacing: var(--heroui-h4-tracking); }
+.heroui-h5 { font: var(--heroui-h5); letter-spacing: var(--heroui-h5-tracking); }
+.heroui-h6 { font: var(--heroui-h6); letter-spacing: var(--heroui-h6-tracking); }
+.heroui-body { font: var(--heroui-body); letter-spacing: normal; }
+.heroui-body-sm { font: var(--heroui-body-sm); letter-spacing: normal; }
+.heroui-body-xs { font: var(--heroui-body-xs); letter-spacing: normal; }
+.heroui-eyebrow { font: var(--heroui-eyebrow); letter-spacing: var(--heroui-eyebrow-tracking); text-transform: uppercase; }

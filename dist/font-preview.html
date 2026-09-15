@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medora — Previzualizare Set Nou de Fonturi</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Urbanist:wght@500;600;700;800&family=Lexend:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+    @import url('https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&f[]=cabinet-grotesk@500,700,800&f[]=switzer@500,600,700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0b0f0e;
+      color: #fff;
+      font-family: Inter, -apple-system, sans-serif;
+      padding: 36px 20px 80px;
+    }
+
+    .preview-header {
+      max-width: 1200px;
+      margin: 0 auto 36px;
+      text-align: center;
+    }
+    .preview-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .preview-header p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 15px;
+    }
+
+    .combos-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .combo-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .combo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(242, 168, 207, 0.15);
+      border: 1px solid rgba(242, 168, 207, 0.35);
+      color: #f2a8cf;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* Hero Preview */
+    .sample-hero {
+      background: #fbfaf7;
+      color: #181817;
+      padding: 50px 40px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .sample-kicker {
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #785f18;
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sample-kicker::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f2a8cf;
+    }
+    .sample-title {
+      font-size: clamp(34px, 4.5vw, 52px);
+      line-height: 1.12;
+      margin-bottom: 16px;
+      text-wrap: balance;
+    }
+    .sample-title span {
+      color: #9567bf;
+      display: block;
+    }
+    .sample-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #716d64;
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+
+    /* Dark Glass Sample */
+    .sample-dark-glass {
+      background: rgba(14, 18, 17, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .dark-headline {
+      font-size: 28px;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .dark-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.82);
+    }
+    .dark-stats {
+      display: flex;
+      gap: 24px;
+      justify-content: flex-end;
+    }
+    .dark-stat strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .dark-stat span {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 1. MANROPE */
+    .combo-manrope .sample-title,
+    .combo-manrope .dark-headline {
+      font-family: "Manrope", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    /* 2. URBANIST */
+    .combo-urbanist .sample-title,
+    .combo-urbanist .dark-headline {
+      font-family: "Urbanist", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* 3. SF PRO NATIVE */
+    .combo-sfpro .sample-title,
+    .combo-sfpro .dark-headline {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    /* 4. SATOSHI */
+    .combo-satoshi .sample-title,
+    .combo-satoshi .dark-headline {
+      font-family: "Satoshi", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* 5. LEXEND */
+    .combo-lexend .sample-title,
+    .combo-lexend .dark-headline {
+      font-family: "Lexend", sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    /* 6. CABINET GROTESK */
+    .combo-cabinet .sample-title,
+    .combo-cabinet .dark-headline {
+      font-family: "Cabinet Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    @media (max-width: 800px) {
+      .sample-dark-glass {
+        grid-template-columns: 1fr;
+      }
+      .dark-stats {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="preview-header">
+    <h1>Set Nou de Fonturi „Apple-like” & Non-Serif</h1>
+    <p>6 direcții tipografice complet noi, fără serif-uri, cu geometrie rafinată și stil premium.</p>
+  </header>
+
+  <main class="combos-grid">
+
+    <!-- 1. MANROPE -->
+    <section class="combo-section combo-manrope" id="opt-manrope">
+      <div class="combo-badge">1. Manrope (Semi-Geometric · Tech & Health Modern)</div>
+      <div class="sample-hero">
+        <div class="sample-kicker">Concept clinic · Medora</div>
+        <h2 class="sample-title">Informația potrivită. <span>Înainte de prescripție.</span></h2>
+        <p class="sample-desc">Catalog centralizat, rezumate RCP oficiale, alerte de disponibilitate în timp real și alternative terapeutice din România.</p>
+      </div>
+      <div class="sample-dark-glass">
+        <div>
+          <div class="dark-headline">„Un singur flux, de la căutare la decizie.”</div>
+          <p class="dark-desc">Date sincronizate zilnic cu Nomenclatorul ANMDMR și Agenția Europeană a Medicamentului (EMA).</p>
+        </div>
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>6.500+</strong><span>Produse</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Monitorizare</span></div>
+          <div class="dark-stat"><strong>100%</strong><span>Oficial</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. URBANIST -->
+    <section class="combo-section combo-urbanist" id="opt-urbanist">
+      <div class="combo-badge">2. Urbanist (Geometric Pur · Stil Apple Packaging & Hardware)</div>
+      <div class="sample-hero">
+        <div class="sample-kicker">Concept clinic · Medora</div>
+        <h2 class="sample-title">Informația potrivită. <span>Înainte de prescripție.</span></h2>
+        <p class="sample-desc">Catalog centralizat, rezumate RCP oficiale, alerte de disponibilitate în timp real și alternative terapeutice din România.</p>
+      </div>
+      <div class="sample-dark-glass">
+        <div>
+          <div class="dark-headline">„Un singur flux, de la căutare la decizie.”</div>
+          <p class="dark-desc">Date sincronizate zilnic cu Nomenclatorul ANMDMR și Agenția Europeană a Medicamentului (EMA).</p>
+        </div>
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>6.500+</strong><span>Produse</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Monitorizare</span></div>
+          <div class="dark-stat"><strong>100%</strong><span>Oficial</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SF PRO NATIVE -->
+    <section class="combo-section combo-sfpro" id="opt-sfpro">
+      <div class="combo-badge">3. SF Pro Display (Fontul Oficial Apple iOS / macOS Nativ)</div>
+      <div class="sample-hero">
+        <div class="sample-kicker">Concept clinic · Medora</div>
+        <h2 class="sample-title">Informația potrivită. <span>Înainte de prescripție.</span></h2>
+        <p class="sample-desc">Catalog centralizat, rezumate RCP oficiale, alerte de disponibilitate în timp real și alternative terapeutice din România.</p>
+      </div>
+      <div class="sample-dark-glass">
+        <div>
+          <div class="dark-headline">„Un singur flux, de la căutare la decizie.”</div>
+          <p class="dark-desc">Date sincronizate zilnic cu Nomenclatorul ANMDMR și Agenția Europeană a Medicamentului (EMA).</p>
+        </div>
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>6.500+</strong><span>Produse</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Monitorizare</span></div>
+          <div class="dark-stat"><strong>100%</strong><span>Oficial</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SATOSHI -->
+    <section class="combo-section combo-satoshi" id="opt-satoshi">
+      <div class="combo-badge">4. Satoshi (Grotesc Modernist · Litere Circulare & Ritm Linear)</div>
+      <div class="sample-hero">
+        <div class="sample-kicker">Concept clinic · Medora</div>
+        <h2 class="sample-title">Informația potrivită. <span>Înainte de prescripție.</span></h2>
+        <p class="sample-desc">Catalog centralizat, rezumate RCP oficiale, alerte de disponibilitate în timp real și alternative terapeutice din România.</p>
+      </div>
+      <div class="sample-dark-glass">
+        <div>
+          <div class="dark-headline">„Un singur flux, de la căutare la decizie.”</div>
+          <p class="dark-desc">Date sincronizate zilnic cu Nomenclatorul ANMDMR și Agenția Europeană a Medicamentului (EMA).</p>
+        </div>
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>6.500+</strong><span>Produse</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Monitorizare</span></div>
+          <div class="dark-stat"><strong>100%</strong><span>Oficial</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. LEXEND -->
+    <section class="combo-section combo-lexend" id="opt-lexend">
+      <div class="combo-badge">5. Lexend (Lizibilitate Maximă · Forme Deschise & Claritate)</div>
+      <div class="sample-hero">
+        <div class="sample-kicker">Concept clinic · Medora</div>
+        <h2 class="sample-title">Informația potrivită. <span>Înainte de prescripție.</span></h2>
+        <p class="sample-desc">Catalog centralizat, rezumate RCP oficiale, alerte de disponibilitate în timp real și alternative terapeutice din România.</p>
+      </div>
+      <div class="sample-dark-glass">
+        <div>
+          <div class="dark-headline">„Un singur flux, de la căutare la decizie.”</div>
+          <p class="dark-desc">Date sincronizate zilnic cu Nomenclatorul ANMDMR și Agenția Europeană a Medicamentului (EMA).</p>
+        </div>
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>6.500+</strong><span>Produse</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Monitorizare</span></div>
+          <div class="dark-stat"><strong>100%</strong><span>Oficial</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CABINET GROTESK -->
+    <section class="combo-section combo-cabinet" id="opt-cabinet">
+      <div class="combo-badge">6. Cabinet Grotesk (Neo-Grotesc Contemporan · Caracter Puternic)</div>
+      <div class="sample-hero">
+        <div class="sample-kicker">Concept clinic · Medora</div>
+        <h2 class="sample-title">Informația potrivită. <span>Înainte de prescripție.</span></h2>
+        <p class="sample-desc">Catalog centralizat, rezumate RCP oficiale, alerte de disponibilitate în timp real și alternative terapeutice din România.</p>
+      </div>
+      <div class="sample-dark-glass">
+        <div>
+          <div class="dark-headline">„Un singur flux, de la căutare la decizie.”</div>
+          <p class="dark-desc">Date sincronizate zilnic cu Nomenclatorul ANMDMR și Agenția Europeană a Medicamentului (EMA).</p>
+        </div>
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>6.500+</strong><span>Produse</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Monitorizare</span></div>
+          <div class="dark-stat"><strong>100%</strong><span>Oficial</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
