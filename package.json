@@ -1,5 +1,10 @@
 {
   "name": "medora-prototype",
   "private": true,
-  "scripts": { "dev": "node server.mjs" }
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "preview": "node server.mjs",
+    "build": "echo 'no build step required'"
+  }
 }
