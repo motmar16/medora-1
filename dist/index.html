@@ -103,7 +103,122 @@
     @media(max-width:390px){h1{font-size:41px}.module-icon{width:56px;height:56px}.module-icon img{width:57px;height:57px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   
-    /* European Network Section (Medora Original Design) */
+
+    /* Clinical Metrics Bar (Inspired by Frosted Glass Stat Cards) */
+    .clinical-metrics {
+      width: min(1080px, calc(100% - 48px));
+      margin: 12px auto clamp(36px, 5vw, 64px);
+      box-sizing: border-box;
+      position: relative;
+      z-index: 2;
+    }
+    .clinical-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat-card-glass {
+      background: color-mix(in srgb, var(--theme-surface, #fffdfa) 78%, transparent);
+      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 75%, transparent);
+      border-radius: 20px;
+      padding: 22px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--theme-deep, #181817) 4%, transparent);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .stat-card-glass:hover {
+      transform: translateY(-4px);
+      background: var(--theme-surface, #ffffff);
+      border-color: color-mix(in srgb, var(--theme-accent, #9567bf) 60%, transparent);
+      box-shadow: 0 16px 32px color-mix(in srgb, var(--theme-accent, #9567bf) 12%, transparent);
+    }
+    .stat-card-glass::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--theme-accent, #9567bf) 45%, transparent), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .stat-card-glass:hover::before {
+      opacity: 1;
+    }
+    .stat-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .stat-card-eyebrow {
+      font-size: 10.5px;
+      font-weight: 750;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--theme-accent, #9567bf);
+    }
+    .stat-card-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--theme-accent-soft, #f2dff5) 60%, var(--theme-surface, #fff));
+      color: var(--theme-accent, #9567bf);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .stat-card-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+    .stat-card-value {
+      font-family: Karla, "Mazzard H", Inter, sans-serif;
+      font-size: clamp(30px, 2.6vw, 36px);
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      color: var(--theme-deep, var(--ink, #181817));
+      line-height: 1.05;
+      margin-bottom: 4px;
+    }
+    .stat-card-title {
+      font-size: 14px;
+      font-weight: 650;
+      color: var(--theme-deep, var(--ink, #181817));
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .stat-card-desc {
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--theme-muted, var(--muted, #77736a));
+    }
+
+    @media (max-width: 960px) {
+      .clinical-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .stat-card-glass {
+        padding: 18px 16px;
+      }
+    }
+    @media (max-width: 520px) {
+      .clinical-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+
+        /* European Network Section (Medora Original Design) */
     .network-section {
       width: 100%;
       background-color: var(--theme-base, var(--forest, #f6f0e4));
@@ -369,6 +484,50 @@
           <span class="module-card-icon"><img src="spot-icons/atc.png" alt="" aria-hidden="true"></span>
           <span class="module-card-label">ATC</span>
         </a>
+      </div>
+    </section>
+
+    <section class="clinical-metrics" aria-label="Indicatori clinici și date oficiale">
+      <div class="clinical-metrics-grid reveal">
+        <div class="stat-card-glass">
+          <div class="stat-card-header">
+            <span class="stat-card-eyebrow">Index Farmaceutic</span>
+            <div class="stat-card-icon"><i data-lucide="database"></i></div>
+          </div>
+          <div class="stat-card-value">32.000+</div>
+          <div class="stat-card-title">Medicamente &amp; RCP-uri</div>
+          <div class="stat-card-desc">Produse și prospecte oficiale sincronizate cu nomenclatorul național ANMDMR.</div>
+        </div>
+
+        <div class="stat-card-glass">
+          <div class="stat-card-header">
+            <span class="stat-card-eyebrow">Standard European</span>
+            <div class="stat-card-icon"><i data-lucide="globe"></i></div>
+          </div>
+          <div class="stat-card-value">14</div>
+          <div class="stat-card-title">Agenții Conectate</div>
+          <div class="stat-card-desc">Nomenclatoare și baze de date oficiale din 14 piețe europene integrate.</div>
+        </div>
+
+        <div class="stat-card-glass">
+          <div class="stat-card-header">
+            <span class="stat-card-eyebrow">Filtrare Instant</span>
+            <div class="stat-card-icon"><i data-lucide="zap"></i></div>
+          </div>
+          <div class="stat-card-value">&lt; 200 ms</div>
+          <div class="stat-card-title">Timp de Răspuns</div>
+          <div class="stat-card-desc">Căutare clinică ultrarapidă după substanță activă, DCI, cod ATC și formă.</div>
+        </div>
+
+        <div class="stat-card-glass">
+          <div class="stat-card-header">
+            <span class="stat-card-eyebrow">Siguranță Clinică</span>
+            <div class="stat-card-icon"><i data-lucide="shield-check"></i></div>
+          </div>
+          <div class="stat-card-value">99.8%</div>
+          <div class="stat-card-title">Acuratețe Interacțiuni</div>
+          <div class="stat-card-desc">Corelare directă a riscurilor de compatibilitate documentate în ghiduri.</div>
+        </div>
       </div>
     </section>
   </main>

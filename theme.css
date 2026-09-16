@@ -497,3 +497,31 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 .network-feature-desc {
   color: var(--theme-muted) !important;
 }
+
+/* Clinical Metrics Theme Sync */
+.stat-card-glass {
+  background: color-mix(in srgb, var(--theme-surface) 80%, transparent) !important;
+  border-color: color-mix(in srgb, var(--theme-line) 75%, transparent) !important;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--theme-deep) 4%, transparent) !important;
+}
+.stat-card-glass:hover {
+  background: var(--theme-surface) !important;
+  border-color: color-mix(in srgb, var(--theme-accent) 60%, transparent) !important;
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--theme-accent) 14%, transparent) !important;
+}
+.stat-card-eyebrow {
+  color: var(--theme-accent) !important;
+}
+.stat-card-icon {
+  background: color-mix(in srgb, var(--theme-accent-soft) 60%, var(--theme-surface)) !important;
+  color: var(--theme-accent) !important;
+}
+.stat-card-value {
+  color: var(--theme-deep) !important;
+}
+.stat-card-title {
+  color: var(--theme-deep) !important;
+}
+.stat-card-desc {
+  color: var(--theme-muted) !important;
+}
