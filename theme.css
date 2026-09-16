@@ -382,7 +382,7 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
     max-width: 66px !important;
     height: 44px !important;
   }
-  .medora-theme-control { right: 12px; bottom: 78px; }
+  .medora-theme-control { right: 12px; bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
   .medora-theme-trigger { min-height: 40px; padding: 5px 10px 5px 6px; }
   .medora-theme-trigger > span:last-child { display: none; }
   .medora-theme-menu { width: min(286px, calc(100vw - 24px)); }

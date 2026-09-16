@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ro">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Medora — Claritate pentru fiecare prescripție</title>
 <script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
@@ -172,13 +172,13 @@ dialog{background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.96);border
 @media(max-width:620px){
   .nav-label-full{display:none}
   .nav-label-mobile{display:inline}
-  .sidebar{width:100%!important;height:62px!important;top:auto!important;bottom:0!important;padding:0 8px!important;background:var(--theme-surface,#fff)!important;border-right:0!important;border-top:1px solid var(--theme-line,var(--line))!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;z-index:100!important}
+  .sidebar{width:100%!important;height:calc(62px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;bottom:0!important;padding:0 8px env(safe-area-inset-bottom, 0px)!important;background:var(--theme-surface,#fff)!important;border-right:0!important;border-top:1px solid var(--theme-line,var(--line))!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;z-index:100!important}
   .sidebar>.brand,.tagline,.navlabel,.sidebar-bottom,.sidebar .secondary{display:none!important}
   .nav{flex-direction:row!important;height:100%!important;width:100%!important;justify-content:space-around!important;align-items:center!important;gap:4px!important;padding:0!important}
   .nav button{flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;font-size:10px!important;font-weight:550!important;padding:4px 3px!important;border-radius:10px!important;flex:1 1 0!important;min-width:0!important;max-width:66px!important;white-space:nowrap!important;text-align:center!important;height:44px!important;margin:0 auto!important;box-sizing:border-box!important}
   .nav button svg{width:18px!important;height:18px!important;flex-shrink:0!important}
   .nav .count{display:none!important}
-  .app{margin-left:0!important;padding-bottom:70px!important}
+  .app{margin-left:0!important;padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px))!important}
   .topbar{background:var(--paper)}
   .heading h1{font-size:31px}.hero{border-radius:24px}.hero h2{font-size:30px;max-width:210px}.pulsecard{border-radius:24px}.hero-spot{width:116px;height:116px;right:2px;top:11px}.pulse-spot{width:128px;height:128px;right:-10px;bottom:-8px}.pulse-copy{max-width:72%}.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.stat{display:block;min-width:0;padding:10px 8px}.stat>div{min-width:0}.stat-spot{width:38px;height:38px;margin-bottom:3px}.metriclabel,.stat small{overflow-wrap:anywhere}.simulator-desktop-btn{display:none!important}
   /* Mobile Responsive Catalog Cards - No horizontal scroll */
@@ -206,7 +206,7 @@ dialog{background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.96);border
   .catalog-row-empty{display:block!important;background:#fff!important;border:1px solid var(--line)!important;border-radius:14px!important}
   .catalog-row-empty td{display:block!important;padding:0!important;border:none!important}
   /* Mobile Compare Bar */
-  .comparebar.comparebar-step1,.comparebar.comparebar-ready{position:sticky!important;bottom:68px!important;z-index:95!important;margin-top:14px!important;border-radius:16px!important;box-shadow:0 8px 24px rgba(25,61,53,.18)!important}
+  .comparebar.comparebar-step1,.comparebar.comparebar-ready{position:sticky!important;bottom:calc(68px + env(safe-area-inset-bottom, 0px))!important;z-index:95!important;margin-top:14px!important;border-radius:16px!important;box-shadow:0 8px 24px rgba(25,61,53,.18)!important}
   .comparebar.comparebar-empty{position:static!important;margin-top:16px!important;padding:14px 16px!important;border-radius:14px!important}
   .compare-cta{padding:13px 16px!important;font-size:12px!important}
   dialog .tablewrap th,dialog .tablewrap td{padding:10px 8px!important;font-size:11px!important}
