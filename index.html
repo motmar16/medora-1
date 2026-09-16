@@ -102,123 +102,208 @@
     @media(max-width:620px){.home{background-size:auto 150%;background-position:center}.topbar{width:calc(100% - 34px);height:78px}.brand{font-size:27px;gap:8px}.brand-mark{width:30px;height:30px}.brand-mark svg{width:19px;height:19px}.top-actions{gap:8px}.market{display:none}.experience-switch summary{font-size:10px}.experience-menu{right:-56px}.simulator-link{min-height:34px;padding:0 9px;font-size:10px}.simulator-link span{display:none}.simulator-link svg{width:13px;height:13px}.open-app{min-height:40px;padding:0 12px;font-size:10px}.open-app svg{width:15px;height:15px}.hero{width:calc(100% - 34px);padding:28px 0 52px;gap:32px}.hero h1,#hero-title{font-size:36px;line-height:1.1;margin-bottom:18px}.hero .search{height:52px;padding-left:14px}.hero .search input{font-size:13px}.hero .search button{height:40px;min-width:86px;padding:0 13px;font-size:12px}.frequent-tags{margin-top:18px}.modules-grid{gap:16px 10px}.module-card{padding:8px 4px;gap:8px}.module-card-icon{width:80px;height:80px}.module-card-icon img{width:76px;height:76px}.module-card-label{font-size:12px}.story{height:320svh}.story-stage{width:calc(100% - 34px);padding:32px 0;gap:20px}.story-copy{max-width:680px}.story-label{margin-bottom:13px;font-size:8px}.story h2{font-size:34px;min-height:74px;margin-bottom:10px}.story-description{min-height:55px;font-size:11px;line-height:1.6}.steps-indicator{margin-top:13px}.product-scene{min-height:438px;align-items:start}.app-window{height:425px}.app-head{height:56px;padding:0 16px}.app-brand{font-size:17px}.demo-status{font-size:7px}.app-body{padding:16px}.app-title{font-size:21px}.mini-search{height:43px}.alert-line{min-height:57px}.detail-drawer{height:176px;padding:18px 17px}.detail-drawer h3{font-size:17px}.timeline{gap:6px}.final-cta{padding:78px 22px}.final-cta h2{font-size:40px}.medora-footer{padding:56px 22px 24px}.footer-main{grid-template-columns:1fr 1fr;gap:36px 24px}.footer-brand{grid-column:1/-1}.footer-brand h2{font-size:33px}.footer-illustration{width:280px;height:130px}.footer-newsletter{grid-column:1/-1;display:block}.footer-newsletter p{max-width:330px}.footer-form{margin-top:16px}.footer-bottom{margin-top:38px;align-items:flex-start;flex-direction:column}.footer-legal{gap:18px;flex-wrap:wrap}}
     @media(max-width:390px){h1{font-size:41px}.module-icon{width:56px;height:56px}.module-icon img{width:57px;height:57px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-  
 
-    /* Clinical Metrics Bar (Inspired by Frosted Glass Stat Cards) */
-    .clinical-metrics {
-      width: min(1080px, calc(100% - 48px));
-      margin: 12px auto clamp(36px, 5vw, 64px);
+        /* European Network Section (Medora Original Design) */
+
+    /* Metrics Showcase Section (with 3D Illustrations) */
+    .metrics-showcase-section {
+      width: 100%;
+      background-color: var(--theme-base, var(--forest, #f6f0e4));
+      background-image: var(--theme-glow, none);
+      background-size: cover;
+      background-position: center;
+      padding: clamp(64px, 7vw, 104px) clamp(16px, 4vw, 40px);
       box-sizing: border-box;
       position: relative;
-      z-index: 2;
     }
-    .clinical-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .stat-card-glass {
-      background: color-mix(in srgb, var(--theme-surface, #fffdfa) 78%, transparent);
-      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 75%, transparent);
-      border-radius: 20px;
-      padding: 22px 20px 20px;
+    .metrics-showcase-container {
+      width: min(1140px, 100%);
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+    }
+    .metrics-showcase-header {
+      max-width: 760px;
+      margin-bottom: clamp(36px, 4vw, 52px);
+    }
+    .metrics-showcase-title {
+      font-family: Karla, "Mazzard H", Inter, sans-serif;
+      font-size: clamp(32px, 3.8vw, 46px);
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      color: var(--theme-deep, var(--ink, #181817));
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+    .metrics-showcase-title span {
+      color: var(--theme-accent, #9567bf);
+    }
+    .metrics-showcase-subtitle {
+      font-size: clamp(14.5px, 1.3vw, 16.5px);
+      color: var(--theme-muted, var(--muted, #77736a));
+      line-height: 1.6;
+      margin: 0 auto;
+    }
+
+    .metrics-showcase-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .metric-showcase-card {
+      background: color-mix(in srgb, var(--theme-surface, #fffdfa) 85%, transparent);
+      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 75%, transparent);
+      border-radius: 22px;
+      padding: 18px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 4px 20px color-mix(in srgb, var(--theme-deep, #181817) 4%, transparent);
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 6px 24px color-mix(in srgb, var(--theme-deep, #181817) 4%, transparent);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       position: relative;
       overflow: hidden;
       cursor: default;
     }
-    .stat-card-glass:hover {
-      transform: translateY(-4px);
+    .metric-showcase-card:hover {
+      transform: translateY(-5px);
       background: var(--theme-surface, #ffffff);
       border-color: color-mix(in srgb, var(--theme-accent, #9567bf) 60%, transparent);
-      box-shadow: 0 16px 32px color-mix(in srgb, var(--theme-accent, #9567bf) 12%, transparent);
+      box-shadow: 0 18px 38px color-mix(in srgb, var(--theme-accent, #9567bf) 15%, transparent);
     }
-    .stat-card-glass::before {
+    .metric-showcase-card::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--theme-accent, #9567bf) 45%, transparent), transparent);
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--theme-accent, #9567bf), transparent);
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.3s ease;
     }
-    .stat-card-glass:hover::before {
+    .metric-showcase-card:hover::before {
       opacity: 1;
     }
-    .stat-card-header {
+
+    /* Picture Stage inside Card */
+    .metric-card-media {
+      width: 100%;
+      height: 120px;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--theme-wash-1, #f6edfb) 55%, var(--theme-surface, #fff));
+      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 55%, transparent);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .metric-media-glow {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--theme-accent, #9567bf) 25%, transparent);
+      filter: blur(24px);
+      pointer-events: none;
+    }
+    .metric-card-img {
+      width: 78px;
+      height: 78px;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 8px 18px rgba(30, 20, 50, 0.15));
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .metric-showcase-card:hover .metric-card-img {
+      transform: scale(1.12) translateY(-4px);
+      filter: drop-shadow(0 12px 24px rgba(30, 20, 50, 0.22));
+    }
+
+    /* Content below picture */
+    .metric-card-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .metric-card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
     }
-    .stat-card-eyebrow {
+    .metric-card-eyebrow {
       font-size: 10.5px;
       font-weight: 750;
       letter-spacing: 1.2px;
       text-transform: uppercase;
       color: var(--theme-accent, #9567bf);
     }
-    .stat-card-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
+    .metric-card-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
       background: color-mix(in srgb, var(--theme-accent-soft, #f2dff5) 60%, var(--theme-surface, #fff));
       color: var(--theme-accent, #9567bf);
       display: grid;
       place-items: center;
-      flex-shrink: 0;
     }
-    .stat-card-icon svg {
-      width: 15px;
-      height: 15px;
+    .metric-card-icon svg {
+      width: 13px;
+      height: 13px;
     }
-    .stat-card-value {
+    .metric-card-value {
       font-family: Karla, "Mazzard H", Inter, sans-serif;
-      font-size: clamp(30px, 2.6vw, 36px);
+      font-size: clamp(28px, 2.4vw, 34px);
       font-weight: 750;
       letter-spacing: -0.04em;
       color: var(--theme-deep, var(--ink, #181817));
       line-height: 1.05;
       margin-bottom: 4px;
     }
-    .stat-card-title {
+    .metric-card-title {
       font-size: 14px;
       font-weight: 650;
       color: var(--theme-deep, var(--ink, #181817));
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       letter-spacing: -0.01em;
     }
-    .stat-card-desc {
+    .metric-card-desc {
       font-size: 12px;
       line-height: 1.45;
       color: var(--theme-muted, var(--muted, #77736a));
+      margin: 0;
     }
 
-    @media (max-width: 960px) {
-      .clinical-metrics-grid {
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .metrics-showcase-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .metric-card-media {
+        height: 110px;
+      }
+    }
+    @media (max-width: 540px) {
+      .metrics-showcase-grid {
+        grid-template-columns: 1fr;
         gap: 12px;
       }
-      .stat-card-glass {
-        padding: 18px 16px;
+      .metric-showcase-card {
+        padding: 16px;
       }
-    }
-    @media (max-width: 520px) {
-      .clinical-metrics-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
+      .metric-card-media {
+        height: 100px;
       }
     }
 
-        /* European Network Section (Medora Original Design) */
     .network-section {
       width: 100%;
       background-color: var(--theme-base, var(--forest, #f6f0e4));
@@ -491,51 +576,7 @@
         </a>
       </div>
     </section>
-
-    <section class="clinical-metrics" aria-label="Indicatori clinici și date oficiale">
-      <div class="clinical-metrics-grid reveal">
-        <div class="stat-card-glass">
-          <div class="stat-card-header">
-            <span class="stat-card-eyebrow">Index Farmaceutic</span>
-            <div class="stat-card-icon"><i data-lucide="database"></i></div>
-          </div>
-          <div class="stat-card-value">32.000+</div>
-          <div class="stat-card-title">Medicamente &amp; RCP-uri</div>
-          <div class="stat-card-desc">Produse și prospecte oficiale sincronizate cu nomenclatorul național ANMDMR.</div>
-        </div>
-
-        <div class="stat-card-glass">
-          <div class="stat-card-header">
-            <span class="stat-card-eyebrow">Standard European</span>
-            <div class="stat-card-icon"><i data-lucide="globe"></i></div>
-          </div>
-          <div class="stat-card-value">14</div>
-          <div class="stat-card-title">Agenții Conectate</div>
-          <div class="stat-card-desc">Nomenclatoare și baze de date oficiale din 14 piețe europene integrate.</div>
-        </div>
-
-        <div class="stat-card-glass">
-          <div class="stat-card-header">
-            <span class="stat-card-eyebrow">Filtrare Instant</span>
-            <div class="stat-card-icon"><i data-lucide="zap"></i></div>
-          </div>
-          <div class="stat-card-value">&lt; 200 ms</div>
-          <div class="stat-card-title">Timp de Răspuns</div>
-          <div class="stat-card-desc">Căutare clinică ultrarapidă după substanță activă, DCI, cod ATC și formă.</div>
-        </div>
-
-        <div class="stat-card-glass">
-          <div class="stat-card-header">
-            <span class="stat-card-eyebrow">Siguranță Clinică</span>
-            <div class="stat-card-icon"><i data-lucide="shield-check"></i></div>
-          </div>
-          <div class="stat-card-value">99.8%</div>
-          <div class="stat-card-title">Acuratețe Interacțiuni</div>
-          <div class="stat-card-desc">Corelare directă a riscurilor de compatibilitate documentate în ghiduri.</div>
-        </div>
-      </div>
-    </section>
-  </main>
+</main>
 
   <section class="precision-section" aria-labelledby="precision-title">
     <div class="precision-header">
@@ -919,6 +960,93 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  
+  <section class="metrics-showcase-section" aria-labelledby="metrics-showcase-title">
+    <div class="metrics-showcase-container reveal">
+      
+      <div class="metrics-showcase-header">
+        <h2 id="metrics-showcase-title" class="metrics-showcase-title">
+          Performanță clinică măsurabilă în <span>fiecare secundă</span>
+        </h2>
+        <p class="metrics-showcase-subtitle">
+          Date validate oficial din nomenclatoare naționale, procesate instantaneu pentru a susține decizia terapeutică fără fricțiune.
+        </p>
+      </div>
+
+      <div class="metrics-showcase-grid">
+        
+        <!-- Card 1 -->
+        <div class="metric-showcase-card">
+          <div class="metric-card-media">
+            <div class="metric-media-glow"></div>
+            <img src="spot-icons/medicine.png" alt="Index Farmaceutic" class="metric-card-img" loading="lazy">
+          </div>
+          <div class="metric-card-content">
+            <div class="metric-card-header">
+              <span class="metric-card-eyebrow">Index Farmaceutic</span>
+              <div class="metric-card-icon"><i data-lucide="database"></i></div>
+            </div>
+            <div class="metric-card-value">32.000+</div>
+            <div class="metric-card-title">Medicamente &amp; RCP-uri</div>
+            <p class="metric-card-desc">Produse și prospecte oficiale sincronizate zilnic cu nomenclatorul național ANMDMR.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="metric-showcase-card">
+          <div class="metric-card-media">
+            <div class="metric-media-glow"></div>
+            <img src="spot-icons/europe.png" alt="Standard European" class="metric-card-img" loading="lazy">
+          </div>
+          <div class="metric-card-content">
+            <div class="metric-card-header">
+              <span class="metric-card-eyebrow">Standard European</span>
+              <div class="metric-card-icon"><i data-lucide="globe"></i></div>
+            </div>
+            <div class="metric-card-value">14</div>
+            <div class="metric-card-title">Agenții Conectate</div>
+            <p class="metric-card-desc">Nomenclatoare și baze de date oficiale din 14 piețe europene integrate în timp real.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="metric-showcase-card">
+          <div class="metric-card-media">
+            <div class="metric-media-glow"></div>
+            <img src="spot-icons/radar.png" alt="Filtrare Instant" class="metric-card-img" loading="lazy">
+          </div>
+          <div class="metric-card-content">
+            <div class="metric-card-header">
+              <span class="metric-card-eyebrow">Filtrare Instant</span>
+              <div class="metric-card-icon"><i data-lucide="zap"></i></div>
+            </div>
+            <div class="metric-card-value">&lt; 200 ms</div>
+            <div class="metric-card-title">Timp de Răspuns</div>
+            <p class="metric-card-desc">Căutare clinică ultrarapidă după substanță activă, DCI, cod ATC și formă farmaceutică.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="metric-showcase-card">
+          <div class="metric-card-media">
+            <div class="metric-media-glow"></div>
+            <img src="spot-icons/interactions.png" alt="Siguranță Clinică" class="metric-card-img" loading="lazy">
+          </div>
+          <div class="metric-card-content">
+            <div class="metric-card-header">
+              <span class="metric-card-eyebrow">Siguranță Clinică</span>
+              <div class="metric-card-icon"><i data-lucide="shield-check"></i></div>
+            </div>
+            <div class="metric-card-value">99.8%</div>
+            <div class="metric-card-title">Acuratețe Interacțiuni</div>
+            <p class="metric-card-desc">Corelare directă a riscurilor de compatibilitate documentate în protocoale clinice.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
