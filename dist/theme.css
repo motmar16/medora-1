@@ -100,7 +100,13 @@ html[data-medora-theme="premium"] {
 
 :root,
 html[data-medora-theme="iridescent"] {
-  --theme-glow: url('medora-pastel-glow.png');
+  --theme-glow:
+    radial-gradient(circle at 18% 18%, rgba(244, 182, 218, 0.45) 0%, transparent 48%),
+    radial-gradient(circle at 82% 16%, rgba(165, 214, 255, 0.50) 0%, transparent 46%),
+    radial-gradient(circle at 50% 45%, rgba(224, 195, 252, 0.40) 0%, transparent 52%),
+    radial-gradient(circle at 22% 72%, rgba(254, 238, 175, 0.30) 0%, transparent 45%),
+    radial-gradient(circle at 80% 78%, rgba(187, 247, 208, 0.32) 0%, transparent 46%),
+    linear-gradient(180deg, #fdfcf9 0%, #f8f4ed 45%, #f9f5ee 100%);
 }
 
 html[data-medora-theme="sage"],
@@ -161,6 +167,19 @@ body:not(.cinematic-page),
   background-image: var(--theme-glow) !important;
   background-size: cover !important;
   background-position: center !important;
+  background-attachment: fixed !important;
+}
+
+@media (max-width: 768px) {
+  body:not(.cinematic-page),
+  .home:not(.cinematic-home),
+  .precision-section,
+  .final-cta,
+  .medora-footer,
+  .network-section,
+  .metrics-showcase-section {
+    background-attachment: scroll !important;
+  }
 }
 
 .precision-section,
