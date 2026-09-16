@@ -220,7 +220,16 @@ dialog{background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.96);border
 </style>
 <link rel="stylesheet" href="theme.css?v=4"><script src="theme.js?v=4" defer></script>
 </head><body class="medora-app">
-<aside class="sidebar"><a class="brand" href="index.html"><span class="brandmark" data-icon="spark"></span>medora</a><div class="tagline">CLARITATE ÎN PRACTICĂ</div><div class="navlabel">SPAȚIUL TĂU DE LUCRU</div><nav class="nav" aria-label="Navigare principală"><button data-page="overview" class="active"><span data-icon="grid"></span><span class="nav-label-full">Privire de ansamblu</span><span class="nav-label-mobile">Privire</span></button><button data-page="catalog"><span data-icon="pill"></span><span>Medicamente</span></button><button data-page="radar"><span data-icon="radar"></span><span class="nav-label-full">Radar alerte</span><span class="nav-label-mobile">Radar</span><span class="count">3</span></button><button data-page="watch"><span data-icon="bookmark"></span><span>Lista mea</span><span class="count" id="navcount">3</span></button><button data-page="tools"><span data-icon="sliders"></span><span>Instrumente</span></button></nav><div class="navlabel">RESURSE</div><nav class="nav secondary" aria-label="Resurse"><button data-page="sources"><span data-icon="shield"></span>Surse & transparență</button><button id="research-nav"><span data-icon="book"></span>Research & strategie<span style="margin-left:auto">↗</span></button></nav><div class="sidebar-bottom"><div class="country"><span>🇷🇴</span><div>România<small>Prima piață · concept</small></div></div><div class="profile"><div class="avatar">DR</div><div>Cont demonstrativ<small>Medicină de familie</small></div></div></div></aside>
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brandmark" data-icon="spark"></span>medora</a><div class="tagline">CLARITATE ÎN PRACTICĂ</div><div class="navlabel">SPAȚIUL TĂU DE LUCRU</div><nav class="nav" aria-label="Navigare principală"><button data-page="overview" class="active"><span data-icon="grid"></span><span class="nav-label-full">Privire de ansamblu</span><span class="nav-label-mobile">Privire</span></button><button data-page="catalog"><span data-icon="pill"></span><span>Medicamente</span></button><button data-page="radar"><span data-icon="radar"></span><span class="nav-label-full">Radar alerte</span><span class="nav-label-mobile">Radar</span><span class="count">3</span></button><button data-page="watch"><span data-icon="bookmark"></span><span>Lista mea</span><span class="count" id="navcount">3</span></button><button data-page="tools"><span data-icon="sliders"></span><span>Instrumente</span></button></nav><div class="navlabel">RESURSE</div><nav class="nav secondary" aria-label="Resurse"><button data-page="sources"><span data-icon="shield"></span>Surse & transparență</button><button id="research-nav"><span data-icon="book"></span>Research & strategie<span style="margin-left:auto">↗</span></button></nav><div class="sidebar-bottom"><div class="country"><span>🇷🇴</span><div>România<small>Prima piață · concept</small></div></div><div class="profile" id="user-profile-widget" style="cursor:pointer;" title="Profil utilizator Medora (HeroUI Avatar)">
+  <div class="heroui-avatar heroui-avatar-md">
+    <img class="heroui-avatar-img" id="user-avatar-img" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3" alt="Avatar utilizator" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span class="heroui-avatar-fallback" id="user-avatar-fallback" style="display:none;">AP</span>
+  </div>
+  <div class="profile-info">
+    <div id="user-profile-name" style="font-weight:650;color:var(--theme-deep);font-size:12.5px;line-height:1.2;">Dr. Andrei Popescu</div>
+    <small id="user-profile-role" style="color:var(--theme-muted);font-size:10px;">Medicină de familie</small>
+  </div>
+</div></div></aside>
 <main class="app"><header class="topbar"><div class="crumb"><span data-icon="home"></span><span>/</span><strong id="crumb">Privire de ansamblu</strong></div><a class="brand mobilebrand" href="index.html"><span class="brandmark" data-icon="spark"></span>medora</a><div class="topright"><a class="btn small simulator-desktop-btn" href="simulator.html" style="border-radius:18px;gap:6px" title="Simulează vizualizarea pe mobil în stil Xcode"><i class="ph ph-device-mobile"></i> <span>Simulator iOS</span></a><span class="date">Sâmbătă, 12 septembrie 2026</span><span class="prototype">PROTOTIP · DATE DEMO</span><button class="iconbtn" id="notifications" aria-label="Preferințe alerte"><span data-icon="bell"></span><i class="notification-dot"></i></button></div></header><div class="content" id="content"></div></main>
 <dialog id="modal" aria-labelledby="modal-title"><div class="modalhead"><div><div class="eyebrow" id="modal-kicker">MEDORA</div><h2 id="modal-title"></h2></div><button class="iconbtn" id="close-modal" aria-label="Închide"><span data-icon="x"></span></button></div><div class="modalbody" id="modal-body"></div></dialog><div id="toast" role="status" aria-live="polite" class="toast"></div>
 <script>
@@ -283,4 +292,65 @@ function bindRows(){document.querySelectorAll('[data-detail]').forEach(b=>b.oncl
 function bind(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{query='';navigate(b.dataset.go)});document.querySelectorAll('[data-settings]').forEach(b=>b.onclick=settings);document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(c=>{c.classList.toggle('active',c.dataset.filter===filter);c.setAttribute('aria-pressed',c.dataset.filter===filter)});filterAlerts()});bindRows();if($('#hero-search'))$('#hero-search').onsubmit=e=>{e.preventDefault();query=new FormData(e.target).get('q').trim();navigate('catalog')};document.querySelectorAll('[data-search]').forEach(b=>b.onclick=()=>{query=b.dataset.search;navigate('catalog')});if($('#catalog-query')){$('#catalog-query').value=query;$('#catalog-query').oninput=e=>{query=e.target.value;updateCatalog()};updateCatalog()}if($('#only-followed'))$('#only-followed').onchange=filterAlerts;if($('#bmi-form'))$('#bmi-form').onsubmit=e=>{e.preventDefault();let f=new FormData(e.target),w=Number(f.get('weight')),h=Number(f.get('height'));if(!Number.isFinite(w)||!Number.isFinite(h)||w<=0||h<=0)return;let r=w/((h/100)**2);$('#bmi-result').innerHTML=`<strong>${r.toLocaleString('ro-RO',{maximumFractionDigits:1})}</strong> kg/m²<br><span class="sub">${w} kg / (${h/100} m)² · rezultat matematic, fără interpretare clinică.</span>`};if($('#interactions-form'))$('#interactions-form').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),id1=f.get('drug1'),id2=f.get('drug2'),d1=get(id1),d2=get(id2),res=$('#interactions-result');if(id1===id2){res.innerHTML=`<strong style="color:#d9534f">Atenție:</strong> Ai selectat același medicament (<strong>${d1.name}</strong>). Risc de supradozaj prin dublare.`}else if(d1.dci===d2.dci){res.innerHTML=`<strong style="color:#e67e22">Substanță identică:</strong> Ambele conțin <strong>${d1.dci}</strong>. Atenție la cumularea dozelor zilnice maxime.`}else{res.innerHTML=`<strong style="color:#2b5f3a">Fără interacțiuni majore semnalate (demo):</strong> Asocierea dintre <strong>${d1.dci}</strong> și <strong>${d2.dci}</strong> este comună în practica clinică. Consultați RCP complet.`}};document.querySelectorAll('[data-subst]').forEach(b=>{b.onclick=()=>{query=b.dataset.subst;navigate('catalog')}});document.querySelectorAll('[data-presc]').forEach(b=>{b.onclick=()=>{const mode=b.dataset.presc;openModal(mode==='adulti'?'Ghid de prescriere: Antibioterapie primă linie':'Ajustare doze: Pacienți vârstnici / eGFR','GHID CLINIC ORIENTATIV',`<p>${mode==='adulti'?'Recomandări pentru prescrierea rațională a aminopenicilinelor și evaluarea antecedentelor alergice.':'Ajustarea posologiei pentru medicamente cu eliminare preponderent renală în funcție de clearance-ul creatininei.'}</p><div class="clinical-compare-box"><img src="spot-icons/prescription.png" alt="" aria-hidden="true"><div><div class="clinical-card-kicker">PROTOCOL TERAPEUTIC</div><div class="clinical-card-title">Prescriere responsabilă și monitorizare periodică</div><small style="display:block;margin-top:4px;color:var(--theme-muted,#75817a)">Date pur orientative. Prescrierea finală aparține exclusiv medicului curant pe baza istoricului pacientului.</small></div></div>`)}});}
 function filterAlerts(){const only=$('#only-followed')?.checked;$('#alerts').innerHTML=alertrows(drugs.filter(d=>d.event&&(filter==='all'||d.status===filter)&&(!only||followed.includes(d.id))));bindRows()}
 document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>{query='';navigate(b.dataset.page)});$('#notifications').onclick=settings;$('#close-modal').onclick=()=>$('#modal').close();$('#modal').onclick=e=>{if(e.target===$('#modal')){let r=$('#modal').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('#modal').close()}};$('#research-nav').onclick=()=>window.open('research.html','_blank');window.addEventListener('hashchange',()=>{let p=location.hash.slice(1);if(p!==page)navigate(p)});page=['overview','catalog','radar','watch','tools','sources'].includes(location.hash.slice(1))?location.hash.slice(1):'overview';render();const initialDrug=new URLSearchParams(location.search).get('drug');if(initialDrug&&get(initialDrug))detail(initialDrug);
+
+function initUserProfile() {
+  try {
+    const raw = localStorage.getItem('medora_user');
+    const user = raw ? JSON.parse(raw) : null;
+    const nameEl = document.getElementById('user-profile-name');
+    const roleEl = document.getElementById('user-profile-role');
+    const imgEl = document.getElementById('user-avatar-img');
+    const fallbackEl = document.getElementById('user-avatar-fallback');
+    
+    if (user) {
+      if (nameEl) nameEl.textContent = user.name || 'Cont utilizator';
+      if (roleEl) roleEl.textContent = user.role || 'Medic specialist';
+      if (fallbackEl) fallbackEl.textContent = user.fallback || 'DR';
+      if (imgEl) {
+        if (user.avatarUrl) {
+          imgEl.src = user.avatarUrl;
+          imgEl.style.display = 'block';
+          if (fallbackEl) fallbackEl.style.display = 'none';
+        } else {
+          imgEl.style.display = 'none';
+          if (fallbackEl) fallbackEl.style.display = 'flex';
+        }
+      }
+    }
+    
+    const widget = document.getElementById('user-profile-widget');
+    if (widget) {
+      widget.onclick = () => {
+        const curr = user || { name: 'Dr. Andrei Popescu', role: 'Medicină de familie', fallback: 'AP', avatarUrl: 'https://img.heroui.chat/image/avatar?w=400&h=400&u=3' };
+        openModal(curr.name, 'PROFIL ACTIV MEDORA', `
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;background:var(--theme-wash-1);border-radius:18px;">
+            <div class="heroui-avatar heroui-avatar-preview">
+              ${curr.avatarUrl ? `<img class="heroui-avatar-img" src="${curr.avatarUrl}" alt="${curr.name}">` : ''}
+              <span class="heroui-avatar-fallback" style="${curr.avatarUrl ? 'display:none;' : 'display:flex;'}">${curr.fallback || 'DR'}</span>
+            </div>
+            <div>
+              <strong style="font-size:16px;color:var(--theme-deep);">${curr.name}</strong>
+              <div style="font-size:12px;color:var(--theme-muted);">${curr.role || 'Medic specialist'} · Standard HeroUI</div>
+              ${curr.email ? `<div style="font-size:11px;color:var(--theme-muted);margin-top:2px;">${curr.email}</div>` : ''}
+            </div>
+          </div>
+          <p>Contul tău are acces complet la nomenclatorul ANMDMR, alertele de farmacovigilență și istoricul deciziilor clinice.</p>
+          <div class="modalfoot" style="margin-top:24px;">
+            <a class="btn primary" href="auth.html" style="text-decoration:none;">Schimbă contul / Avatar</a>
+            <button class="btn" id="logout-btn">Deconectare</button>
+          </div>
+        `);
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+          logoutBtn.onclick = () => {
+            localStorage.removeItem('medora_user');
+            location.reload();
+          };
+        }
+      };
+    }
+  } catch(e) {}
+}
+initUserProfile();
+
 </script></body></html>
