@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f0e4">
-  <meta name="description" content="Autentificare și înregistrare în Medora — Catalog farmaceutic, alerte de stoc și decizie clinică.">
-  <title>Medora — Cont & Autentificare</title>
+  <meta name="theme-color" content="#fbfaf7">
+  <meta name="description" content="Autentificare și înregistrare Medora — Catalog farmaceutic și decizie clinică.">
+  <title>Medora — Autentificare</title>
   <script>
     try {
       document.documentElement.dataset.medoraTheme = localStorage.getItem('medora-theme') || 'iridescent';
@@ -38,39 +38,45 @@
     }
 
     :root {
-      --forest: #f6f0e4;
+      --bg-canvas: #fbfaf7;
+      --card-bg: #ffffff;
       --deep: #181817;
-      --soft: #a7b77c;
-      --mint: #f2a8cf;
-      --mint-soft: #f8dcec;
-      --paper: #f6f0e4;
       --white: #fffdfa;
       --ink: #181817;
-      --line: rgba(24, 24, 23, 0.12);
-      --muted: rgba(24, 24, 23, 0.58);
+      --muted: #77736a;
+      --line: rgba(24, 24, 23, 0.10);
       --accent: #9567bf;
-      --accent-soft: #f2dff5;
+      --mint: #f2a8cf;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    
+
+    /* Override theme.css body > header if present */
+    body > header {
+      background: transparent !important;
+      color: var(--ink) !important;
+    }
+
     body {
       min-height: 100svh;
       margin: 0;
       color: var(--ink);
       background-color: var(--theme-base, #fbfaf7);
       background-image: 
-        radial-gradient(ellipse at 15% 15%, rgba(242, 168, 207, 0.25) 0%, transparent 45%),
-        radial-gradient(ellipse at 85% 80%, rgba(149, 103, 191, 0.18) 0%, transparent 45%),
-        radial-gradient(ellipse at 50% 40%, rgba(254, 242, 241, 0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 15% 15%, rgba(242, 168, 207, 0.22) 0%, transparent 40%),
+        radial-gradient(ellipse at 85% 85%, rgba(149, 103, 191, 0.16) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(254, 242, 241, 0.5) 0%, transparent 60%),
         url('medora-pastel-glow.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      font: 15px/1.5 Karla, Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font: 14.5px/1.5 Karla, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(16px, 3vh, 32px) 16px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -78,28 +84,61 @@
     button, input { font: inherit; }
     button { color: inherit; cursor: pointer; }
     a:focus-visible, button:focus-visible, input:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
-    /* Topbar matching Medora index.html */
-    .topbar {
-      width: min(1120px, calc(100% - 48px));
-      height: 84px;
-      margin: 0 auto;
+    /* Back Home Floating Link */
+    .top-nav {
+      position: absolute;
+      top: 20px;
+      left: 24px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      z-index: 20;
+      gap: 12px;
+      z-index: 10;
     }
-    .brand {
+    .back-link {
       display: inline-flex;
       align-items: center;
-      gap: 11px;
-      font-size: 32px;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(24, 24, 23, 0.08);
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+    .back-link:hover {
+      color: var(--ink);
+      background: #ffffff;
+      border-color: rgba(24, 24, 23, 0.18);
+    }
+    .back-link svg { width: 14px; height: 14px; }
+
+    /* Center Auth Wrapper */
+    .auth-center-wrap {
+      width: 100%;
+      max-width: 410px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto 0;
+    }
+
+    /* Brand Logo */
+    .auth-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 29px;
       font-weight: 720;
       color: var(--ink);
+      margin-bottom: 20px;
+      text-decoration: none;
     }
     .brand-mark {
       display: grid;
@@ -115,127 +154,41 @@
       height: 20px;
       stroke-width: 2;
     }
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .market {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 550;
-    }
-    .market svg { width: 14px; height: 14px; }
-    
-    .nav-pill-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--ink);
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(24, 24, 23, 0.12);
-      padding: 0 14px;
-      min-height: 38px;
-      border-radius: 19px;
-      font-size: 12px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      backdrop-filter: blur(8px);
-    }
-    .nav-pill-btn:hover {
-      background: var(--white);
-      border-color: var(--ink);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    }
-    .nav-pill-btn svg { width: 15px; height: 15px; }
 
-    .open-app-btn {
-      min-height: 38px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 16px;
-      color: var(--white);
-      background: var(--deep);
-      border: 0;
-      border-radius: 19px;
-      font-size: 12.5px;
-      font-weight: 650;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(24, 24, 23, 0.15);
-    }
-    .open-app-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(24, 24, 23, 0.22);
-    }
-    .open-app-btn svg { width: 15px; height: 15px; }
-
-    /* Main Container */
-    .auth-stage {
-      flex: 1;
+    /* Main Centered Card */
+    .auth-card {
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(16px, 3vh, 40px) clamp(16px, 3vw, 32px);
-    }
-
-    /* Floating Medora Card */
-    .auth-window {
-      width: min(1040px, 100%);
-      background: rgba(255, 253, 250, 0.90);
-      border: 1px solid rgba(24, 24, 23, 0.10);
-      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(24, 24, 23, 0.09);
+      border-radius: 22px;
+      padding: 30px 32px 28px;
       box-shadow: 
-        0 24px 64px rgba(52, 44, 37, 0.08),
-        0 4px 16px rgba(52, 44, 37, 0.03);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      display: grid;
-      grid-template-columns: minmax(360px, 450px) minmax(380px, 1fr);
-      overflow: hidden;
-    }
-
-    /* LEFT PANE: Form Column */
-    .auth-form-column {
-      padding: clamp(28px, 3.8vh, 42px) clamp(24px, 3.2vw, 40px);
+        0 20px 50px rgba(52, 44, 37, 0.06),
+        0 2px 10px rgba(52, 44, 37, 0.02);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: 18px;
-      border-right: 1px solid rgba(24, 24, 23, 0.08);
-      background: rgba(255, 255, 255, 0.50);
     }
 
-    /* Top Row: Mode Switcher */
-    .form-header {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .mode-switch-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    /* Segmented Mode Switcher */
     .mode-switch {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      background: rgba(24, 24, 23, 0.06);
+      background: rgba(24, 24, 23, 0.05);
       padding: 3px;
-      border-radius: 20px;
+      border-radius: 12px;
+      width: 100%;
     }
     .mode-tab {
-      padding: 6px 16px;
+      flex: 1;
+      text-align: center;
+      padding: 7px 0;
       border: 0;
       background: transparent;
-      border-radius: 17px;
-      font-size: 12.5px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--muted);
       transition: all 0.2s ease;
@@ -246,155 +199,204 @@
     .mode-tab.active {
       background: #ffffff;
       color: var(--ink);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    .form-intro {
-      margin-top: 4px;
+    /* Titles */
+    .card-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
-    .form-title {
+    .card-title {
       font-family: Karla, "Mazzard H", Inter, sans-serif;
-      font-size: clamp(26px, 2.8vh, 32px);
+      font-size: 24px;
       font-weight: 700;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.03em;
       color: var(--ink);
-      line-height: 1.15;
-      margin-bottom: 6px;
     }
-    .form-desc {
-      font-size: 13.5px;
+    .card-subtitle {
+      font-size: 12.5px;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
-    /* Form Fields */
-    .form-body {
+    /* Social Buttons */
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .social-btn {
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid rgba(24, 24, 23, 0.12);
+      border-radius: 12px;
+      color: var(--ink);
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .social-btn:hover {
+      border-color: rgba(24, 24, 23, 0.28);
+      background: #fafaf8;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+    .social-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Divider */
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 2px 0;
+    }
+    .divider::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background: rgba(24, 24, 23, 0.08);
+    }
+    .divider span {
+      position: relative;
+      background: #ffffff;
+      padding: 0 10px;
+      font-size: 11.5px;
+      color: #9c958c;
+      font-weight: 500;
+    }
+
+    /* Form Body */
+    .auth-form {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
-    .field-group {
+    .field-wrap {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      gap: 5px;
     }
-    .field-group.hidden {
+    .field-wrap.hidden {
       display: none;
     }
     .field-label {
-      font-size: 10.5px;
-      font-weight: 750;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      color: #575249;
     }
     .label-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .forgot-pwd-link {
+    .forgot-link {
       font-size: 11.5px;
       font-weight: 600;
       color: var(--accent);
-      transition: opacity 0.2s ease;
     }
-    .forgot-pwd-link:hover {
+    .forgot-link:hover {
       text-decoration: underline;
     }
 
-    .input-wrap {
+    .input-box {
       position: relative;
       display: flex;
       align-items: center;
     }
     .input-icon {
       position: absolute;
-      left: 14px;
-      width: 17px;
-      height: 17px;
-      color: #9b948b;
+      left: 12px;
+      width: 16px;
+      height: 16px;
+      color: #9c958c;
       pointer-events: none;
-      transition: color 0.2s ease;
     }
-    .pill-input {
+    .text-input {
       width: 100%;
-      height: 44px;
-      padding: 0 42px 0 42px;
+      height: 42px;
+      padding: 0 38px 0 36px;
       background: #ffffff;
-      border: 1px solid rgba(24, 24, 23, 0.14);
-      border-radius: 12px;
+      border: 1px solid rgba(24, 24, 23, 0.13);
+      border-radius: 11px;
       color: var(--ink);
-      font-size: 14px;
+      font-size: 13.5px;
       outline: none;
       transition: all 0.2s ease;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
     }
-    .pill-input::placeholder {
-      color: #a39c93;
+    .text-input::placeholder {
+      color: #a8a29a;
     }
-    .pill-input:focus {
+    .text-input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(149, 103, 191, 0.15);
+      box-shadow: 0 0 0 3px rgba(149, 103, 191, 0.14);
     }
-    .input-wrap:focus-within .input-icon {
+    .input-box:focus-within .input-icon {
       color: var(--accent);
     }
 
-    .toggle-pwd-btn {
+    .pwd-toggle {
       position: absolute;
-      right: 12px;
-      display: grid;
-      place-items: center;
-      width: 28px;
-      height: 28px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
       border: 0;
       background: transparent;
-      color: #9b948b;
+      color: #9c958c;
+      display: grid;
+      place-items: center;
       border-radius: 6px;
-      transition: color 0.2s ease;
     }
-    .toggle-pwd-btn:hover {
+    .pwd-toggle:hover {
       color: var(--ink);
     }
-    .toggle-pwd-btn svg {
-      width: 16px;
-      height: 16px;
+    .pwd-toggle svg {
+      width: 15px;
+      height: 15px;
     }
 
-    /* Checkbox row */
-    .checkbox-row {
+    /* Checkbox */
+    .terms-row {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      cursor: pointer;
-      font-size: 12px;
+      gap: 8px;
+      font-size: 11.5px;
       color: var(--muted);
-      line-height: 1.45;
+      line-height: 1.4;
+      cursor: pointer;
       margin-top: 2px;
     }
-    .checkbox-row input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      margin-top: 2px;
+    .terms-row input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      margin-top: 1px;
       accent-color: var(--accent);
       cursor: pointer;
       flex-shrink: 0;
     }
-    .checkbox-row a {
+    .terms-row a {
       color: var(--ink);
       font-weight: 600;
       text-decoration: underline;
     }
 
-    /* Submit Button */
+    /* Submit CTA */
     .submit-btn {
-      position: relative;
       width: 100%;
-      height: 46px;
+      height: 44px;
       border: 0;
-      border-radius: 23px;
+      border-radius: 12px;
       background: var(--deep);
       color: var(--white);
       font-size: 13.5px;
@@ -404,290 +406,55 @@
       justify-content: center;
       gap: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(24, 24, 23, 0.16);
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
       margin-top: 4px;
+      box-shadow: 0 4px 14px rgba(24, 24, 23, 0.14);
+      transition: all 0.2s ease;
     }
     .submit-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(24, 24, 23, 0.22);
+      box-shadow: 0 6px 20px rgba(24, 24, 23, 0.20);
     }
     .submit-btn svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       transition: transform 0.2s ease;
     }
     .submit-btn:hover svg {
       transform: translateX(3px);
     }
 
-    /* Divider */
-    .divider {
-      position: relative;
+    /* Footer Prompt */
+    .card-footer {
       text-align: center;
-      margin: 4px 0;
-    }
-    .divider::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 100%;
-      height: 1px;
-      background: rgba(24, 24, 23, 0.10);
-    }
-    .divider span {
-      position: relative;
-      background: rgba(255, 254, 252, 0.95);
-      padding: 0 12px;
-      font-size: 11.5px;
-      color: #9b948b;
-      font-weight: 500;
-    }
-
-    /* Social OAuth Buttons */
-    .social-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .social-pill-btn {
-      height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      background: #ffffff;
-      border: 1px solid rgba(24, 24, 23, 0.12);
-      border-radius: 20px;
-      color: var(--ink);
-      font-size: 12.5px;
-      font-weight: 600;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
-    }
-    .social-pill-btn:hover {
-      border-color: rgba(24, 24, 23, 0.28);
-      background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-    }
-    .social-icon {
-      width: 17px;
-      height: 17px;
-      flex-shrink: 0;
-    }
-
-    /* Footer switcher prompt */
-    .auth-footer-prompt {
-      text-align: center;
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--muted);
-      padding-top: 6px;
     }
-    .switch-trigger-btn {
+    .switch-link {
       background: transparent;
       border: 0;
       color: var(--accent);
       font-weight: 700;
-      margin-left: 4px;
       cursor: pointer;
+      margin-left: 3px;
+    }
+    .switch-link:hover {
       text-decoration: underline;
     }
-    .switch-trigger-btn:hover {
-      color: var(--ink);
-    }
 
-    /* RIGHT PANE: Medora Clinical Showcase */
-    .auth-showcase-column {
-      padding: clamp(28px, 3.8vh, 42px) clamp(28px, 3.5vw, 42px);
-      background: linear-gradient(145deg, rgba(254, 242, 241, 0.5) 0%, rgba(246, 237, 251, 0.45) 50%, rgba(229, 241, 250, 0.4) 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 22px;
-      position: relative;
-    }
-
-    .showcase-top {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .sync-badge {
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      background: rgba(114, 134, 93, 0.12);
-      border: 1px solid rgba(114, 134, 93, 0.22);
-      border-radius: 16px;
-      color: #3b5228;
-      font-size: 11.5px;
-      font-weight: 650;
-    }
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #508d3e;
-      box-shadow: 0 0 0 3px rgba(80, 141, 62, 0.25);
-      animation: pulse 2s infinite ease-in-out;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.25); opacity: 0.7; }
-    }
-
-    .showcase-title {
-      font-family: Karla, "Mazzard H", Inter, sans-serif;
-      font-size: clamp(26px, 3vh, 32px);
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.15;
-      color: var(--ink);
-    }
-    .showcase-title span {
-      color: var(--accent);
-      display: block;
-    }
-    .showcase-desc {
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* Miniature Live Clinical Preview Card */
-    .preview-card {
-      background: #ffffff;
-      border: 1px solid rgba(24, 24, 23, 0.10);
-      border-radius: 18px;
-      padding: 18px 20px;
-      box-shadow: 0 12px 32px rgba(52, 44, 37, 0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .preview-header {
+    /* Sub-card security note */
+    .security-badge {
       display: flex;
       align-items: center;
-      gap: 12px;
-    }
-    .preview-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: #fbf7ef;
-      border: 1px solid rgba(24, 24, 23, 0.08);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-    }
-    .preview-icon img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-    }
-    .preview-meta {
-      flex: 1;
-      min-width: 0;
-    }
-    .preview-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-    .preview-sub {
-      font-size: 11.5px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
-    .preview-status {
-      align-self: flex-start;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: #eef7eb;
-      color: #3f6e31;
-    }
-
-    .preview-tags {
-      display: flex;
-      flex-wrap: wrap;
+      justify-content: center;
       gap: 6px;
-    }
-    .preview-tag {
-      font-size: 10.5px;
-      font-weight: 600;
-      padding: 4px 10px;
-      background: rgba(24, 24, 23, 0.04);
-      border-radius: 12px;
-      color: #555047;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .preview-tag svg {
-      width: 12px;
-      height: 12px;
-      color: var(--accent);
-    }
-
-    /* Feature Value Props */
-    .value-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .value-item {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 12.5px;
-      color: #4a453e;
-      font-weight: 500;
-    }
-    .value-item svg {
-      width: 15px;
-      height: 15px;
-      color: #458237;
-      flex-shrink: 0;
-    }
-
-    /* Stats Grid */
-    .showcase-stats {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center;
-      padding-top: 16px;
-      border-top: 1px solid rgba(24, 24, 23, 0.10);
-    }
-    .stat-col {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .stat-val {
-      font-family: Karla, Inter, sans-serif;
-      font-size: 22px;
-      font-weight: 750;
-      color: var(--ink);
-      letter-spacing: -0.02em;
-    }
-    .stat-label {
-      font-size: 11px;
+      margin-top: 18px;
+      font-size: 11.5px;
       color: var(--muted);
-      font-weight: 500;
     }
-    .stat-divider {
-      width: 1px;
-      height: 28px;
-      background: rgba(24, 24, 23, 0.12);
+    .security-badge svg {
+      width: 13px;
+      height: 13px;
+      color: #608d4b;
     }
 
     /* Toast Notification */
@@ -699,15 +466,15 @@
       opacity: 0;
       background: var(--deep);
       color: var(--white);
-      padding: 12px 24px;
-      border-radius: 30px;
+      padding: 10px 20px;
+      border-radius: 24px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 13.5px;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 600;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.20);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 100;
       pointer-events: none;
     }
@@ -716,280 +483,152 @@
       opacity: 1;
     }
     .toast-feedback svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       color: #92e078;
     }
 
-    /* Responsive */
-    @media (max-height: 760px) {
-      .topbar {
-        height: 64px;
+    @media (max-width: 480px) {
+      .top-nav {
+        position: static;
+        margin-bottom: 16px;
+        align-self: flex-start;
       }
-      .auth-stage {
-        padding: 10px 16px 20px;
-      }
-      .auth-form-column {
-        padding: 20px 28px;
-        gap: 12px;
-      }
-      .auth-showcase-column {
-        padding: 20px 28px;
-        gap: 14px;
-      }
-      .form-body {
-        gap: 10px;
-      }
-      .pill-input {
-        height: 40px;
-      }
-      .submit-btn {
-        height: 42px;
-      }
-      .social-pill-btn {
-        height: 36px;
-      }
-      .form-title, .showcase-title {
-        font-size: 24px;
-      }
-      .preview-card {
-        padding: 12px 16px;
-        gap: 8px;
-      }
-    }
-
-    @media (max-width: 880px) {
-      .auth-window {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-      }
-      .auth-showcase-column {
-        display: none;
-      }
-      .auth-form-column {
-        border-right: 0;
-      }
-      .topbar {
-        height: 72px;
-      }
-    }
-    @media (max-width: 520px) {
-      .top-actions .market {
-        display: none;
-      }
-      .social-row {
-        grid-template-columns: 1fr;
+      .auth-card {
+        padding: 24px 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Topbar aligned with Medora brand -->
-  <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Medora, pagina principală">
+  <!-- Top back link -->
+  <nav class="top-nav" aria-label="Navigare rapidă">
+    <a href="index.html" class="back-link">
+      <i data-lucide="arrow-left"></i>
+      <span>Înapoi la Medora</span>
+    </a>
+  </nav>
+
+  <!-- Centered Auth Container -->
+  <main class="auth-center-wrap">
+    
+    <!-- Centered Brand -->
+    <a href="index.html" class="auth-brand" aria-label="Medora, pagina principală">
       <span class="brand-mark"><i data-lucide="asterisk"></i></span>
       medora
     </a>
 
-    <div class="top-actions">
-      <span class="market"><i data-lucide="map-pin"></i> România</span>
-      <a class="nav-pill-btn" href="index.html" title="Înapoi la pagina principală">
-        <i data-lucide="arrow-left"></i>
-        <span>Acasă</span>
-      </a>
-      <a class="open-app-btn" href="medora.html#overview" title="Deschide aplicația Medora">
-        <span>Deschide aplicația</span>
-        <i data-lucide="arrow-up-right"></i>
-      </a>
-    </div>
-  </header>
-
-  <!-- Auth Center Container -->
-  <main class="auth-stage">
-    <div class="auth-window">
+    <!-- Auth Card -->
+    <div class="auth-card">
       
-      <!-- LEFT FORM COLUMN -->
-      <section class="auth-form-column" aria-labelledby="form-title">
-        
-        <div class="form-header">
-          <div class="mode-switch-wrapper">
-            <div class="mode-switch" role="tablist" aria-label="Selectează tipul autentificării">
-              <button type="button" class="mode-tab active" id="tab-signup" role="tab" aria-selected="true">Înregistrare</button>
-              <button type="button" class="mode-tab" id="tab-signin" role="tab" aria-selected="false">Autentificare</button>
-            </div>
-          </div>
+      <!-- Segmented mode tabs -->
+      <div class="mode-switch" role="tablist" aria-label="Selectează tipul autentificării">
+        <button type="button" class="mode-tab active" id="tab-signup" role="tab" aria-selected="true">Înregistrare</button>
+        <button type="button" class="mode-tab" id="tab-signin" role="tab" aria-selected="false">Autentificare</button>
+      </div>
 
-          <div class="form-intro">
-            <h1 class="form-title" id="form-title">Creează cont</h1>
-            <p class="form-desc" id="form-desc">Accesează catalogul complet, salvează medicamente și monitorizează alertele oficiale în timp real.</p>
+      <!-- Title & Subtitle -->
+      <div class="card-header">
+        <h1 class="card-title" id="form-title">Creează cont</h1>
+        <p class="card-subtitle" id="form-desc">Salvează medicamente și monitorizează alertele oficiale.</p>
+      </div>
+
+      <!-- Social OAuth Grid -->
+      <div class="social-grid">
+        <button type="button" class="social-btn" id="btn-google" aria-label="Continuă cu Google">
+          <svg class="social-icon" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Google</span>
+        </button>
+
+        <button type="button" class="social-btn" id="btn-apple" aria-label="Continuă cu Apple">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-1.07 1.72-.94 2.74 1 .08 2.03-.49 2.65-1.24z"/>
+          </svg>
+          <span>Apple</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>sau cu email</span>
+      </div>
+
+      <!-- Interactive Form -->
+      <form id="auth-form" class="auth-form" novalidate autocomplete="on">
+        
+        <!-- Full Name (Sign Up only) -->
+        <div class="field-wrap" id="group-name">
+          <label class="field-label" for="user-name">Nume complet</label>
+          <div class="input-box">
+            <i data-lucide="user" class="input-icon"></i>
+            <input type="text" id="user-name" name="name" class="text-input" placeholder="Dr. Andrei Popescu" autocomplete="name" required>
           </div>
         </div>
 
-        <!-- Form -->
-        <form id="auth-form" class="form-body" novalidate autocomplete="on">
-          
-          <!-- Full Name (Sign Up Only) -->
-          <div class="field-group" id="group-name">
-            <label class="field-label" for="user-name">Nume complet</label>
-            <div class="input-wrap">
-              <i data-lucide="user" class="input-icon"></i>
-              <input type="text" id="user-name" name="name" class="pill-input" placeholder="Dr. Andrei Popescu" autocomplete="name" required>
-            </div>
+        <!-- Email -->
+        <div class="field-wrap" id="group-email">
+          <label class="field-label" for="user-email">Email profesional</label>
+          <div class="input-box">
+            <i data-lucide="mail" class="input-icon"></i>
+            <input type="email" id="user-email" name="email" class="text-input" placeholder="medic@spital.ro" autocomplete="email" required>
           </div>
+        </div>
 
-          <!-- Email Address -->
-          <div class="field-group" id="group-email">
-            <label class="field-label" for="user-email">Adresă de email</label>
-            <div class="input-wrap">
-              <i data-lucide="mail" class="input-icon"></i>
-              <input type="email" id="user-email" name="email" class="pill-input" placeholder="medic@spital.ro" autocomplete="email" required>
-            </div>
+        <!-- Password -->
+        <div class="field-wrap" id="group-password">
+          <div class="label-row">
+            <label class="field-label" for="user-password">Parolă</label>
+            <a href="#reset-password" class="forgot-link" id="forgot-link" style="display: none;">Ai uitat parola?</a>
           </div>
-
-          <!-- Password -->
-          <div class="field-group" id="group-password">
-            <div class="label-row">
-              <label class="field-label" for="user-password">Parolă</label>
-              <a href="#reset-password" class="forgot-pwd-link" id="forgot-link" style="display: none;">Ai uitat parola?</a>
-            </div>
-            <div class="input-wrap">
-              <i data-lucide="lock" class="input-icon"></i>
-              <input type="password" id="user-password" name="password" class="pill-input" placeholder="Minim 8 caractere" autocomplete="current-password" required>
-              <button type="button" class="toggle-pwd-btn" id="toggle-password" aria-label="Afișează sau ascunde parola">
-                <i data-lucide="eye" id="eye-icon"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Terms Checkbox (Sign Up Only) -->
-          <label class="checkbox-row" id="group-terms">
-            <input type="checkbox" id="terms-agree" required checked>
-            <span>Sunt de acord cu <a href="#terms">Termenii de utilizare</a> și <a href="#privacy">Politica de confidențialitate</a> Medora.</span>
-          </label>
-
-          <!-- Primary Submit CTA -->
-          <button type="submit" class="submit-btn" id="submit-btn">
-            <span id="submit-label">Creează cont gratuit</span>
-            <i data-lucide="arrow-right"></i>
-          </button>
-
-          <!-- Social Divider -->
-          <div class="divider">
-            <span>sau continuă cu</span>
-          </div>
-
-          <!-- Social OAuth Buttons -->
-          <div class="social-row">
-            <button type="button" class="social-pill-btn" id="btn-google" aria-label="Continuă cu Google">
-              <svg class="social-icon" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-              </svg>
-              <span>Google</span>
-            </button>
-
-            <button type="button" class="social-pill-btn" id="btn-apple" aria-label="Continuă cu Apple">
-              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-1.07 1.72-.94 2.74 1 .08 2.03-.49 2.65-1.24z"/>
-              </svg>
-              <span>Apple</span>
+          <div class="input-box">
+            <i data-lucide="lock" class="input-icon"></i>
+            <input type="password" id="user-password" name="password" class="text-input" placeholder="Minim 8 caractere" autocomplete="current-password" required>
+            <button type="button" class="pwd-toggle" id="toggle-password" aria-label="Afișează/ascunde parola">
+              <i data-lucide="eye" id="eye-icon"></i>
             </button>
           </div>
-        </form>
-
-        <!-- Mode Switch Footer -->
-        <div class="auth-footer-prompt">
-          <span id="footer-text">Ai deja un cont?</span>
-          <button type="button" class="switch-trigger-btn" id="switch-mode-btn">Conectează-te</button>
         </div>
 
-      </section>
+        <!-- Terms agreement (Sign Up only) -->
+        <label class="terms-row" id="group-terms">
+          <input type="checkbox" id="terms-agree" required checked>
+          <span>Sunt de acord cu <a href="#terms">Termenii</a> și <a href="#privacy">Confidențialitatea</a> Medora.</span>
+        </label>
 
-      <!-- RIGHT SHOWCASE COLUMN -->
-      <section class="auth-showcase-column" aria-label="Despre Medora">
-        
-        <div class="showcase-top">
-          <div class="sync-badge">
-            <span class="pulse-dot"></span>
-            <span>Date oficiale ANMDMR & EMA</span>
-          </div>
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <span id="submit-label">Creează cont gratuit</span>
+          <i data-lucide="arrow-right"></i>
+        </button>
 
-          <h2 class="showcase-title">
-            Informația potrivită.
-            <span>Înainte de prescripție.</span>
-          </h2>
+      </form>
 
-          <p class="showcase-desc">
-            Standardul digital modern pentru medici și farmaciști: decizii clinice sigure, alerte în timp real și rezumate RCP oficiale.
-          </p>
-        </div>
-
-        <!-- Live Clinical Preview Card -->
-        <div class="preview-card">
-          <div class="preview-header">
-            <div class="preview-icon">
-              <img src="spot-icons/drug-pill.png" alt="Icon medicament" width="34" height="34">
-            </div>
-            <div class="preview-meta">
-              <div class="preview-name">Ozempic 1 mg</div>
-              <div class="preview-sub">Semaglutidum · Soluție injectabilă</div>
-            </div>
-            <div class="preview-status">Disponibil</div>
-          </div>
-
-          <div class="preview-tags">
-            <span class="preview-tag"><i data-lucide="file-check"></i> RCP Oficial</span>
-            <span class="preview-tag"><i data-lucide="shield-check"></i> Compensat CNAS</span>
-            <span class="preview-tag"><i data-lucide="bell"></i> Alertă stoc activă</span>
-          </div>
-        </div>
-
-        <!-- Value checks -->
-        <div class="value-list">
-          <div class="value-item">
-            <i data-lucide="check"></i>
-            <span>Catalog complet actualizat zilnic conform nomenclatorului</span>
-          </div>
-          <div class="value-item">
-            <i data-lucide="check"></i>
-            <span>Alerte instantanee la retrageri sau discontinuități de stoc</span>
-          </div>
-          <div class="value-item">
-            <i data-lucide="check"></i>
-            <span>Portofoliu personalizat de medicamente salvate și protocoale</span>
-          </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="showcase-stats">
-          <div class="stat-col">
-            <span class="stat-val">6.500+</span>
-            <span class="stat-label">Medicamente</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-col">
-            <span class="stat-val">24/7</span>
-            <span class="stat-label">Alerte active</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-col">
-            <span class="stat-val">100%</span>
-            <span class="stat-label">Date oficiale</span>
-          </div>
-        </div>
-
-      </section>
+      <!-- Switch mode prompt -->
+      <div class="card-footer">
+        <span id="footer-text">Ai deja un cont?</span>
+        <button type="button" class="switch-link" id="switch-mode-btn">Conectează-te</button>
+      </div>
 
     </div>
+
+    <!-- Security reassurance note -->
+    <div class="security-badge">
+      <i data-lucide="shield-check"></i>
+      <span>Date sincronizate oficial cu ANMDMR & EMA</span>
+    </div>
+
   </main>
 
-  <!-- Demo Feedback Toast -->
+  <!-- Demo Toast Feedback -->
   <div class="toast-feedback" id="toast-feedback" role="status" aria-live="polite">
     <i data-lucide="check-circle-2"></i>
-    <span id="toast-message">Contul tău a fost creat cu succes!</span>
+    <span id="toast-message">Autentificare reușită!</span>
   </div>
 
   <script>
@@ -1027,7 +666,7 @@
           tabSignIn.setAttribute('aria-selected', 'false');
 
           formTitle.textContent = 'Creează cont';
-          formDesc.textContent = 'Accesează catalogul complet, salvează medicamente și monitorizează alertele oficiale în timp real.';
+          formDesc.textContent = 'Salvează medicamente și monitorizează alertele oficiale.';
           groupName.classList.remove('hidden');
           document.getElementById('user-name').setAttribute('required', '');
           groupTerms.style.display = 'flex';
@@ -1042,7 +681,7 @@
           tabSignUp.setAttribute('aria-selected', 'false');
 
           formTitle.textContent = 'Bine ai revenit';
-          formDesc.textContent = 'Introdu credențialele pentru a accesa portofoliul salvat, alertele și istoricul deciziilor.';
+          formDesc.textContent = 'Accesează catalogul, alertele și istoricul deciziilor.';
           groupName.classList.add('hidden');
           document.getElementById('user-name').removeAttribute('required');
           groupTerms.style.display = 'none';
@@ -1077,7 +716,7 @@
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 3600);
+        }, 3000);
       }
 
       // Form submission simulation
@@ -1093,7 +732,7 @@
         }
         setTimeout(() => {
           window.location.href = 'medora.html#overview';
-        }, 1500);
+        }, 1400);
       });
 
       // Social auth buttons simulation
@@ -1101,14 +740,14 @@
         showToast('Conectare securizată cu Google...');
         setTimeout(() => {
           window.location.href = 'medora.html#overview';
-        }, 1500);
+        }, 1400);
       });
 
       document.getElementById('btn-apple').addEventListener('click', () => {
         showToast('Conectare securizată cu Apple...');
         setTimeout(() => {
           window.location.href = 'medora.html#overview';
-        }, 1500);
+        }, 1400);
       });
     });
   </script>
