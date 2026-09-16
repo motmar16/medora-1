@@ -515,26 +515,52 @@
       }
     }
 
-    /* Untitled UI App Store Buttons Integration */
+    /* Untitled UI App Download & QR Code Section */
     .app-store-cta-group {
-      margin-top: 32px;
+      margin-top: 36px;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .app-download-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding: 22px 28px;
+      background: color-mix(in srgb, var(--theme-surface, #ffffff) 88%, transparent);
+      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 75%, transparent);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px color-mix(in srgb, var(--theme-deep, #181817) 5%, transparent);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .app-buttons-col {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
+      align-items: flex-start;
+      gap: 6px;
+      text-align: left;
     }
     .app-store-cta-label {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 750;
       letter-spacing: 1.2px;
       text-transform: uppercase;
+      color: var(--theme-accent, #9567bf);
+    }
+    .app-store-desc {
+      margin: 0 0 6px;
+      font-size: 12.5px;
       color: var(--theme-muted, #77736a);
+      line-height: 1.45;
+      max-width: 250px;
     }
     .app-store-badges {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
+      gap: 10px;
       flex-wrap: wrap;
     }
     .app-store-badge-btn {
@@ -556,10 +582,121 @@
     }
     .app-store-badge-btn svg {
       display: block;
-      height: 40px;
+      height: 38px;
       width: auto;
     }
-  </style>
+    .app-download-divider {
+      width: 1px;
+      height: 92px;
+      background: color-mix(in srgb, var(--theme-line, #ddd6c8) 70%, transparent);
+    }
+    /* Untitled UI QR Code Frame */
+    .app-qr-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .untitledui-qr-container {
+      position: relative;
+      padding: 8px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      display: grid;
+      place-items: center;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+    }
+    .untitledui-qr-container:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    }
+    .qr-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      pointer-events: none;
+    }
+    .qr-handle-tl {
+      top: 2px;
+      left: 2px;
+      border-top: 2.5px solid var(--theme-accent, #9567bf);
+      border-left: 2.5px solid var(--theme-accent, #9567bf);
+      border-top-left-radius: 4px;
+    }
+    .qr-handle-tr {
+      top: 2px;
+      right: 2px;
+      border-top: 2.5px solid var(--theme-accent, #9567bf);
+      border-right: 2.5px solid var(--theme-accent, #9567bf);
+      border-top-right-radius: 4px;
+    }
+    .qr-handle-br {
+      bottom: 2px;
+      right: 2px;
+      border-bottom: 2.5px solid var(--theme-accent, #9567bf);
+      border-right: 2.5px solid var(--theme-accent, #9567bf);
+      border-bottom-right-radius: 4px;
+    }
+    .qr-handle-bl {
+      bottom: 2px;
+      left: 2px;
+      border-bottom: 2.5px solid var(--theme-accent, #9567bf);
+      border-left: 2.5px solid var(--theme-accent, #9567bf);
+      border-bottom-left-radius: 4px;
+    }
+    .qr-code-wrapper {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .qr-code-wrapper svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .qr-gradient-scan {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--theme-accent, #9567bf), transparent);
+      box-shadow: 0 0 8px var(--theme-accent, #9567bf);
+      animation: qr-scan-anim 2.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes qr-scan-anim {
+      0% { top: 0; opacity: 0.2; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: calc(100% - 2px); opacity: 0.2; }
+    }
+    .app-qr-caption {
+      font-size: 11px;
+      font-weight: 650;
+      color: var(--theme-muted, #77736a);
+      white-space: nowrap;
+    }
+    @media (max-width: 620px) {
+      .app-download-row {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 16px;
+        text-align: center;
+      }
+      .app-buttons-col {
+        align-items: center;
+        text-align: center;
+      }
+      .app-download-divider {
+        display: none;
+      }
+    }
+    </style>
   <link rel="stylesheet" href="theme.css?v=4">
   <script src="theme.js?v=4" defer></script>
 </head>
@@ -1049,11 +1186,15 @@
     <div class="final-inner">
       <h2 id="final-title">De la prima căutare la schimbarea care contează.</h2>
       <a class="final-button" href="medora.html#overview">Explorează aplicația <i data-lucide="arrow-up-right"></i></a>
-      <div class="app-store-cta-group">
-        <span class="app-store-cta-label">Disponibil în curând pe mobil</span>
-        <div class="app-store-badges">
-          <a href="simulator.html" class="app-store-badge-btn" aria-label="Descarcă de pe App Store (Simulează pe iOS)">
-            <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+            <div class="app-store-cta-group">
+        <div class="app-download-row">
+          <!-- Store buttons column -->
+          <div class="app-buttons-col">
+            <span class="app-store-cta-label">Aplicația mobilă</span>
+            <p class="app-store-desc">Informații clinice și radar de disponibilitate oriunde. În curând pe iOS & Android.</p>
+            <div class="app-store-badges">
+              <a href="simulator.html" class="app-store-badge-btn" aria-label="Descarcă de pe App Store (Simulează pe iOS)">
+                <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
                 <path
                     d="M81.5257 19.2009V21.4919H80.0896V22.9944H81.5257V28.0994C81.5257 29.8425 82.3143 30.5398 84.2981 30.5398C84.6468 30.5398 84.9788 30.4983 85.2693 30.4485V28.9626C85.0203 28.9875 84.8626 29.0041 84.5887 29.0041C83.7005 29.0041 83.3104 28.5891 83.3104 27.6428V22.9944H85.2693V21.4919H83.3104V19.2009H81.5257Z"
                     fill="white"
@@ -1144,9 +1285,9 @@
                     fill="white"
                 />
             </svg>
-          </a>
-          <a href="simulator.html" class="app-store-badge-btn" aria-label="Descarcă de pe Google Play (Simulează pe Android)">
-            <svg width="135" height="40" viewBox="0 0 135 40" fill="none">
+              </a>
+              <a href="simulator.html" class="app-store-badge-btn" aria-label="Descarcă de pe Google Play (Simulează pe Android)">
+                <svg width="135" height="40" viewBox="0 0 135 40" fill="none">
                 <path
                     d="M68.136 21.7511C65.784 21.7511 63.867 23.5401 63.867 26.0041C63.867 28.4531 65.784 30.2571 68.136 30.2571C70.489 30.2571 72.406 28.4531 72.406 26.0041C72.405 23.5401 70.488 21.7511 68.136 21.7511ZM68.136 28.5831C66.847 28.5831 65.736 27.5201 65.736 26.0051C65.736 24.4741 66.848 23.4271 68.136 23.4271C69.425 23.4271 70.536 24.4741 70.536 26.0051C70.536 27.5191 69.425 28.5831 68.136 28.5831ZM58.822 21.7511C56.47 21.7511 54.553 23.5401 54.553 26.0041C54.553 28.4531 56.47 30.2571 58.822 30.2571C61.175 30.2571 63.092 28.4531 63.092 26.0041C63.092 23.5401 61.175 21.7511 58.822 21.7511ZM58.822 28.5831C57.533 28.5831 56.422 27.5201 56.422 26.0051C56.422 24.4741 57.534 23.4271 58.822 23.4271C60.111 23.4271 61.222 24.4741 61.222 26.0051C61.223 27.5191 60.111 28.5831 58.822 28.5831ZM47.744 23.0571V24.8611H52.062C51.933 25.8761 51.595 26.6171 51.079 27.1321C50.451 27.7601 49.468 28.4531 47.744 28.4531C45.086 28.4531 43.008 26.3101 43.008 23.6521C43.008 20.9941 45.086 18.8511 47.744 18.8511C49.178 18.8511 50.225 19.4151 50.998 20.1401L52.271 18.8671C51.191 17.8361 49.758 17.0471 47.744 17.0471C44.103 17.0471 41.042 20.0111 41.042 23.6521C41.042 27.2931 44.103 30.2571 47.744 30.2571C49.709 30.2571 51.192 29.6121 52.351 28.4041C53.543 27.2121 53.914 25.5361 53.914 24.1831C53.914 23.7651 53.882 23.3781 53.817 23.0561H47.744V23.0571ZM93.052 24.4581C92.698 23.5081 91.618 21.7511 89.411 21.7511C87.22 21.7511 85.399 23.4751 85.399 26.0041C85.399 28.3881 87.204 30.2571 89.62 30.2571C91.569 30.2571 92.697 29.0651 93.165 28.3721L91.715 27.4051C91.232 28.1141 90.571 28.5811 89.62 28.5811C88.67 28.5811 87.993 28.1461 87.558 27.2921L93.245 24.9401L93.052 24.4581ZM87.252 25.8761C87.204 24.2321 88.525 23.3951 89.476 23.3951C90.217 23.3951 90.845 23.7661 91.055 24.2971L87.252 25.8761ZM82.629 30.0001H84.497V17.4991H82.629V30.0001ZM79.567 22.7021H79.503C79.084 22.2021 78.278 21.7511 77.264 21.7511C75.137 21.7511 73.188 23.6201 73.188 26.0211C73.188 28.4051 75.137 30.2581 77.264 30.2581C78.279 30.2581 79.084 29.8071 79.503 29.2921H79.567V29.9041C79.567 31.5311 78.697 32.4011 77.296 32.4011C76.152 32.4011 75.443 31.5801 75.153 30.8871L73.526 31.5641C73.993 32.6911 75.233 34.0771 77.296 34.0771C79.487 34.0771 81.34 32.7881 81.34 29.6461V22.0101H79.568V22.7021H79.567ZM77.425 28.5831C76.136 28.5831 75.057 27.5031 75.057 26.0211C75.057 24.5221 76.136 23.4271 77.425 23.4271C78.697 23.4271 79.696 24.5221 79.696 26.0211C79.696 27.5031 78.697 28.5831 77.425 28.5831ZM101.806 17.4991H97.335V30.0001H99.2V25.2641H101.805C103.873 25.2641 105.907 23.7671 105.907 21.3821C105.907 18.9971 103.874 17.4991 101.806 17.4991ZM101.854 23.5241H99.2V19.2391H101.854C103.249 19.2391 104.041 20.3941 104.041 21.3821C104.041 22.3501 103.249 23.5241 101.854 23.5241ZM113.386 21.7291C112.035 21.7291 110.636 22.3241 110.057 23.6431L111.713 24.3341C112.067 23.6431 112.727 23.4171 113.418 23.4171C114.383 23.4171 115.364 23.9961 115.38 25.0251V25.1541C115.042 24.9611 114.318 24.6721 113.434 24.6721C111.649 24.6721 109.831 25.6531 109.831 27.4861C109.831 29.1591 111.295 30.2361 112.935 30.2361C114.189 30.2361 114.881 29.6731 115.315 29.0131H115.379V29.9781H117.181V25.1851C117.182 22.9671 115.524 21.7291 113.386 21.7291ZM113.16 28.5801C112.55 28.5801 111.697 28.2741 111.697 27.5181C111.697 26.5531 112.759 26.1831 113.676 26.1831C114.495 26.1831 114.882 26.3601 115.38 26.6011C115.235 27.7601 114.238 28.5801 113.16 28.5801ZM123.743 22.0021L121.604 27.4221H121.54L119.32 22.0021H117.31L120.639 29.5771L118.741 33.7911H120.687L125.818 22.0021H123.743ZM106.937 30.0001H108.802V17.4991H106.937V30.0001Z"
                     fill="white"
@@ -1281,7 +1422,27 @@
                     </linearGradient>
                 </defs>
             </svg>
-          </a>
+              </a>
+            </div>
+          </div>
+
+          <!-- Vertical divider -->
+          <div class="app-download-divider" aria-hidden="true"></div>
+
+          <!-- Untitled UI Framed QR Code -->
+          <div class="app-qr-col">
+            <div class="untitledui-qr-container" title="Scanează cu camera telefonului pentru a deschide Medora pe mobil">
+              <span class="qr-handle qr-handle-tl" aria-hidden="true"></span>
+              <span class="qr-handle qr-handle-tr" aria-hidden="true"></span>
+              <span class="qr-handle qr-handle-br" aria-hidden="true"></span>
+              <span class="qr-handle qr-handle-bl" aria-hidden="true"></span>
+              <div class="qr-code-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m1 0h2m1 0h1m1 0h3m2 0h1m1 0h1m1 0h7M1 2.5h1m5 0h1m8 0h1m1 0h2m3 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m3 0h1m3 0h2m1 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m2 0h4m2 0h4m3 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m3 0h2m3 0h2m1 0h1m3 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m2 0h3m1 0h1m3 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M11 8.5h2m1 0h1m4 0h1m1 0h1M1 9.5h1m1 0h1m3 0h2m5 0h1m1 0h2m2 0h1m3 0h1m2 0h1m1 0h1M2 10.5h3m3 0h2m2 0h1m4 0h2m1 0h2m1 0h2m3 0h2M4 11.5h1m1 0h2m1 0h4m1 0h2m1 0h1m2 0h8m1 0h1M1 12.5h5m4 0h2m1 0h1m1 0h3m1 0h1m2 0h1m1 0h3M1 13.5h1m1 0h1m2 0h2m1 0h1m1 0h5m1 0h1m1 0h1m1 0h1m1 0h2m4 0h1M3 14.5h1m2 0h1m3 0h1m2 0h3m2 0h1m1 0h2m1 0h2m3 0h2M2 15.5h1m1 0h1m2 0h1m1 0h1m1 0h1m4 0h1m3 0h2m2 0h1m4 0h1M1 16.5h1m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1M1 17.5h1m1 0h3m1 0h3m4 0h1m2 0h1m2 0h1m2 0h2m4 0h1M2 18.5h3m1 0h1m1 0h3m1 0h1m3 0h1m1 0h1m1 0h2m1 0h2m2 0h3M1 19.5h3m1 0h1m1 0h2m1 0h1m2 0h4m1 0h1m1 0h1m1 0h2m2 0h1m2 0h1M3 20.5h1m2 0h1m2 0h2m1 0h1m2 0h1m3 0h1m2 0h4M1 21.5h8m3 0h6m3 0h6m1 0h1M9 22.5h1m3 0h5m3 0h1m3 0h3m1 0h1M1 23.5h7m1 0h2m1 0h1m3 0h3m2 0h1m1 0h1m1 0h1m3 0h1M1 24.5h1m5 0h1m2 0h1m2 0h2m1 0h1m2 0h3m3 0h1m2 0h1M1 25.5h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h7m1 0h2M1 26.5h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h2m2 0h2m3 0h3m1 0h1M1 27.5h1m1 0h3m1 0h1m1 0h1m4 0h3m1 0h1m2 0h2m2 0h1m2 0h2M1 28.5h1m5 0h1m6 0h4m3 0h3m1 0h2M1 29.5h7m1 0h1m2 0h3m2 0h1m3 0h2m1 0h2m3 0h1"/></svg>
+                <div class="qr-gradient-scan" aria-hidden="true"></div>
+              </div>
+            </div>
+            <span class="app-qr-caption">Scanează pe telefon</span>
+          </div>
         </div>
       </div>
     </div>
