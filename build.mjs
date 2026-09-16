@@ -17,7 +17,8 @@ const exclude = new Set([
   "package-lock.json",
   "server.mjs",
   "build.mjs",
-  ".DS_Store"
+  ".DS_Store",
+  "ui-prompt-library"
 ]);
 
 for (const item of readdirSync(process.cwd())) {
