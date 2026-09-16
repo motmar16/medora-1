@@ -457,33 +457,29 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
   color: var(--theme-muted) !important;
 }
 .network-card {
-  background: color-mix(in srgb, var(--theme-surface) 88%, transparent) !important;
-  border-color: color-mix(in srgb, var(--theme-line) 80%, transparent) !important;
+  background: transparent !important;
+  border: none !important;
   color: var(--theme-deep) !important;
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--theme-deep) 4%, transparent) !important;
+  box-shadow: none !important;
 }
 .network-card:hover {
-  background: var(--theme-surface) !important;
-  border-color: var(--theme-accent) !important;
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--theme-accent) 18%, transparent) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 .network-card.is-active-market {
-  background: color-mix(in srgb, var(--theme-accent-soft) 65%, var(--theme-surface)) !important;
-  border-color: color-mix(in srgb, var(--theme-accent) 50%, transparent) !important;
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--theme-accent) 15%, transparent) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 .network-country-name {
   color: var(--theme-deep) !important;
 }
-.network-agency-badge {
-  color: var(--theme-muted) !important;
-  background: color-mix(in srgb, var(--theme-deep) 6%, transparent) !important;
-  border-color: color-mix(in srgb, var(--theme-line) 60%, transparent) !important;
+.network-card:hover .network-country-name {
+  color: var(--theme-accent) !important;
 }
-.network-card.is-active-market .network-agency-badge {
-  background: var(--theme-accent) !important;
-  color: #ffffff !important;
-  border-color: transparent !important;
+.network-agency-badge {
+  display: none !important;
 }
 .network-feature-item {
   background: color-mix(in srgb, var(--theme-surface) 82%, transparent) !important;

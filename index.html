@@ -367,53 +367,54 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 20px 14px;
+      margin-bottom: 34px;
     }
     .network-card {
-      background: color-mix(in srgb, var(--theme-surface, #fffdfa) 88%, transparent);
-      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 75%, transparent);
-      border-radius: 18px;
-      padding: 16px 8px 14px;
+      background: transparent;
+      border: none;
+      border-radius: 14px;
+      padding: 8px 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 8px;
-      box-shadow: 0 4px 16px color-mix(in srgb, var(--theme-deep, #181817) 4%, transparent);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      gap: 10px;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
       cursor: default;
     }
     .network-card:hover {
       transform: translateY(-3px);
-      background: var(--theme-surface, #ffffff);
-      border-color: var(--theme-accent, #9567bf);
-      box-shadow: 0 10px 24px color-mix(in srgb, var(--theme-accent, #9567bf) 18%, transparent);
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
     }
     .network-card.is-active-market {
-      background: color-mix(in srgb, var(--theme-accent-soft, #f2dff5) 65%, var(--theme-surface, #fff));
-      border-color: color-mix(in srgb, var(--theme-accent, #9567bf) 45%, transparent);
-      box-shadow: 0 6px 18px color-mix(in srgb, var(--theme-accent, #9567bf) 14%, transparent);
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
     }
     .network-flag {
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       position: relative;
       display: grid;
       place-items: center;
       background: #ffffff;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .network-flag::after {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), inset 0 -1px 1.5px rgba(0, 0, 0, 0.12);
+      box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.65), inset 0 -1.5px 2px rgba(0, 0, 0, 0.15);
       pointer-events: none;
     }
     .network-flag svg {
@@ -421,28 +422,26 @@
       height: 100%;
       display: block;
     }
+    .network-card:hover .network-flag {
+      transform: scale(1.1);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    }
+    .network-card.is-active-market .network-flag {
+      box-shadow: 0 0 0 2.5px var(--theme-accent, #38bdf8), 0 6px 18px color-mix(in srgb, var(--theme-accent, #38bdf8) 40%, transparent);
+    }
     .network-country-name {
-      font-size: 13px;
-      font-weight: 650;
+      font-size: 13.5px;
+      font-weight: 600;
       color: var(--theme-deep, var(--ink, #181817));
       letter-spacing: -0.01em;
       white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+    .network-card:hover .network-country-name {
+      color: var(--theme-accent, #38bdf8);
     }
     .network-agency-badge {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--theme-muted, #77736a);
-      padding: 2px 7px;
-      background: color-mix(in srgb, var(--theme-deep, #181817) 6%, transparent);
-      border: 1px solid color-mix(in srgb, var(--theme-line, #ddd6c8) 60%, transparent);
-      border-radius: 6px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .network-card.is-active-market .network-agency-badge {
-      background: var(--theme-accent, #9567bf);
-      color: #ffffff;
-      border-color: transparent;
+      display: none;
     }
 
     /* Bottom 3 Clinical Pillars */
@@ -508,7 +507,7 @@
     }
     @media (max-width: 480px) {
       .network-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 8px;
       }
       .network-card {
@@ -693,7 +692,6 @@
             </svg>
           </div>
           <span class="network-country-name">România</span>
-          <span class="network-agency-badge">ANMDMR</span>
         </div>
 
         <!-- Germania -->
@@ -709,7 +707,6 @@
             </svg>
           </div>
           <span class="network-country-name">Germania</span>
-          <span class="network-agency-badge">BfArM</span>
         </div>
 
         <!-- Franța -->
@@ -725,7 +722,6 @@
             </svg>
           </div>
           <span class="network-country-name">Franța</span>
-          <span class="network-agency-badge">ANSM</span>
         </div>
 
         <!-- Italia -->
@@ -741,7 +737,6 @@
             </svg>
           </div>
           <span class="network-country-name">Italia</span>
-          <span class="network-agency-badge">AIFA</span>
         </div>
 
         <!-- Spania -->
@@ -758,7 +753,6 @@
             </svg>
           </div>
           <span class="network-country-name">Spania</span>
-          <span class="network-agency-badge">AEMPS</span>
         </div>
 
         <!-- Cehia -->
@@ -774,7 +768,6 @@
             </svg>
           </div>
           <span class="network-country-name">Cehia</span>
-          <span class="network-agency-badge">SÚKL</span>
         </div>
 
         <!-- Ungaria -->
@@ -790,7 +783,6 @@
             </svg>
           </div>
           <span class="network-country-name">Ungaria</span>
-          <span class="network-agency-badge">OGYÉI</span>
         </div>
 
         <!-- Polonia -->
@@ -805,7 +797,6 @@
             </svg>
           </div>
           <span class="network-country-name">Polonia</span>
-          <span class="network-agency-badge">URPL</span>
         </div>
 
         <!-- Grecia -->
@@ -826,7 +817,6 @@
             </svg>
           </div>
           <span class="network-country-name">Grecia</span>
-          <span class="network-agency-badge">EOF</span>
         </div>
 
         <!-- Bulgaria -->
@@ -842,7 +832,6 @@
             </svg>
           </div>
           <span class="network-country-name">Bulgaria</span>
-          <span class="network-agency-badge">BDA</span>
         </div>
 
         <!-- Croația -->
@@ -866,7 +855,6 @@
             </svg>
           </div>
           <span class="network-country-name">Croația</span>
-          <span class="network-agency-badge">HALMED</span>
         </div>
 
         <!-- Serbia -->
@@ -886,7 +874,6 @@
             </svg>
           </div>
           <span class="network-country-name">Serbia</span>
-          <span class="network-agency-badge">ALIMS</span>
         </div>
 
         <!-- Slovenia -->
@@ -903,7 +890,6 @@
             </svg>
           </div>
           <span class="network-country-name">Slovenia</span>
-          <span class="network-agency-badge">JAZMP</span>
         </div>
 
         <!-- Slovacia -->
@@ -921,7 +907,6 @@
             </svg>
           </div>
           <span class="network-country-name">Slovacia</span>
-          <span class="network-agency-badge">ŠÚKL</span>
         </div>
 
       </div>
