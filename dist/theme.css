@@ -527,8 +527,8 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 }
 
 /* ==========================================================================
-   HeroUI Avatar Component
-   Reference: https://heroui.com/en/docs/react/components/avatar
+   HeroUI Avatar Component (Orb Gradient + Doctor Initials)
+   Reference: Soft sphere mesh gradient with crisp initials
    ========================================================================== */
 .heroui-avatar {
   position: relative;
@@ -539,18 +539,21 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
   overflow: hidden;
   user-select: none;
   border-radius: 9999px;
-  background: var(--theme-wash-1, #f6edfb);
-  color: var(--theme-accent, #9567bf);
+  background: radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%);
+  color: #ffffff !important;
   font-family: Inter, Karla, -apple-system, sans-serif;
-  font-weight: 650;
+  font-weight: 750;
   flex-shrink: 0;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--theme-line, #ddd6c8) 80%, transparent), 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.75), inset 0 -2px 4px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(30, 58, 138, 0.16);
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.45);
+  letter-spacing: 0.5px;
+  line-height: 1;
 }
 .heroui-avatar-preview {
-  width: 48px;
-  height: 48px;
-  font-size: 15px;
-  box-shadow: 0 0 0 2px var(--theme-surface, #fff), 0 0 0 4px color-mix(in srgb, var(--theme-accent, #9567bf) 45%, transparent), 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 52px;
+  height: 52px;
+  font-size: 17px;
+  box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.8), 0 0 0 2px var(--theme-surface, #fff), 0 0 0 4px color-mix(in srgb, var(--theme-accent, #9567bf) 45%, transparent), 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 .heroui-avatar-lg {
   width: 48px;
@@ -560,24 +563,17 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 .heroui-avatar-md {
   width: 38px;
   height: 38px;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 .heroui-avatar-sm {
   width: 32px;
   height: 32px;
-  font-size: 11px;
+  font-size: 11.5px;
 }
 .heroui-avatar-xs {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   font-size: 10px;
-}
-.heroui-avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  display: block;
 }
 .heroui-avatar-fallback {
   display: flex;
@@ -589,8 +585,16 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
   letter-spacing: 0.5px;
   font-size: inherit;
   font-weight: inherit;
-  color: inherit;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.45);
 }
+
+/* Orb Gradient Variations */
+.avatar-orb-cyan { background: radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%) !important; }
+.avatar-orb-iris { background: radial-gradient(circle at 32% 28%, #a5f3fc 0%, #60a5fa 38%, #a855f7 72%, #581c87 100%) !important; }
+.avatar-orb-teal { background: radial-gradient(circle at 32% 28%, #99f6e4 0%, #38bdf8 42%, #6366f1 78%, #312e81 100%) !important; }
+.avatar-orb-lavender { background: radial-gradient(circle at 32% 28%, #fbcfe8 0%, #c084fc 40%, #7c3aed 76%, #4c1d95 100%) !important; }
+.avatar-orb-sapphire { background: radial-gradient(circle at 32% 28%, #dbeafe 0%, #38bdf8 40%, #2563eb 75%, #1e1b4b 100%) !important; }
 
 /* Topbar Active User Chip with HeroUI Avatar */
 .user-top-link {

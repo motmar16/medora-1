@@ -742,20 +742,14 @@
         const userInitials = calcInitials(nameVal);
         const finalName = nameVal || (currentMode === 'signup' ? 'Dr. Andrei Popescu' : (email.split('@')[0]));
 
-        // HeroUI Avatars pool
-        const heroUiAvatars = [
-          'https://img.heroui.chat/image/avatar?w=400&h=400&u=3',
-          'https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg',
-          'https://img.heroui.chat/image/avatar?w=400&h=400&u=4',
-          'https://img.heroui.chat/image/avatar?w=400&h=400&u=8'
-        ];
-        const assignedAvatar = heroUiAvatars[Math.floor(Math.random() * heroUiAvatars.length)];
+        const userInitials = window.getDoctorInitials ? window.getDoctorInitials(finalName) : calcInitials(finalName);
+        const userGradient = window.getDoctorGradient ? window.getDoctorGradient(finalName) : 'radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%)';
 
         const userObj = {
           name: finalName,
           email: email,
-          avatarUrl: assignedAvatar,
           fallback: userInitials,
+          gradient: userGradient,
           role: 'Medicină de familie · Activ',
           registeredAt: new Date().toISOString()
         };
