@@ -10,6 +10,7 @@ mkdirSync(dist, { recursive: true });
 // Files and folders to exclude from dist
 const exclude = new Set([
   ".git",
+  ".gitignore",
   "node_modules",
   "dist",
   "package.json",
