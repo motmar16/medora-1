@@ -391,56 +391,6 @@
       text-decoration: underline;
     }
 
-    /* HeroUI Avatar Assignment */
-    .avatar-assign-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .avatar-assign-badge {
-      font-size: 10px;
-      font-weight: 750;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-    .avatar-picker-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 9px 12px;
-      background: rgba(24, 24, 23, 0.025);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-    }
-    .avatar-options {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-    .avatar-option {
-      background: transparent;
-      border: 2px solid transparent;
-      border-radius: 9999px;
-      padding: 2px;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-      line-height: 0;
-      display: inline-flex;
-    }
-    .avatar-option:hover {
-      transform: scale(1.1);
-    }
-    .avatar-option.is-active {
-      border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 20%, transparent);
-    }
-
     /* Submit CTA */
     .submit-btn {
       width: 100%;
@@ -621,51 +571,6 @@
           </div>
         </div>
 
-        <!-- HeroUI Avatar Assignment (Sign Up only) -->
-        <div class="field-wrap" id="group-avatar">
-          <div class="avatar-assign-header">
-            <label class="field-label">Avatar cont (HeroUI)</label>
-            <span class="avatar-assign-badge">Atribuit automat</span>
-          </div>
-          <div class="avatar-picker-row">
-            <div class="heroui-avatar heroui-avatar-preview" id="active-avatar-preview" title="Previzualizare avatar">
-              <img class="heroui-avatar-img" id="preview-avatar-img" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3" alt="Avatar selectat">
-              <span class="heroui-avatar-fallback" id="preview-avatar-fallback" style="display:none;">AP</span>
-            </div>
-            <div class="avatar-options" role="radiogroup" aria-label="Alege avatarul dorit">
-              <button type="button" class="avatar-option is-active" data-avatar="https://img.heroui.chat/image/avatar?w=400&h=400&u=3" aria-label="Avatar HeroUI John Doe">
-                <div class="heroui-avatar heroui-avatar-sm">
-                  <img class="heroui-avatar-img" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3" alt="John Doe" onerror="this.style.display='none'">
-                  <span class="heroui-avatar-fallback">JD</span>
-                </div>
-              </button>
-              <button type="button" class="avatar-option" data-avatar="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg" aria-label="Avatar HeroUI Blue">
-                <div class="heroui-avatar heroui-avatar-sm">
-                  <img class="heroui-avatar-img" src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg" alt="Blue" onerror="this.style.display='none'">
-                  <span class="heroui-avatar-fallback">B</span>
-                </div>
-              </button>
-              <button type="button" class="avatar-option" data-avatar="https://img.heroui.chat/image/avatar?w=400&h=400&u=4" aria-label="Avatar HeroUI JR">
-                <div class="heroui-avatar heroui-avatar-sm">
-                  <img class="heroui-avatar-img" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=4" alt="Medic" onerror="this.style.display='none'">
-                  <span class="heroui-avatar-fallback">JR</span>
-                </div>
-              </button>
-              <button type="button" class="avatar-option" data-avatar="https://img.heroui.chat/image/avatar?w=400&h=400&u=8" aria-label="Avatar HeroUI Medic">
-                <div class="heroui-avatar heroui-avatar-sm">
-                  <img class="heroui-avatar-img" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=8" alt="Clinician" onerror="this.style.display='none'">
-                  <span class="heroui-avatar-fallback">DR</span>
-                </div>
-              </button>
-              <button type="button" class="avatar-option" data-avatar="" aria-label="Doar inițiale fallback">
-                <div class="heroui-avatar heroui-avatar-sm">
-                  <span class="heroui-avatar-fallback" id="option-fallback-text">AP</span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-
         <!-- Email -->
         <div class="field-wrap" id="group-email">
           <label class="field-label" for="user-email">Email profesional</label>
@@ -739,14 +644,7 @@
       const formTitle = document.getElementById('form-title');
       const formDesc = document.getElementById('form-desc');
       const groupName = document.getElementById('group-name');
-      const groupAvatar = document.getElementById('group-avatar');
       const nameInput = document.getElementById('user-name');
-      const previewImg = document.getElementById('preview-avatar-img');
-      const previewFallback = document.getElementById('preview-avatar-fallback');
-      const optionFallbackText = document.getElementById('option-fallback-text');
-      const avatarOptions = document.querySelectorAll('.avatar-option');
-
-      let selectedAvatarUrl = 'https://img.heroui.chat/image/avatar?w=400&h=400&u=3';
 
       function calcInitials(name) {
         if (!name || !name.trim()) return 'AP';
@@ -757,33 +655,6 @@
         }
         return cleaned.slice(0, 2).toUpperCase() || 'AP';
       }
-
-      function updateFallbackInitials() {
-        const initials = calcInitials(nameInput ? nameInput.value : '');
-        if (previewFallback) previewFallback.textContent = initials;
-        if (optionFallbackText) optionFallbackText.textContent = initials;
-      }
-
-      if (nameInput) {
-        nameInput.addEventListener('input', updateFallbackInitials);
-      }
-
-      avatarOptions.forEach(btn => {
-        btn.addEventListener('click', () => {
-          avatarOptions.forEach(b => b.classList.remove('is-active'));
-          btn.classList.add('is-active');
-          selectedAvatarUrl = btn.dataset.avatar || '';
-
-          if (selectedAvatarUrl) {
-            previewImg.src = selectedAvatarUrl;
-            previewImg.style.display = 'block';
-            previewFallback.style.display = 'none';
-          } else {
-            previewImg.style.display = 'none';
-            previewFallback.style.display = 'flex';
-          }
-        });
-      });
       const groupTerms = document.getElementById('group-terms');
       const forgotLink = document.getElementById('forgot-link');
       const submitLabel = document.getElementById('submit-label');
@@ -808,7 +679,7 @@
           formTitle.textContent = 'Creează cont';
           formDesc.textContent = 'Salvează medicamente și monitorizează alertele oficiale.';
           groupName.classList.remove('hidden');
-          if (groupAvatar) groupAvatar.style.display = 'flex';
+          
           document.getElementById('user-name').setAttribute('required', '');
           groupTerms.style.display = 'flex';
           forgotLink.style.display = 'none';
@@ -824,7 +695,7 @@
           formTitle.textContent = 'Bine ai revenit';
           formDesc.textContent = 'Accesează catalogul, alertele și istoricul deciziilor.';
           groupName.classList.add('hidden');
-          if (groupAvatar) groupAvatar.style.display = 'none';
+          
           document.getElementById('user-name').removeAttribute('required');
           groupTerms.style.display = 'none';
           forgotLink.style.display = 'inline';
@@ -869,14 +740,23 @@
 
         const nameVal = nameInput ? nameInput.value.trim() : '';
         const userInitials = calcInitials(nameVal);
-        const finalName = nameVal || (currentMode === 'signup' ? 'Dr. Andrei Popescu' : email.split('@')[0]);
+        const finalName = nameVal || (currentMode === 'signup' ? 'Dr. Andrei Popescu' : (email.split('@')[0]));
+
+        // HeroUI Avatars pool
+        const heroUiAvatars = [
+          'https://img.heroui.chat/image/avatar?w=400&h=400&u=3',
+          'https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg',
+          'https://img.heroui.chat/image/avatar?w=400&h=400&u=4',
+          'https://img.heroui.chat/image/avatar?w=400&h=400&u=8'
+        ];
+        const assignedAvatar = heroUiAvatars[Math.floor(Math.random() * heroUiAvatars.length)];
 
         const userObj = {
           name: finalName,
           email: email,
-          avatarUrl: selectedAvatarUrl,
+          avatarUrl: assignedAvatar,
           fallback: userInitials,
-          role: 'Medicină de familie · Verificat',
+          role: 'Medicină de familie · Activ',
           registeredAt: new Date().toISOString()
         };
         try {

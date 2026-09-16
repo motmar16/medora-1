@@ -1,4 +1,17 @@
 (() => {
+  // Seed active user session with HeroUI avatar
+  try {
+    if (!localStorage.getItem('medora_user')) {
+      localStorage.setItem('medora_user', JSON.stringify({
+        name: 'Dr. Andrei Popescu',
+        email: 'andrei.popescu@spital.ro',
+        avatarUrl: 'https://img.heroui.chat/image/avatar?w=400&h=400&u=3',
+        fallback: 'AP',
+        role: 'Medicină de familie · Activ'
+      }));
+    }
+  } catch (_) {}
+
   const storageKey = 'medora-theme';
   const themes = [
     { id: 'iridescent', label: 'Iridescent', colors: ['#fef2f1', '#e5f1fa', '#f6edfb', '#9567bf'] },
