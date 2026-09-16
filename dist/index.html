@@ -10,7 +10,7 @@
   <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&Element.prototype.animate)document.documentElement.classList.add('ops-entrance-pending')</script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
     @font-face{font-family:"Mazzard H";font-style:normal;font-weight:400;font-display:swap;src:url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff2") format("woff2"),url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff") format("woff"),url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.ttf") format("truetype")}
     @font-face{font-family:"Mazzard H";font-style:normal;font-weight:500;font-display:swap;src:url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff2") format("woff2"),url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff") format("woff"),url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.ttf") format("truetype")}
     :root{--forest:#f6f0e4;--deep:#181817;--soft:#a7b77c;--mint:#f2a8cf;--mint-soft:#f8dcec;--paper:#f6f0e4;--white:#fffdfa;--ink:#181817;--line:rgba(24,24,23,.13);--muted:rgba(24,24,23,.58);--sage:#a7b77c;--pink:#f2a8cf;--yellow:#f2d35e;--blue:#b9cff0;--teal:#0e8176;--navy:#17154a}
@@ -523,11 +523,11 @@
   <main class="home">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Medora, pagina principală"><span class="brand-mark"><i data-lucide="asterisk"></i></span>medora</a>
-      <div class="top-actions"><span class="market"><i data-lucide="map-pin"></i> România</span><a class="simulator-link user-top-link" id="top-auth-link" href="medora.html#overview" title="Profil activ: Dr. Andrei Popescu">
-        <div class="heroui-avatar heroui-avatar-xs" id="top-user-avatar" style="background: radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%);">
+      <div class="top-actions"><span class="market"><i data-lucide="map-pin"></i> România</span><a class="user-top-profile" id="top-auth-link" href="medora.html#overview" title="Profil activ: Dr. Andrei Popescu">
+        <div class="heroui-avatar heroui-avatar-topbar" id="top-user-avatar" style="background: radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%);">
           <span id="top-user-initials">AP</span>
         </div>
-        <span id="top-user-name">Dr. Andrei</span>
+        <span id="top-user-name">Andrei</span>
       </a><a class="simulator-link" href="simulator.html" title="Simulează aplicația pe ecran de iPhone (stil Xcode)"><i data-lucide="smartphone"></i><span>Simulator iOS</span></a><a class="open-app" href="medora.html#overview"><span>Deschide aplicația</span><i data-lucide="arrow-up-right"></i></a></div>
     </header>
     <section class="hero" aria-labelledby="hero-title">
@@ -1133,7 +1133,7 @@
         
         if (avatarEl) avatarEl.style.background = gradient;
         if (initialsEl) initialsEl.textContent = initials;
-        if (nameEl) nameEl.textContent = (user.name || 'Dr. Andrei').replace(/^Dr\.\s*/i, '').split(' ')[0];
+        if (nameEl) nameEl.textContent = (user.name || 'Dr. Andrei').replace(/^(?:Dr\.|Prof\.)\s*/i, '').split(' ')[0];
         if (link) {
           link.href = 'medora.html#overview';
           link.title = `Profil activ: ${user.name || 'Dr. Andrei Popescu'}`;
