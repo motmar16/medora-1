@@ -6,5 +6,8 @@
     "start": "node server.mjs",
     "preview": "node server.mjs",
     "build": "node build.mjs"
+  },
+  "dependencies": {
+    "tailwind-merge": "^3.7.0"
   }
 }
