@@ -527,7 +527,6 @@
         <div class="heroui-avatar heroui-avatar-topbar" id="top-user-avatar" style="background: radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%);">
           <span id="top-user-initials">AP</span>
         </div>
-        <span id="top-user-name">Andrei</span>
       </a><a class="simulator-link" href="simulator.html" title="Simulează aplicația pe ecran de iPhone (stil Xcode)"><i data-lucide="smartphone"></i><span>Simulator iOS</span></a><a class="open-app" href="medora.html#overview"><span>Deschide aplicația</span><i data-lucide="arrow-up-right"></i></a></div>
     </header>
     <section class="hero" aria-labelledby="hero-title">
@@ -1126,14 +1125,12 @@
         const link = document.getElementById('top-auth-link');
         const avatarEl = document.getElementById('top-user-avatar');
         const initialsEl = document.getElementById('top-user-initials');
-        const nameEl = document.getElementById('top-user-name');
         if (!user) return;
         const initials = user.fallback || (window.getDoctorInitials ? window.getDoctorInitials(user.name) : 'AP');
         const gradient = user.gradient || 'radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%)';
         
         if (avatarEl) avatarEl.style.background = gradient;
         if (initialsEl) initialsEl.textContent = initials;
-        if (nameEl) nameEl.textContent = (user.name || 'Dr. Andrei').replace(/^(?:Dr\.|Prof\.)\s*/i, '').split(' ')[0];
         if (link) {
           link.href = 'medora.html#overview';
           link.title = `Profil activ: ${user.name || 'Dr. Andrei Popescu'}`;
