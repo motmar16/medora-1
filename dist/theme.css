@@ -97,7 +97,17 @@ html[data-medora-theme="premium"] {
   --theme-line: #e5e0e5;
 }
 
-:root {
+:root,
+html[data-medora-theme="iridescent"] {
+  --theme-glow: url('medora-pastel-glow.png');
+}
+
+html[data-medora-theme="sage"],
+html[data-medora-theme="lavender"],
+html[data-medora-theme="ivory"],
+html[data-medora-theme="ice"],
+html[data-medora-theme="pharmacy"],
+html[data-medora-theme="premium"] {
   --theme-glow:
     radial-gradient(circle at 12% 18%, var(--theme-wash-1) 0, transparent 34%),
     radial-gradient(circle at 88% 14%, var(--theme-wash-2) 0, transparent 36%),
