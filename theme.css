@@ -139,7 +139,8 @@ body,
 .home,
 .precision-section,
 .final-cta,
-.medora-footer {
+.medora-footer,
+.network-section {
   background-color: var(--theme-base) !important;
 }
 
@@ -152,7 +153,8 @@ body:not(.cinematic-page),
 .home:not(.cinematic-home),
 .precision-section,
 .final-cta,
-.medora-footer {
+.medora-footer,
+.network-section {
   background-image: var(--theme-glow) !important;
   background-size: cover !important;
   background-position: center !important;
@@ -431,3 +433,67 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 .heroui-body-sm { font: var(--heroui-body-sm); letter-spacing: normal; }
 .heroui-body-xs { font: var(--heroui-body-xs); letter-spacing: normal; }
 .heroui-eyebrow { font: var(--heroui-eyebrow); letter-spacing: var(--heroui-eyebrow-tracking); text-transform: uppercase; }
+
+/* European Network Section Theme Sync */
+.network-section {
+  background-color: var(--theme-base) !important;
+}
+.network-eyebrow {
+  background: color-mix(in srgb, var(--theme-accent-soft) 70%, var(--theme-surface)) !important;
+  border-color: color-mix(in srgb, var(--theme-accent) 25%, transparent) !important;
+  color: var(--theme-accent) !important;
+}
+.network-title {
+  color: var(--theme-deep) !important;
+}
+.network-title span {
+  color: var(--theme-accent) !important;
+}
+.network-subtitle {
+  color: var(--theme-muted) !important;
+}
+.network-card {
+  background: color-mix(in srgb, var(--theme-surface) 88%, transparent) !important;
+  border-color: color-mix(in srgb, var(--theme-line) 80%, transparent) !important;
+  color: var(--theme-deep) !important;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--theme-deep) 4%, transparent) !important;
+}
+.network-card:hover {
+  background: var(--theme-surface) !important;
+  border-color: var(--theme-accent) !important;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--theme-accent) 18%, transparent) !important;
+}
+.network-card.is-active-market {
+  background: color-mix(in srgb, var(--theme-accent-soft) 65%, var(--theme-surface)) !important;
+  border-color: color-mix(in srgb, var(--theme-accent) 50%, transparent) !important;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--theme-accent) 15%, transparent) !important;
+}
+.network-country-name {
+  color: var(--theme-deep) !important;
+}
+.network-agency-badge {
+  color: var(--theme-muted) !important;
+  background: color-mix(in srgb, var(--theme-deep) 6%, transparent) !important;
+  border-color: color-mix(in srgb, var(--theme-line) 60%, transparent) !important;
+}
+.network-card.is-active-market .network-agency-badge {
+  background: var(--theme-accent) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+.network-feature-item {
+  background: color-mix(in srgb, var(--theme-surface) 82%, transparent) !important;
+  border-color: color-mix(in srgb, var(--theme-line) 70%, transparent) !important;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--theme-deep) 3%, transparent) !important;
+}
+.network-feature-icon {
+  background: color-mix(in srgb, var(--theme-accent-soft) 55%, var(--theme-surface)) !important;
+  border-color: color-mix(in srgb, var(--theme-accent) 25%, transparent) !important;
+  color: var(--theme-accent) !important;
+}
+.network-feature-title {
+  color: var(--theme-deep) !important;
+}
+.network-feature-desc {
+  color: var(--theme-muted) !important;
+}
