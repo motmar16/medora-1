@@ -1,8 +1,20 @@
+import React, { useEffect } from "react";
+import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";
-import Animated, { FadeIn, FadeInDown, useReducedMotion } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  useReducedMotion,
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withSequence,
+  withTiming,
+  withSpring,
+  Easing,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ActionButton } from "@/components/action-button";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { BrandMark } from "@/components/brand-mark";
@@ -11,6 +23,52 @@ import { SearchField } from "@/components/search-field";
 import { catalogHref, MODULES } from "@/constants/modules";
 import { Colors, Motion, Space, Type } from "@/constants/theme";
 import { useSession } from "@/store/session";
+
+
+function HeroCapsule({ reduceMotion }: { reduceMotion: boolean }) {
+  const floatY = useSharedValue(0);
+  const scale = useSharedValue(1);
+
+  React.useEffect(() => {
+    if (!reduceMotion) {
+      floatY.value = withRepeat(
+        withSequence(
+          withTiming(-8, { duration: 2200, easing: Easing.inOut(Easing.quad) }),
+          withTiming(0, { duration: 2200, easing: Easing.inOut(Easing.quad) })
+        ),
+        -1,
+        true
+      );
+    }
+  }, [reduceMotion]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: floatY.value }, { scale: scale.value }],
+  }));
+
+  const handlePress = () => {
+    if (process.env.EXPO_OS === "ios") {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    scale.value = withSequence(
+      withSpring(1.18, { damping: 6, stiffness: 350 }),
+      withSpring(1, { damping: 9, stiffness: 200 })
+    );
+  };
+
+  return (
+    <PressableScale onPress={handlePress} style={{ alignItems: "center", alignSelf: "center", marginBottom: Space.xs }}>
+      <Animated.View style={animatedStyle}>
+        <Image
+          source={require("@/assets/images/capsule-hero.png")}
+          style={{ width: 84, height: 120 }}
+          resizeMode="contain"
+          accessibilityLabel="Flacon Medora 3D"
+        />
+      </Animated.View>
+    </PressableScale>
+  );
+}
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -49,7 +107,8 @@ export default function WelcomeScreen() {
           <BrandMark size={32} />
         </Animated.View>
 
-        <Animated.View entering={enter(1)} style={{ gap: Space.lg }}>
+        <Animated.View entering={enter(1)} style={{ gap: Space.lg, alignItems: "center" }}>
+          <HeroCapsule reduceMotion={Boolean(reduceMotion)} />
           <Text
             accessibilityRole="header"
             style={{
