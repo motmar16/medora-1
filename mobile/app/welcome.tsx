@@ -72,17 +72,20 @@ export default function WelcomeScreen() {
         </Animated.View>
 
         <Animated.View entering={enter(2)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
-          {MODULES.map((module) => {
+          {MODULES.map((module, index) => {
+            const available = module.href !== null;
+            const tileEntrance = reduceMotion ? FadeIn.duration(200) : FadeInDown.duration(520).delay(180 + index * 65).springify().damping(13);
+            return (
+              <Animated.View key={module.key} entering={tileEntrance} style={{ width: "33.33%", alignItems: "center" }}>
             const available = module.href !== null;
             return (
               <PressableScale
-                key={module.key}
                 accessibilityRole="button"
                 accessibilityLabel={available ? module.label : `${module.label}, în curând`}
                 accessibilityState={{ disabled: !available }}
                 disabled={!available}
                 onPress={() => module.href && getStarted(module.href)}
-                style={{ width: "33.33%", alignItems: "center", gap: 2 }}
+                style={{ alignItems: "center", gap: 2 }}
               >
                 <Image
                   source={module.icon}
@@ -101,7 +104,8 @@ export default function WelcomeScreen() {
                 {!available && (
                   <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, marginTop: -2 }}>În curând</Text>
                 )}
-              </PressableScale>
+                </PressableScale>
+              </Animated.View>
             );
           })}
         </Animated.View>
