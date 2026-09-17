@@ -59,6 +59,8 @@ export default function RootLayout() {
         {/* Taller first detent so the ANMDMR button isn't cut off. */}
         <Stack.Screen name="about" options={{ ...sheet, sheetAllowedDetents: [0.72, 1.0] }} />
         <Stack.Screen name="account" options={{ ...sheet, sheetAllowedDetents: [0.62, 1.0] }} />
+        {/* Short interruption from Welcome: sized to its content. */}
+        <Stack.Screen name="get-started" options={{ ...sheet, sheetAllowedDetents: "fitToContents" }} />
         <Stack.Screen name="pick-medicine" options={sheet} />
       </Stack>
     </ThemeProvider>

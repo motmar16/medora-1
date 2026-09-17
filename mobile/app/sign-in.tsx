@@ -54,7 +54,7 @@ function Field({ label, inputRef, ...input }: TextInputProps & { label: string; 
 
 export default function SignInScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ mode?: Mode }>();
+  const params = useLocalSearchParams<{ mode?: Mode; href?: string }>();
   const signIn = useSession((state) => state.signIn);
 
   const [mode, setMode] = useState<Mode>(params.mode === "signin" ? "signin" : "signup");
@@ -70,9 +70,9 @@ export default function SignInScreen() {
   // after the dismissal has finished.
   useEffect(
     () => () => {
-      if (signedInUser.current) signIn(signedInUser.current);
+      if (signedInUser.current) signIn(signedInUser.current, params.href);
     },
-    [signIn]
+    [signIn, params.href]
   );
 
   const emailValid = EMAIL.test(email.trim());

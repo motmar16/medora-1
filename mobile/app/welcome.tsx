@@ -1,40 +1,27 @@
 import { useRouter } from "expo-router";
-import { SymbolView, type SFSymbol } from "expo-symbols";
-import { ScrollView, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SymbolView } from "expo-symbols";
+import { useRef } from "react";
+import { Image, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import Animated, { FadeIn, FadeInDown, useReducedMotion } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ActionButton } from "@/components/action-button";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { BrandMark } from "@/components/brand-mark";
+import { PressableScale } from "@/components/pressable-scale";
+import { catalogHref, FREQUENT_SEARCHES, MODULES } from "@/constants/modules";
 import { Colors, Motion, Radii, Space, Type } from "@/constants/theme";
-import { useSession } from "@/store/session";
-
-// Copy from the web landing's story section (index.html).
-const FEATURES: { symbol: SFSymbol; title: string; body: string }[] = [
-  {
-    symbol: "waveform.path.ecg",
-    title: "Vizibilitate instantă",
-    body: "Status și istoric, împreună, pentru fiecare medicament.",
-  },
-  {
-    symbol: "magnifyingglass",
-    title: "Căutare asistată",
-    body: "Din întrebare direct într-un răspuns clar și verificabil.",
-  },
-  {
-    symbol: "checkmark.seal",
-    title: "Decizii mai clare",
-    body: "Fiecare informație legată de sursa ei oficială.",
-  },
-];
 
 export default function WelcomeScreen() {
   const router = useRouter();
-  const continueAsGuest = useSession((state) => state.continueAsGuest);
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
+  // Uncontrolled input: the value is only read when searching.
+  const query = useRef("");
+
+  // Every entry point into the app asks once: account or guest.
+  const getStarted = (href: string) => router.push({ pathname: "/get-started", params: { href } });
 
   // First-launch moment: a short staggered entrance; Reduce Motion gets a plain fade.
   const enter = (index: number) =>
@@ -44,70 +31,148 @@ export default function WelcomeScreen() {
 
   return (
     <View style={background}>
+      {/* Insets handled here: the automatic behavior makes iOS draw a scroll edge under the status bar. */}
       <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
+        contentInsetAdjustmentBehavior="never"
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         contentContainerStyle={{
           width: "100%",
           maxWidth: 560,
           alignSelf: "center",
-          paddingHorizontal: Space.xxl,
-          paddingTop: Space.lg,
+          paddingHorizontal: Space.xl,
+          paddingTop: insets.top + Space.xl,
           paddingBottom: Space.xxl,
-          gap: Space.xxl + Space.sm,
+          gap: Space.xxl,
         }}
       >
-        <Animated.View entering={enter(0)} style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <BrandMark size={34} />
-          <Text style={{ fontSize: 28, fontWeight: "700", letterSpacing: -0.8, color: Colors.label }}>medora</Text>
-        </Animated.View>
-
-        <Animated.View entering={enter(1)} style={{ gap: Space.lg }}>
+        <Animated.View entering={enter(0)} style={{ alignItems: "center", gap: Space.lg }}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <BrandMark size={38} />
+            <Text style={{ fontSize: 32, fontWeight: "700", letterSpacing: -1, color: Colors.label }}>medora</Text>
+          </View>
           <Text
             accessibilityRole="header"
-            style={{ fontSize: 36, lineHeight: 40, fontWeight: "700", letterSpacing: -1, color: Colors.label }}
+            style={{
+              fontSize: 30,
+              lineHeight: 34,
+              fontWeight: "700",
+              letterSpacing: -0.8,
+              textAlign: "center",
+              color: Colors.label,
+            }}
           >
             Informația potrivită.{"\n"}
             <Text style={{ color: Colors.accent }}>Înainte de prescripție.</Text>
           </Text>
-          <Text style={{ ...Type.body, lineHeight: 24, color: Colors.secondaryLabel }}>
-            Catalogul medicamentelor din România, alertele de discontinuitate ANMDMR și comparații de
-            substituție, într-un singur loc.
-          </Text>
         </Animated.View>
 
-        <View style={{ gap: Space.lg + 2 }}>
-          {FEATURES.map((feature, index) => (
-            <Animated.View
-              key={feature.title}
-              entering={enter(index + 2)}
-              style={{ flexDirection: "row", alignItems: "flex-start", gap: Space.lg }}
+        <Animated.View entering={enter(1)} style={{ gap: Space.md }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: Space.sm,
+              minHeight: 58,
+              paddingLeft: Space.lg,
+              paddingRight: 6,
+              borderRadius: Radii.pill,
+              backgroundColor: Colors.surface,
+              boxShadow: "0 6px 20px rgba(24, 24, 23, 0.10)",
+            }}
+          >
+            <SymbolView name="magnifyingglass" size={18} tintColor={Colors.secondaryLabel} />
+            <TextInput
+              placeholder="Medicament, DCI sau cod ATC"
+              placeholderTextColor={Colors.tertiaryLabel}
+              onChangeText={(text) => (query.current = text)}
+              onSubmitEditing={() => getStarted(catalogHref(query.current))}
+              returnKeyType="search"
+              autoCorrect={false}
+              style={{ ...Type.callout, flex: 1, minHeight: 44, color: Colors.label }}
+            />
+            <PressableScale
+              accessibilityRole="button"
+              onPress={() => getStarted(catalogHref(query.current))}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 6,
+                minHeight: 46,
+                paddingHorizontal: Space.lg,
+                borderRadius: Radii.pill,
+                backgroundColor: Colors.primary,
+              }}
             >
-              <View
+              <Text style={{ ...Type.subhead, fontWeight: "600", color: Colors.onPrimary }}>Caută</Text>
+              <SymbolView name="arrow.right" size={13} weight="semibold" tintColor={Colors.onPrimary} />
+            </PressableScale>
+          </View>
+
+          <Text style={{ ...Type.footnote, color: Colors.secondaryLabel, textAlign: "center", marginTop: Space.xs }}>
+            Frecvent căutate
+          </Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: Space.sm, marginTop: -Space.xs }}>
+            {FREQUENT_SEARCHES.map((term) => (
+              <PressableScale
+                key={term}
+                accessibilityRole="button"
+                onPress={() => getStarted(catalogHref(term))}
                 style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: Radii.tile,
-                  borderCurve: "continuous",
-                  alignItems: "center",
+                  minHeight: 32,
                   justifyContent: "center",
+                  paddingHorizontal: Space.md,
+                  borderRadius: Radii.pill,
                   backgroundColor: Colors.surface,
-                  boxShadow: "0 1px 3px rgba(24, 24, 23, 0.08)",
+                  borderWidth: StyleSheet.hairlineWidth,
+                  borderColor: Colors.separator,
                 }}
               >
-                <SymbolView name={feature.symbol} size={20} weight="medium" tintColor={Colors.label} />
-              </View>
-              <View style={{ flex: 1, gap: 2 }}>
-                <Text style={{ ...Type.headline, color: Colors.label }}>{feature.title}</Text>
-                <Text style={{ ...Type.subhead, lineHeight: 20, color: Colors.secondaryLabel }}>{feature.body}</Text>
-              </View>
-            </Animated.View>
-          ))}
-        </View>
+                <Text style={{ ...Type.footnote, fontWeight: "500", color: Colors.label }}>{term}</Text>
+              </PressableScale>
+            ))}
+          </View>
+        </Animated.View>
+
+        <Animated.View entering={enter(2)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
+          {MODULES.map((module) => {
+            const available = module.href !== null;
+            return (
+              <PressableScale
+                key={module.key}
+                accessibilityRole="button"
+                accessibilityLabel={available ? module.label : `${module.label}, în curând`}
+                accessibilityState={{ disabled: !available }}
+                disabled={!available}
+                onPress={() => module.href && getStarted(module.href)}
+                style={{ width: "33.33%", alignItems: "center", gap: 2 }}
+              >
+                <Image
+                  source={module.icon}
+                  style={{ width: 84, height: 84, opacity: available ? 1 : 0.45 }}
+                  accessibilityIgnoresInvertColors
+                />
+                <Text
+                  style={{
+                    ...Type.subhead,
+                    fontWeight: "500",
+                    color: available ? Colors.label : Colors.tertiaryLabel,
+                  }}
+                >
+                  {module.label}
+                </Text>
+                {!available && (
+                  <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, marginTop: -2 }}>În curând</Text>
+                )}
+              </PressableScale>
+            );
+          })}
+        </Animated.View>
       </ScrollView>
 
-      {/* Actions stay pinned above the home indicator; the story scrolls if it doesn't fit. */}
+      {/* Actions stay pinned above the home indicator; the content scrolls if it doesn't fit. */}
       <Animated.View
-        entering={enter(5)}
+        entering={enter(3)}
         style={{
           width: "100%",
           maxWidth: 560,
@@ -124,18 +189,10 @@ export default function WelcomeScreen() {
         />
         <ActionButton
           label="Am deja cont"
-          variant="secondary"
+          variant="plain"
           onPress={() => router.push({ pathname: "/sign-in", params: { mode: "signin" } })}
         />
-        <ActionButton label="Continuă fără cont" variant="plain" onPress={continueAsGuest} />
-        <Text
-          style={{
-            ...Type.caption,
-            color: Colors.tertiaryLabel,
-            textAlign: "center",
-            marginTop: Space.xs,
-          }}
-        >
+        <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, textAlign: "center" }}>
           Versiune demonstrativă · Surse: ANMDMR și EMA
         </Text>
       </Animated.View>

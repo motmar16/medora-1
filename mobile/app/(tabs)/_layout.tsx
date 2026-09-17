@@ -1,10 +1,24 @@
+import { useRouter, type Href } from "expo-router";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { useEffect } from "react";
 
 import { MEDICINES } from "@/constants/medicines";
 import { Colors } from "@/constants/theme";
+import { useSession } from "@/store/session";
 import { useWatchlist } from "@/store/watchlist";
 
 export default function TabsLayout() {
+  const router = useRouter();
+
+  // Coming from Welcome: open the module or search the user tapped there.
+  useEffect(() => {
+    const href = useSession.getState().takePendingHref();
+    if (!href) return;
+    // Wait for the first layout pass; switching tabs mid-layout collapses the large title.
+    const timer = setTimeout(() => router.navigate(href as Href), 250);
+    return () => clearTimeout(timer);
+  }, [router]);
+
   const activeAlerts = useWatchlist(
     (state) =>
       MEDICINES.filter(

@@ -1,7 +1,8 @@
 import { FlashList } from "@shopify/flash-list";
-import { Stack, useRouter } from "expo-router";
-import { useDeferredValue, useMemo, useState } from "react";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
+import type { SearchBarCommands } from "react-native-screens";
 
 import { EmptyState } from "@/components/empty-state";
 import { FilterChips } from "@/components/filter-chips";
@@ -11,9 +12,19 @@ import { Space } from "@/constants/theme";
 
 export default function CatalogScreen() {
   const router = useRouter();
-  const [query, setQuery] = useState("");
+  const params = useLocalSearchParams<{ q?: string }>();
+  const searchBar = useRef<SearchBarCommands>(null);
+  const [query, setQuery] = useState(params.q ?? "");
   const [category, setCategory] = useState(CATEGORIES[0]);
   const deferredQuery = useDeferredValue(query);
+
+  // A search started on Welcome arrives as ?q=; mirror it into the native search field.
+  useEffect(() => {
+    if (!params.q) return;
+    setQuery(params.q);
+    const timer = setTimeout(() => searchBar.current?.setText(params.q ?? ""), 250);
+    return () => clearTimeout(timer);
+  }, [params.q]);
 
   const results = useMemo(() => {
     const q = deferredQuery.trim().toLowerCase();
@@ -35,6 +46,7 @@ export default function CatalogScreen() {
           // Soft edge lets card titles ghost through the search field; hard keeps it legible.
           scrollEdgeEffects: { top: "hard" },
           headerSearchBarOptions: {
+            ref: searchBar,
             placeholder: "Medicament, DCI sau cod ATC",
             autoCapitalize: "none",
             hideWhenScrolling: false,
