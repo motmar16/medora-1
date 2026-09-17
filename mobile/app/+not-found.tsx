@@ -14,7 +14,7 @@ export default function NotFoundScreen() {
         symbol="questionmark.folder"
         title="Pagina nu există"
         message="Linkul accesat nu corespunde niciunui ecran din Medora."
-        action={{ label: "Deschide catalogul", onPress: () => router.replace("/") }}
+        action={{ label: "Deschide catalogul", onPress: () => router.replace("/(tabs)/(catalog)/catalog") }}
       />
     </ScrollView>
   );

@@ -62,6 +62,7 @@ export default function RootLayout() {
         {/* Short interruption from Welcome: sized to its content. */}
         <Stack.Screen name="get-started" options={{ ...sheet, sheetAllowedDetents: "fitToContents" }} />
         <Stack.Screen name="pick-medicine" options={sheet} />
+        <Stack.Screen name="alert-preferences" options={{ ...sheet, sheetAllowedDetents: [0.85, 1.0] }} />
       </Stack>
     </ThemeProvider>
   );

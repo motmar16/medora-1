@@ -13,8 +13,7 @@ export default function TabsLayout() {
   // Coming from Welcome: open the module or search the user tapped there.
   useEffect(() => {
     const href = useSession.getState().takePendingHref();
-    // The catalog is already the first tab; re-navigating to it collapses its large title.
-    if (!href || href === "/(tabs)/(index)") return;
+    if (!href) return;
     // Wait for the first layout pass; switching tabs mid-layout collapses the large title.
     const timer = setTimeout(() => router.navigate(href as Href), 250);
     return () => clearTimeout(timer);
@@ -30,12 +29,16 @@ export default function TabsLayout() {
   return (
     <NativeTabs tintColor={Colors.accent} minimizeBehavior="onScrollDown">
       <NativeTabs.Trigger name="(index)">
+        <NativeTabs.Trigger.Icon sf={{ default: "square.grid.2x2", selected: "square.grid.2x2.fill" }} md="dashboard" />
+        <NativeTabs.Trigger.Label>Azi</NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="(catalog)">
         <NativeTabs.Trigger.Icon sf={{ default: "pills", selected: "pills.fill" }} md="medication" />
         <NativeTabs.Trigger.Label>Medicamente</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(radar)">
         <NativeTabs.Trigger.Icon sf="waveform.path.ecg" md="monitor_heart" />
-        <NativeTabs.Trigger.Label>Radar alerte</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>Radar</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(compare)">
         <NativeTabs.Trigger.Icon

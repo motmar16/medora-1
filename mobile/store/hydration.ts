@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
+import { useAlertPrefs } from "@/store/alert-prefs";
 import { useSession } from "@/store/session";
 import { useWatchlist } from "@/store/watchlist";
 
-const stores = [useSession, useWatchlist];
+const stores = [useSession, useWatchlist, useAlertPrefs];
 
 function allHydrated() {
   return stores.every((store) => store.persist.hasHydrated());

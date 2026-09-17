@@ -1,7 +1,5 @@
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
-import { useRef } from "react";
-import { Image, ScrollView, Text, TextInput, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import Animated, { FadeIn, FadeInDown, useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -9,16 +7,15 @@ import { ActionButton } from "@/components/action-button";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { BrandMark } from "@/components/brand-mark";
 import { PressableScale } from "@/components/pressable-scale";
+import { SearchField } from "@/components/search-field";
 import { catalogHref, MODULES } from "@/constants/modules";
-import { Colors, Motion, Radii, Space, Type } from "@/constants/theme";
+import { Colors, Motion, Space, Type } from "@/constants/theme";
 
 export default function WelcomeScreen() {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
-  // Uncontrolled input: the value is only read when searching.
-  const query = useRef("");
 
   // Every entry point into the app asks once: account or guest.
   const getStarted = (href: string) => router.push({ pathname: "/get-started", params: { href } });
@@ -65,46 +62,7 @@ export default function WelcomeScreen() {
             Găsește rapid informații despre medicamente
           </Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              gap: Space.sm,
-              minHeight: 58,
-              paddingLeft: Space.lg,
-              paddingRight: 6,
-              borderRadius: Radii.pill,
-              backgroundColor: Colors.surface,
-              boxShadow: "0 6px 20px rgba(24, 24, 23, 0.10)",
-            }}
-          >
-            <SymbolView name="magnifyingglass" size={18} tintColor={Colors.secondaryLabel} />
-            <TextInput
-              placeholder="Medicament, DCI, ATC"
-              placeholderTextColor={Colors.tertiaryLabel}
-              onChangeText={(text) => (query.current = text)}
-              onSubmitEditing={() => getStarted(catalogHref(query.current))}
-              returnKeyType="search"
-              autoCorrect={false}
-              style={{ ...Type.callout, flex: 1, minHeight: 44, color: Colors.label }}
-            />
-            <PressableScale
-              accessibilityRole="button"
-              onPress={() => getStarted(catalogHref(query.current))}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 6,
-                minHeight: 46,
-                paddingHorizontal: Space.lg,
-                borderRadius: Radii.pill,
-                backgroundColor: Colors.primary,
-              }}
-            >
-              <Text style={{ ...Type.subhead, fontWeight: "600", color: Colors.onPrimary }}>Caută</Text>
-              <SymbolView name="arrow.right" size={13} weight="semibold" tintColor={Colors.onPrimary} />
-            </PressableScale>
-          </View>
+          <SearchField onSearch={(q) => getStarted(catalogHref(q))} />
 
           <Text style={{ ...Type.footnote, lineHeight: 18, color: Colors.secondaryLabel, textAlign: "center" }}>
             Catalogul medicamentelor autorizate în România{"\n"}Surse: ANMDMR, EMA · versiune demonstrativă

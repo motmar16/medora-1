@@ -2,12 +2,13 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useRef } from "react";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { ActionButton } from "@/components/action-button";
 import { BrandMark } from "@/components/brand-mark";
 import { Card } from "@/components/card";
 import { Brand, Colors, Radii, Space, Type } from "@/constants/theme";
+import { useAlertPrefs } from "@/store/alert-prefs";
 import { useSession } from "@/store/session";
 import { useWatchlist } from "@/store/watchlist";
 
@@ -42,6 +43,7 @@ export default function AccountSheet() {
     router.back();
   };
   const watchedCount = useWatchlist((state) => state.ids.length);
+  const alertsEnabled = useAlertPrefs((state) => Object.values(state.events).some(Boolean));
 
   if (!user) {
     return (
@@ -73,7 +75,6 @@ export default function AccountSheet() {
   const rows = [
     { symbol: "person.badge.key", label: "Autentificare", value: PROVIDER_LABEL[user.provider] },
     { symbol: "bookmark", label: "Produse urmărite", value: String(watchedCount) },
-    { symbol: "bell.badge", label: "Alerte ANMDMR", value: "Active" },
   ] as const;
 
   return (
@@ -120,6 +121,24 @@ export default function AccountSheet() {
             <Text style={{ ...Type.body, color: Colors.secondaryLabel, fontVariant: ["tabular-nums"] }}>{row.value}</Text>
           </View>
         ))}
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => router.push("/alert-preferences")}
+          style={({ pressed }) => ({
+            flexDirection: "row",
+            alignItems: "center",
+            gap: Space.md,
+            paddingVertical: Space.md,
+            borderTopWidth: StyleSheet.hairlineWidth,
+            borderTopColor: Colors.separator,
+            opacity: pressed ? 0.5 : 1,
+          })}
+        >
+          <SymbolView name={alertsEnabled ? "bell.badge" : "bell.slash"} size={18} tintColor={Colors.accent} />
+          <Text style={{ ...Type.body, color: Colors.label, flex: 1 }}>Preferințe alerte</Text>
+          <Text style={{ ...Type.body, color: Colors.secondaryLabel }}>{alertsEnabled ? "Active" : "Oprite"}</Text>
+          <SymbolView name="chevron.right" size={12} weight="semibold" tintColor={Colors.tertiaryLabel} />
+        </Pressable>
       </Card>
 
       <ActionButton

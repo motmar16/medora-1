@@ -4,7 +4,8 @@ import { Stack } from "expo-router/stack";
 import { Colors } from "@/constants/theme";
 
 const TITLES = {
-  index: "Medicamente",
+  index: "Azi",
+  catalog: "Medicamente",
   radar: "Radar alerte",
   compare: "Comparator",
   watch: "Lista mea",

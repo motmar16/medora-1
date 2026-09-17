@@ -84,7 +84,7 @@ export default function WatchScreen() {
             symbol="bookmark"
             title="Nu urmărești niciun produs"
             message="Apasă pe semnul de bookmark din catalog ca să vezi aici alertele ANMDMR."
-            action={{ label: "Deschide catalogul", onPress: () => router.navigate("/(tabs)/(index)") }}
+            action={{ label: "Deschide catalogul", onPress: () => router.navigate("/(tabs)/(catalog)/catalog") }}
           />
         }
       />
