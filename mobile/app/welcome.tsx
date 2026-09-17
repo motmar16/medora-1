@@ -27,50 +27,37 @@ import { Colors, Motion, Space, Type } from "@/constants/theme";
 import { useSession } from "@/store/session";
 
 
-function HeroCapsule({ reduceMotion }: { reduceMotion: boolean }) {
+function HeroCapsule() {
   const floatY = useSharedValue(0);
   const userScale = useSharedValue(1);
-  const ecgProgress = useSharedValue(0);
   const heartbeatScale = useSharedValue(1);
 
   React.useEffect(() => {
-    if (!reduceMotion) {
-      // 1. Continuous smooth levitation
-      floatY.value = withRepeat(
-        withSequence(
-          withTiming(-8, { duration: 2200, easing: Easing.inOut(Easing.quad) }),
-          withTiming(0, { duration: 2200, easing: Easing.inOut(Easing.quad) })
-        ),
-        -1,
-        true
-      );
+    // 1. Continuous smooth 3D levitation (unconditional, silky smooth)
+    floatY.value = withRepeat(
+      withTiming(-8, { duration: 1800, easing: Easing.inOut(Easing.quad) }),
+      -1,
+      true
+    );
 
-      // 2. Continuous ECG sweep across the horizon
-      ecgProgress.value = withRepeat(
-        withTiming(1, { duration: 2200, easing: Easing.linear }),
-        -1,
-        false
-      );
-
-      // 3. Heartbeat pulse synchronized precisely with the ECG QRS peak (at ~940ms)
-      heartbeatScale.value = withRepeat(
-        withSequence(
-          withDelay(
-            940,
-            withSequence(
-              withTiming(1.045, { duration: 80, easing: Easing.out(Easing.quad) }),
-              withTiming(0.985, { duration: 70, easing: Easing.inOut(Easing.quad) }),
-              withTiming(1.025, { duration: 80, easing: Easing.out(Easing.quad) }),
-              withTiming(1.0, { duration: 240, easing: Easing.out(Easing.quad) })
-            )
-          ),
-          withDelay(690, withTiming(1.0, { duration: 10 }))
+    // 2. Cardiac pulse (lub-dub) synchronized with the 1200ms ECG heartbeat wave
+    heartbeatScale.value = withRepeat(
+      withSequence(
+        withDelay(
+          600,
+          withSequence(
+            withTiming(1.055, { duration: 75, easing: Easing.out(Easing.quad) }),
+            withTiming(0.985, { duration: 65, easing: Easing.inOut(Easing.quad) }),
+            withTiming(1.025, { duration: 75, easing: Easing.out(Easing.quad) }),
+            withTiming(1.0, { duration: 220, easing: Easing.out(Easing.quad) })
+          )
         ),
-        -1,
-        false
-      );
-    }
-  }, [reduceMotion]);
+        withDelay(165, withTiming(1.0, { duration: 0 }))
+      ),
+      -1,
+      false
+    );
+  }, [floatY, heartbeatScale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -91,13 +78,11 @@ function HeroCapsule({ reduceMotion }: { reduceMotion: boolean }) {
 
   return (
     <View style={{ alignItems: "center", position: "relative", marginBottom: Space.xs }}>
-      {/* Grounded Vital Horizon ECG line crossing behind the lower flacon */}
+      {/* Grounded Vital Horizon ECG line continuously flowing behind the flacon */}
       <ECGHorizon
-        progress={ecgProgress}
-        reduceMotion={reduceMotion}
         style={{
           position: "absolute",
-          top: 68,
+          top: 62,
           zIndex: 1,
         }}
       />
@@ -214,7 +199,7 @@ export default function WelcomeScreen() {
         </Animated.View>
 
         <Animated.View entering={enter(1)} style={{ gap: Space.lg, alignItems: "center" }}>
-          <HeroCapsule reduceMotion={Boolean(reduceMotion)} />
+          <HeroCapsule />
           <AnimatedTitle reduceMotion={Boolean(reduceMotion)} />
 
           <SearchField onSearch={(q) => getStarted(catalogHref(q))} />
