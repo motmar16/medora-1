@@ -1,4 +1,6 @@
-import { MeshAvatar } from "@/components/mesh-avatar";
+import { BoringAvatar, MEDORA_PALETTES } from "@/components/boring-avatar";
+import { PressableScale } from "@/components/pressable-scale";
+import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -29,6 +31,7 @@ export default function AccountSheet() {
   const user = useSession((state) => state.user);
   const signOut = useSession((state) => state.signOut);
   const leaving = useRef(false);
+  const [paletteIndex, setPaletteIndex] = useState<number | null>(null);
 
   // Signing out flips the Welcome guard in the root stack; do it once this sheet has dismissed.
   useEffect(
@@ -52,7 +55,7 @@ export default function AccountSheet() {
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{ padding: Space.xxl, paddingTop: Space.xxl + Space.sm, gap: Space.lg, alignItems: "center" }}
       >
-        <BrandMark size={56} />
+        <BoringAvatar name="Medora Guest" size={68} />
         <Text style={{ ...Type.title3, color: Colors.label }}>Nu ești conectat</Text>
         <Text style={{ ...Type.subhead, lineHeight: 20, color: Colors.secondaryLabel, textAlign: "center" }}>
           Conectează-te ca să păstrezi Lista mea pe toate dispozitivele și să primești alertele ANMDMR.
@@ -84,7 +87,22 @@ export default function AccountSheet() {
       contentContainerStyle={{ padding: Space.xxl, paddingTop: Space.xxl + Space.sm, gap: Space.xl }}
     >
       <View style={{ alignItems: "center", gap: Space.sm }}>
-        <MeshAvatar name={user.name} email={user.email} size={76} />
+        <PressableScale
+          accessibilityRole="button"
+          accessibilityLabel="Avatar utilizator"
+          accessibilityHint="Apasă pentru a schimba paleta de culori Medora"
+          onPress={() => {
+            if (process.env.EXPO_OS === "ios") Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            setPaletteIndex((prev) => (prev === null ? 1 : (prev + 1) % MEDORA_PALETTES.length));
+          }}
+        >
+          <BoringAvatar
+            name={user.name}
+            email={user.email}
+            size={84}
+            colors={paletteIndex !== null ? MEDORA_PALETTES[paletteIndex] : undefined}
+          />
+        </PressableScale>
         <Text selectable style={{ ...Type.title3, color: Colors.label }}>
           {user.name}
         </Text>
