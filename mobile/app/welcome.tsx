@@ -13,9 +13,11 @@ import Animated, {
   withTiming,
   withSpring,
   Easing,
+  withDelay,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ActionButton } from "@/components/action-button";
+import { ECGHorizon } from "@/components/ecg-horizon";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { PressableScale } from "@/components/pressable-scale";
 import { SearchField } from "@/components/search-field";
@@ -26,10 +28,13 @@ import { useSession } from "@/store/session";
 
 function HeroCapsule({ reduceMotion }: { reduceMotion: boolean }) {
   const floatY = useSharedValue(0);
-  const scale = useSharedValue(1);
+  const userScale = useSharedValue(1);
+  const ecgProgress = useSharedValue(0);
+  const heartbeatScale = useSharedValue(1);
 
   React.useEffect(() => {
     if (!reduceMotion) {
+      // 1. Continuous smooth levitation
       floatY.value = withRepeat(
         withSequence(
           withTiming(-8, { duration: 2200, easing: Easing.inOut(Easing.quad) }),
@@ -38,34 +43,75 @@ function HeroCapsule({ reduceMotion }: { reduceMotion: boolean }) {
         -1,
         true
       );
+
+      // 2. Continuous ECG sweep across the horizon
+      ecgProgress.value = withRepeat(
+        withTiming(1, { duration: 2200, easing: Easing.linear }),
+        -1,
+        false
+      );
+
+      // 3. Heartbeat pulse synchronized precisely with the ECG QRS peak (at ~940ms)
+      heartbeatScale.value = withRepeat(
+        withSequence(
+          withDelay(
+            940,
+            withSequence(
+              withTiming(1.045, { duration: 80, easing: Easing.out(Easing.quad) }),
+              withTiming(0.985, { duration: 70, easing: Easing.inOut(Easing.quad) }),
+              withTiming(1.025, { duration: 80, easing: Easing.out(Easing.quad) }),
+              withTiming(1.0, { duration: 240, easing: Easing.out(Easing.quad) })
+            )
+          ),
+          withDelay(690, withTiming(1.0, { duration: 10 }))
+        ),
+        -1,
+        false
+      );
     }
   }, [reduceMotion]);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: floatY.value }, { scale: scale.value }],
+    transform: [
+      { translateY: floatY.value },
+      { scale: userScale.value * heartbeatScale.value },
+    ],
   }));
 
   const handlePress = () => {
     if (process.env.EXPO_OS === "ios") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
-    scale.value = withSequence(
+    userScale.value = withSequence(
       withSpring(1.18, { damping: 6, stiffness: 350 }),
       withSpring(1, { damping: 9, stiffness: 200 })
     );
   };
 
   return (
-    <PressableScale onPress={handlePress} style={{ alignItems: "center", alignSelf: "center", marginBottom: Space.xs }}>
-      <Animated.View style={animatedStyle}>
-        <Image
-          source={require("@/assets/images/capsule-hero.png")}
-          style={{ width: 84, height: 120 }}
-          resizeMode="contain"
-          accessibilityLabel="Flacon Medora 3D"
-        />
-      </Animated.View>
-    </PressableScale>
+    <View style={{ alignItems: "center", position: "relative", marginBottom: Space.xs }}>
+      {/* Grounded Vital Horizon ECG line crossing behind the lower flacon */}
+      <ECGHorizon
+        progress={ecgProgress}
+        reduceMotion={reduceMotion}
+        style={{
+          position: "absolute",
+          top: 68,
+          zIndex: 1,
+        }}
+      />
+
+      <PressableScale onPress={handlePress} style={{ zIndex: 2, alignItems: "center" }}>
+        <Animated.View style={animatedStyle}>
+          <Image
+            source={require("@/assets/images/capsule-hero.png")}
+            style={{ width: 84, height: 120 }}
+            resizeMode="contain"
+            accessibilityLabel="Flacon Medora 3D"
+          />
+        </Animated.View>
+      </PressableScale>
+    </View>
   );
 }
 
