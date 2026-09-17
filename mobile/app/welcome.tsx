@@ -2,6 +2,7 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import {
+  Alert,
   Animated as RNAnimated,
   Easing as RNEasing,
   Image,
@@ -38,14 +39,14 @@ function HeroCapsule() {
     const floatLoop = RNAnimated.loop(
       RNAnimated.sequence([
         RNAnimated.timing(floatAnim, {
-          toValue: -8,
-          duration: 1800,
+          toValue: -9,
+          duration: 2400,
           easing: RNEasing.inOut(RNEasing.quad),
           useNativeDriver: true,
         }),
         RNAnimated.timing(floatAnim, {
           toValue: 0,
-          duration: 1800,
+          duration: 2400,
           easing: RNEasing.inOut(RNEasing.quad),
           useNativeDriver: true,
         }),
@@ -58,26 +59,26 @@ function HeroCapsule() {
       RNAnimated.sequence([
         RNAnimated.delay(600),
         RNAnimated.timing(pulseAnim, {
-          toValue: 1.055,
-          duration: 75,
+          toValue: 1.022,
+          duration: 140,
           easing: RNEasing.out(RNEasing.quad),
           useNativeDriver: true,
         }),
         RNAnimated.timing(pulseAnim, {
-          toValue: 0.985,
-          duration: 65,
+          toValue: 0.994,
+          duration: 130,
           easing: RNEasing.inOut(RNEasing.quad),
           useNativeDriver: true,
         }),
         RNAnimated.timing(pulseAnim, {
-          toValue: 1.025,
-          duration: 75,
+          toValue: 1.012,
+          duration: 140,
           easing: RNEasing.out(RNEasing.quad),
           useNativeDriver: true,
         }),
         RNAnimated.timing(pulseAnim, {
           toValue: 1.0,
-          duration: 220,
+          duration: 320,
           easing: RNEasing.out(RNEasing.quad),
           useNativeDriver: true,
         }),
@@ -224,43 +225,35 @@ export default function WelcomeScreen() {
         </Animated.View>
 
         <Animated.View entering={enter(1)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
-          {MODULES.map((module, index) => {
-            const available = module.href !== null;
-            return (
-              <Animated.View
-                key={module.key}
-                entering={FadeInDown.duration(520).delay(180 + index * 65).springify().damping(13)}
-                style={{ width: "33.33%", alignItems: "center" }}
+          {MODULES.map((module, index) => (
+            <Animated.View
+              key={module.key}
+              entering={FadeInDown.duration(520).delay(180 + index * 65).springify().damping(13)}
+              style={{ width: "33.33%", alignItems: "center" }}
+            >
+              <PressableScale
+                accessibilityRole="button"
+                accessibilityLabel={module.label}
+                onPress={() =>
+                  module.href
+                    ? getStarted(module.href)
+                    : // No screen behind this one yet: say so instead of doing nothing.
+                      Alert.alert(
+                        "Instrumente",
+                        "Calculatoare clinice, verificator de interacțiuni și finder de substituție. Disponibile în curând."
+                      )
+                }
+                style={{ alignItems: "center", gap: 2 }}
               >
-                <PressableScale
-                  accessibilityRole="button"
-                  accessibilityLabel={available ? module.label : `${module.label}, în curând`}
-                  accessibilityState={{ disabled: !available }}
-                  disabled={!available}
-                  onPress={() => module.href && getStarted(module.href)}
-                  style={{ alignItems: "center", gap: 2 }}
-                >
-                  <Image
-                    source={module.icon}
-                    style={{ width: 76, height: 76, opacity: available ? 1 : 0.45 }}
-                    accessibilityIgnoresInvertColors
-                  />
-                  <Text
-                    style={{
-                      ...Type.subhead,
-                      fontWeight: "500",
-                      color: available ? Colors.label : Colors.tertiaryLabel,
-                    }}
-                  >
-                    {module.label}
-                  </Text>
-                  {!available && (
-                    <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, marginTop: -2 }}>În curând</Text>
-                  )}
-                </PressableScale>
-              </Animated.View>
-            );
-          })}
+                <Image
+                  source={module.icon}
+                  style={{ width: 76, height: 76 }}
+                  accessibilityIgnoresInvertColors
+                />
+                <Text style={{ ...Type.subhead, fontWeight: "500", color: Colors.label }}>{module.label}</Text>
+              </PressableScale>
+            </Animated.View>
+          ))}
         </Animated.View>
       </ScrollView>
 

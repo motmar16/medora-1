@@ -1,13 +1,7 @@
+import MaskedView from "@react-native-masked-view/masked-view";
 import React, { useEffect, useRef } from "react";
 import { useReducedMotion } from "react-native-reanimated";
-import {
-  Animated,
-  Easing,
-  View,
-  useColorScheme,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native";
+import { Animated, Easing, View, type StyleProp, type ViewStyle } from "react-native";
 
 const CONTAINER_WIDTH = 320;
 const CONTAINER_HEIGHT = 52;
@@ -64,7 +58,6 @@ export function ECGHorizon({
   color = "#8656B3",
   glowColor = "rgba(134, 86, 179, 0.35)",
 }: ECGHorizonProps) {
-  const isDark = useColorScheme() === "dark";
   const reduceMotion = useReducedMotion();
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -88,29 +81,25 @@ export function ECGHorizon({
     return () => animation.stop();
   }, [translateX, reduceMotion]);
 
-  // Edge fade colors matching screen backdrop
-  const fadeBg = isDark ? "rgba(5, 5, 5," : "rgba(251, 250, 247,";
-
   return (
     <View
-      style={[
-        {
-          width: CONTAINER_WIDTH,
-          height: CONTAINER_HEIGHT,
-          borderRadius: CONTAINER_HEIGHT / 2,
-          overflow: "hidden",
-          backgroundColor: isDark ? "rgba(255, 255, 255, 0.04)" : "rgba(134, 86, 179, 0.04)",
-          borderWidth: 1,
-          borderColor: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(134, 86, 179, 0.15)",
-          position: "relative",
-          justifyContent: "center",
-        },
-        style,
-      ]}
+      style={[{ width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT, justifyContent: "center" }, style]}
       pointerEvents="none"
       accessibilityRole="image"
       accessibilityLabel="Grafic ritm cardiac, element decorativ"
     >
+      <MaskedView
+        style={{ width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT }}
+        maskElement={
+          <View
+            style={{
+              flex: 1,
+              experimental_backgroundImage:
+                "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 22%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+        }
+      >
       {/* Moving Waveform Track (4 contiguous cycles) */}
       <Animated.View
         style={{
@@ -194,42 +183,7 @@ export function ECGHorizon({
           </View>
         ))}
       </Animated.View>
-
-      {/* Left Edge Holographic Fade Mask */}
-      <View
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: 36,
-          flexDirection: "row",
-        }}
-      >
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.95)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.75)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.50)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.25)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.08)` }} />
-      </View>
-
-      {/* Right Edge Holographic Fade Mask */}
-      <View
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: 36,
-          flexDirection: "row",
-        }}
-      >
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.08)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.25)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.50)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.75)` }} />
-        <View style={{ flex: 1, backgroundColor: `${fadeBg} 0.95)` }} />
-      </View>
+      </MaskedView>
     </View>
   );
 }
