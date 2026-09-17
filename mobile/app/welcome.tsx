@@ -17,7 +17,6 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ActionButton } from "@/components/action-button";
 import { useAmbientBackground } from "@/components/ambient-background";
-import { BrandMark } from "@/components/brand-mark";
 import { PressableScale } from "@/components/pressable-scale";
 import { SearchField } from "@/components/search-field";
 import { catalogHref, MODULES } from "@/constants/modules";
@@ -70,6 +69,46 @@ function HeroCapsule({ reduceMotion }: { reduceMotion: boolean }) {
   );
 }
 
+
+function AnimatedTitle({ reduceMotion }: { reduceMotion: boolean }) {
+  const words = ["Găsește", "rapid", "informații", "despre", "medicamente"];
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        paddingHorizontal: Space.sm,
+      }}
+      accessibilityRole="header"
+      accessibilityLabel="Găsește rapid informații despre medicamente"
+    >
+      {words.map((word, index) => {
+        const wordEntrance = reduceMotion
+          ? FadeIn.duration(200)
+          : FadeInDown.duration(480).delay(100 + index * 75).springify().damping(13).stiffness(150);
+        return (
+          <Animated.Text
+            key={index}
+            entering={wordEntrance}
+            style={{
+              fontSize: 30,
+              lineHeight: 38,
+              fontWeight: "700",
+              letterSpacing: -0.8,
+              textAlign: "center",
+              color: Colors.label,
+              marginRight: 7,
+            }}
+          >
+            {word}
+          </Animated.Text>
+        );
+      })}
+    </View>
+  );
+}
+
 export default function WelcomeScreen() {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
@@ -103,25 +142,11 @@ export default function WelcomeScreen() {
           gap: Space.xxl,
         }}
       >
-        <Animated.View entering={enter(0)} accessible accessibilityLabel="Medora" style={{ alignSelf: "flex-start" }}>
-          <BrandMark size={32} />
-        </Animated.View>
+
 
         <Animated.View entering={enter(1)} style={{ gap: Space.lg, alignItems: "center" }}>
           <HeroCapsule reduceMotion={Boolean(reduceMotion)} />
-          <Text
-            accessibilityRole="header"
-            style={{
-              fontSize: 30,
-              lineHeight: 36,
-              fontWeight: "700",
-              letterSpacing: -0.8,
-              textAlign: "center",
-              color: Colors.label,
-            }}
-          >
-            Găsește rapid informații despre medicamente
-          </Text>
+          <AnimatedTitle reduceMotion={Boolean(reduceMotion)} />
 
           <SearchField onSearch={(q) => getStarted(catalogHref(q))} />
 
