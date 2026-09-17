@@ -39,12 +39,7 @@ function Stat({
       onPress={onPress}
       style={{ ...cardStyle, flex: 1, gap: 2, padding: Space.md }}
     >
-      {/* The spot icons carry generous transparent padding; negative margins keep the tile tight. */}
-      <Image
-        source={icon}
-        style={{ width: 56, height: 56, marginLeft: -10, marginTop: -10, marginBottom: -6 }}
-        accessibilityIgnoresInvertColors
-      />
+      <Image source={icon} style={{ width: 44, height: 44 }} accessibilityIgnoresInvertColors />
       <Text style={{ ...Type.title1, color: Colors.label, fontVariant: ["tabular-nums"] }}>{value}</Text>
       <Text style={{ ...Type.footnote, lineHeight: 17, color: Colors.secondaryLabel }} numberOfLines={2}>
         {label}
@@ -140,7 +135,7 @@ export default function TodayScreen() {
           </View>
           <Image
             source={require("@/assets/images/modules/radar.png")}
-            style={{ width: 88, height: 88 }}
+            style={{ width: 76, height: 76 }}
             accessibilityIgnoresInvertColors
           />
         </Card>
