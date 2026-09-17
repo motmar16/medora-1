@@ -17,6 +17,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ActionButton } from "@/components/action-button";
+import { BoringAvatar } from "@/components/boring-avatar";
 import { ECGHorizon } from "@/components/ecg-horizon";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { PressableScale } from "@/components/pressable-scale";
@@ -160,6 +161,7 @@ export default function WelcomeScreen() {
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
+  const user = useSession((state) => state.user);
   const continueAsGuest = useSession((state) => state.continueAsGuest);
 
   // Every entry point into the app asks once: account or guest.
@@ -189,6 +191,27 @@ export default function WelcomeScreen() {
         }}
       >
 
+
+        <Animated.View entering={enter(0)} style={{ flexDirection: "row", justifyContent: "flex-end", width: "100%", marginBottom: -Space.lg }}>
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={user ? "Contul meu" : "Cont"}
+            accessibilityHint="Deschide panoul de cont"
+            onPress={() => {
+              if (process.env.EXPO_OS === "ios") {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }
+              router.push("/account");
+            }}
+            style={{ padding: Space.xs }}
+          >
+            <BoringAvatar
+              name={user?.name ?? "Medora Guest"}
+              email={user?.email}
+              size={38}
+            />
+          </PressableScale>
+        </Animated.View>
 
         <Animated.View entering={enter(1)} style={{ gap: Space.lg, alignItems: "center" }}>
           <HeroCapsule reduceMotion={Boolean(reduceMotion)} />
