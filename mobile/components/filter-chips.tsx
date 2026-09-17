@@ -35,14 +35,14 @@ export function FilterChips({ options, selected, onSelect }: FilterChipsProps) {
               justifyContent: "center",
               paddingHorizontal: 14,
               borderRadius: Radii.pill,
-              backgroundColor: active ? Colors.accent : Colors.fill,
+              backgroundColor: active ? Colors.primary : Colors.fill,
             }}
           >
             <Text
               style={{
                 ...Type.subhead,
                 fontWeight: "600",
-                color: active ? Colors.onAccent : Colors.label,
+                color: active ? Colors.onPrimary : Colors.label,
               }}
             >
               {option}

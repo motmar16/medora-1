@@ -29,10 +29,10 @@ export function EmptyState({ symbol, title, message, action }: EmptyStateProps) 
             justifyContent: "center",
             paddingHorizontal: Space.xl,
             borderRadius: Radii.pill,
-            backgroundColor: Colors.accent,
+            backgroundColor: Colors.primary,
           }}
         >
-          <Text style={{ ...Type.subhead, fontWeight: "600", color: Colors.onAccent }}>{action.label}</Text>
+          <Text style={{ ...Type.subhead, fontWeight: "600", color: Colors.onPrimary }}>{action.label}</Text>
         </PressableScale>
       )}
     </View>

@@ -38,6 +38,8 @@ export default function CatalogScreen() {
             placeholder: "Medicament, DCI sau cod ATC",
             autoCapitalize: "none",
             hideWhenScrolling: false,
+            // Keep search under the large title; toolbar integration puts it behind the tab bar.
+            placement: "stacked",
             onChangeText: (event) => setQuery(event.nativeEvent.text),
           },
         }}

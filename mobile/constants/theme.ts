@@ -1,14 +1,15 @@
 import { Easing } from "react-native-reanimated";
-import { PlatformColor, type ColorValue } from "react-native";
+import { DynamicColorIOS, PlatformColor, type ColorValue } from "react-native";
 
 import type { Medicine } from "@/constants/medicines";
 
 /*
- * Medora design rules (appllama-app-design-skill):
- * - One accent, locked: `accent`. Status hues are semantic, never decorative.
- * - Surfaces and greys come from iOS semantic colors only (light + dark for free).
- * - Shape lock: cards 20, inline tags 6, actions and chips are pills. Always continuous.
- * - Liquid Glass only on controls floating over content (tab bar, toolbars, floating buttons).
+ * Medora design rules (appllama-app-design-skill), palette shared with the web landing:
+ * - One accent, locked: `accent` (Medora purple). Status hues are semantic, never decorative.
+ * - Primary actions are ink pills (`primary`), like the web "Caută" / "Creează cont" buttons.
+ * - One warm grey family: every neutral is derived from ink #181817 on paper #FBFAF7.
+ * - Shape lock: cards 20, icon tiles 12, inline tags 6, actions and chips are pills. Always continuous.
+ * - Liquid Glass only on controls floating over content (tab bar, toolbars, sheets, floating buttons).
  * - 4pt spacing grid, flex gap over margins.
  */
 
@@ -18,20 +19,34 @@ function system(iosName: string, fallback: string): ColorValue {
   return ios ? PlatformColor(iosName) : fallback;
 }
 
+function dynamic(light: string, dark: string): ColorValue {
+  return ios ? DynamicColorIOS({ light, dark }) : light;
+}
+
+export const Brand = {
+  ink: "#181817",
+  paper: "#FBFAF7",
+  pink: "#F2A8CF",
+  purple: "#9567BF",
+};
+
 export const Colors = {
-  accent: "#1d7ed2",
-  onAccent: "#ffffff",
-  label: system("label", "#1c1b1f"),
-  secondaryLabel: system("secondaryLabel", "#49454f"),
-  tertiaryLabel: system("tertiaryLabel", "#79747e"),
-  background: system("systemGroupedBackground", "#f3f2f7"),
-  surface: system("secondarySystemGroupedBackground", "#ffffff"),
-  fill: system("tertiarySystemFill", "#e7e6ec"),
-  separator: system("separator", "#cac4d0"),
+  // Darkened in light mode so purple text and icons pass 4.5:1 on paper.
+  accent: dynamic("#8656B3", "#C49BEA"),
+  primary: dynamic(Brand.ink, "#FFFDFA"),
+  onPrimary: dynamic("#FFFDFA", Brand.ink),
+  label: dynamic(Brand.ink, "#FFFFFF"),
+  secondaryLabel: dynamic("rgba(24, 24, 23, 0.62)", "rgba(235, 235, 245, 0.62)"),
+  tertiaryLabel: dynamic("rgba(24, 24, 23, 0.42)", "rgba(235, 235, 245, 0.34)"),
+  background: dynamic("#F5F2EC", "#000000"),
+  surface: dynamic("#FFFDFA", "#1C1C1E"),
+  fill: dynamic("rgba(24, 24, 23, 0.06)", "rgba(120, 120, 128, 0.24)"),
+  separator: dynamic("rgba(24, 24, 23, 0.12)", "rgba(84, 84, 88, 0.6)"),
 };
 
 export const Radii = {
   card: 20,
+  tile: 12,
   tag: 6,
   pill: 999,
 };

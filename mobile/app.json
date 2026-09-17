@@ -42,13 +42,14 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 96,
           "resizeMode": "contain",
-          "backgroundColor": "#F2F2F7",
+          "backgroundColor": "#FBFAF7",
           "dark": {
             "image": "./assets/images/splash-icon.png",
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

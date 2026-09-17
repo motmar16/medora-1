@@ -74,11 +74,11 @@ export default function AboutSheet() {
           justifyContent: "center",
           gap: Space.sm,
           borderRadius: Radii.pill,
-          backgroundColor: Colors.accent,
+          backgroundColor: Colors.primary,
         }}
       >
-        <Text style={{ ...Type.headline, color: Colors.onAccent }}>Deschide site-ul ANMDMR</Text>
-        <SymbolView name="arrow.up.right" size={14} weight="semibold" tintColor={Colors.onAccent} />
+        <Text style={{ ...Type.headline, color: Colors.onPrimary }}>Deschide site-ul ANMDMR</Text>
+        <SymbolView name="arrow.up.right" size={14} weight="semibold" tintColor={Colors.onPrimary} />
       </PressableScale>
     </ScrollView>
   );
