@@ -18,8 +18,6 @@ export const MODULES: AppModule[] = [
   { key: "atc", label: "ATC", icon: require("@/assets/images/modules/atc.png"), href: "/(tabs)/(index)?q=J01" },
 ];
 
-export const FREQUENT_SEARCHES = ["Amoxicilină", "Metformină", "J01CA04"];
-
 export function catalogHref(query: string) {
   const q = query.trim();
   return q ? `/(tabs)/(index)?q=${encodeURIComponent(q)}` : "/(tabs)/(index)";

@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useRef } from "react";
-import { Image, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, ScrollView, Text, TextInput, View } from "react-native";
 import Animated, { FadeIn, FadeInDown, useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -9,7 +9,7 @@ import { ActionButton } from "@/components/action-button";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { BrandMark } from "@/components/brand-mark";
 import { PressableScale } from "@/components/pressable-scale";
-import { catalogHref, FREQUENT_SEARCHES, MODULES } from "@/constants/modules";
+import { catalogHref, MODULES } from "@/constants/modules";
 import { Colors, Motion, Radii, Space, Type } from "@/constants/theme";
 
 export default function WelcomeScreen() {
@@ -30,8 +30,8 @@ export default function WelcomeScreen() {
       : FadeInDown.duration(460).delay(60 + index * 70).easing(Motion.easeOut);
 
   return (
-    <View style={background}>
-      {/* Insets handled here: the automatic behavior makes iOS draw a scroll edge under the status bar. */}
+    // The scroll view starts below the status bar: if it runs under it, iOS 26+ draws a scroll edge divider there.
+    <View style={[background, { paddingTop: insets.top }]}>
       <ScrollView
         contentInsetAdjustmentBehavior="never"
         keyboardShouldPersistTaps="handled"
@@ -41,33 +41,30 @@ export default function WelcomeScreen() {
           maxWidth: 560,
           alignSelf: "center",
           paddingHorizontal: Space.xl,
-          paddingTop: insets.top + Space.xl,
+          paddingTop: Space.sm,
           paddingBottom: Space.xxl,
           gap: Space.xxl,
         }}
       >
-        <Animated.View entering={enter(0)} style={{ alignItems: "center", gap: Space.lg }}>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <BrandMark size={38} />
-            <Text style={{ fontSize: 32, fontWeight: "700", letterSpacing: -1, color: Colors.label }}>medora</Text>
-          </View>
+        <Animated.View entering={enter(0)} accessible accessibilityLabel="Medora" style={{ alignSelf: "flex-start" }}>
+          <BrandMark size={32} />
+        </Animated.View>
+
+        <Animated.View entering={enter(1)} style={{ gap: Space.lg }}>
           <Text
             accessibilityRole="header"
             style={{
               fontSize: 30,
-              lineHeight: 34,
+              lineHeight: 36,
               fontWeight: "700",
               letterSpacing: -0.8,
               textAlign: "center",
               color: Colors.label,
             }}
           >
-            Informația potrivită.{"\n"}
-            <Text style={{ color: Colors.accent }}>Înainte de prescripție.</Text>
+            Găsește rapid informații despre medicamente
           </Text>
-        </Animated.View>
 
-        <Animated.View entering={enter(1)} style={{ gap: Space.md }}>
           <View
             style={{
               flexDirection: "row",
@@ -83,7 +80,7 @@ export default function WelcomeScreen() {
           >
             <SymbolView name="magnifyingglass" size={18} tintColor={Colors.secondaryLabel} />
             <TextInput
-              placeholder="Medicament, DCI sau cod ATC"
+              placeholder="Medicament, DCI, ATC"
               placeholderTextColor={Colors.tertiaryLabel}
               onChangeText={(text) => (query.current = text)}
               onSubmitEditing={() => getStarted(catalogHref(query.current))}
@@ -109,29 +106,9 @@ export default function WelcomeScreen() {
             </PressableScale>
           </View>
 
-          <Text style={{ ...Type.footnote, color: Colors.secondaryLabel, textAlign: "center", marginTop: Space.xs }}>
-            Frecvent căutate
+          <Text style={{ ...Type.footnote, lineHeight: 18, color: Colors.secondaryLabel, textAlign: "center" }}>
+            Catalogul medicamentelor autorizate în România{"\n"}Surse: ANMDMR, EMA · versiune demonstrativă
           </Text>
-          <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: Space.sm, marginTop: -Space.xs }}>
-            {FREQUENT_SEARCHES.map((term) => (
-              <PressableScale
-                key={term}
-                accessibilityRole="button"
-                onPress={() => getStarted(catalogHref(term))}
-                style={{
-                  minHeight: 32,
-                  justifyContent: "center",
-                  paddingHorizontal: Space.md,
-                  borderRadius: Radii.pill,
-                  backgroundColor: Colors.surface,
-                  borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: Colors.separator,
-                }}
-              >
-                <Text style={{ ...Type.footnote, fontWeight: "500", color: Colors.label }}>{term}</Text>
-              </PressableScale>
-            ))}
-          </View>
         </Animated.View>
 
         <Animated.View entering={enter(2)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
@@ -192,9 +169,6 @@ export default function WelcomeScreen() {
           variant="plain"
           onPress={() => router.push({ pathname: "/sign-in", params: { mode: "signin" } })}
         />
-        <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, textAlign: "center" }}>
-          Versiune demonstrativă · Surse: ANMDMR și EMA
-        </Text>
       </Animated.View>
     </View>
   );
