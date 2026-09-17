@@ -18,7 +18,11 @@ const exclude = new Set([
   "server.mjs",
   "build.mjs",
   ".DS_Store",
-  "ui-prompt-library"
+  "ui-prompt-library",
+  "ios",
+  "mobile",
+  "capacitor.config.json",
+  "capacitor.config.ts"
 ]);
 
 for (const item of readdirSync(process.cwd())) {

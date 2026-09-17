@@ -5,9 +5,18 @@
     "dev": "node server.mjs",
     "start": "node server.mjs",
     "preview": "node server.mjs",
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "ios:open": "npx cap open ios",
+    "ios:sync": "npm run build && npx cap sync ios",
+    "ios:run": "npx cap run ios",
+    "mobile:start": "cd mobile && npx expo start",
+    "mobile:ios": "cd mobile && npx expo run:ios",
+    "mobile:xcode": "open mobile/ios/Medora.xcworkspace"
   },
   "dependencies": {
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
     "qr-code-styling": "^1.9.2",
     "tailwind-merge": "^3.7.0"
   }
