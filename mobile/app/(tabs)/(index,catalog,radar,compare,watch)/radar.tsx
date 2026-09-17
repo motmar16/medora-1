@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 import { Text, View } from "react-native";
 
-import { useAccountButton } from "@/components/account-button";
+import { AccountAvatarButton } from "@/components/account-button";
 import { AlertCard } from "@/components/alert-card";
 import { EmptyState } from "@/components/empty-state";
 import { MEDICINES, type Medicine } from "@/constants/medicines";
@@ -19,7 +19,6 @@ const FILTERS: { label: string; status?: Medicine["status"] }[] = [
 
 export default function RadarScreen() {
   const [filterIndex, setFilterIndex] = useState(0);
-  const account = useAccountButton();
 
   const alerts = useMemo(() => {
     const { status } = FILTERS[filterIndex];
@@ -29,7 +28,9 @@ export default function RadarScreen() {
   return (
     <>
       <Stack.Toolbar placement="right">
-        <Stack.Toolbar.Button {...account} />
+        <Stack.Toolbar.View>
+          <AccountAvatarButton />
+        </Stack.Toolbar.View>
       </Stack.Toolbar>
       <FlashList
         data={alerts}

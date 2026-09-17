@@ -17,7 +17,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ActionButton } from "@/components/action-button";
-import { BoringAvatar } from "@/components/boring-avatar";
 import { ECGHorizon } from "@/components/ecg-horizon";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { PressableScale } from "@/components/pressable-scale";
@@ -177,28 +176,7 @@ export default function WelcomeScreen() {
       >
 
 
-        <Animated.View entering={enter(0)} style={{ flexDirection: "row", justifyContent: "flex-end", width: "100%", marginBottom: -Space.lg }}>
-          <PressableScale
-            accessibilityRole="button"
-            accessibilityLabel={user ? "Contul meu" : "Cont"}
-            accessibilityHint="Deschide panoul de cont"
-            onPress={() => {
-              if (process.env.EXPO_OS === "ios") {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              }
-              router.push("/account");
-            }}
-            style={{ padding: Space.xs }}
-          >
-            <BoringAvatar
-              name={user?.name ?? "Medora Guest"}
-              email={user?.email}
-              size={38}
-            />
-          </PressableScale>
-        </Animated.View>
-
-        <Animated.View entering={enter(1)} style={{ gap: Space.lg, alignItems: "center" }}>
+        <Animated.View entering={enter(0)} style={{ gap: Space.lg, alignItems: "center" }}>
           <HeroCapsule />
           <AnimatedTitle reduceMotion={Boolean(reduceMotion)} />
 
@@ -209,7 +187,7 @@ export default function WelcomeScreen() {
           </Text>
         </Animated.View>
 
-        <Animated.View entering={enter(2)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
+        <Animated.View entering={enter(1)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
           {MODULES.map((module, index) => {
             const available = module.href !== null;
             const tileEntrance = reduceMotion ? FadeIn.duration(200) : FadeInDown.duration(520).delay(180 + index * 65).springify().damping(13);

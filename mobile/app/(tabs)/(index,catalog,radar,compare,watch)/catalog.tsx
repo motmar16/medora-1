@@ -4,7 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
 import type { SearchBarCommands } from "react-native-screens";
 
-import { useAccountButton } from "@/components/account-button";
+import { AccountAvatarButton } from "@/components/account-button";
 import { EmptyState } from "@/components/empty-state";
 import { FilterChips } from "@/components/filter-chips";
 import { MedicineCard } from "@/components/medicine-card";
@@ -13,7 +13,6 @@ import { Space } from "@/constants/theme";
 
 export default function CatalogScreen() {
   const router = useRouter();
-  const account = useAccountButton();
   const params = useLocalSearchParams<{ q?: string }>();
   const searchBar = useRef<SearchBarCommands>(null);
   const [query, setQuery] = useState(params.q ?? "");
@@ -64,7 +63,9 @@ export default function CatalogScreen() {
           accessibilityLabel="Despre Medora"
           onPress={() => router.push("/about")}
         />
-        <Stack.Toolbar.Button {...account} />
+        <Stack.Toolbar.View>
+          <AccountAvatarButton />
+        </Stack.Toolbar.View>
       </Stack.Toolbar>
 
       <FlashList

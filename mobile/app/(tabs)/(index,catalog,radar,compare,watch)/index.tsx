@@ -3,7 +3,7 @@ import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { Image, ScrollView, Text, View, type ImageSourcePropType } from "react-native";
 
-import { useAccountButton } from "@/components/account-button";
+import { AccountAvatarButton } from "@/components/account-button";
 import { ActionButton } from "@/components/action-button";
 import { Card, cardStyle } from "@/components/card";
 import { MedicineRow } from "@/components/medicine-row";
@@ -56,7 +56,6 @@ function Stat({
 // "Privire de ansamblu" from the web app: today's radar, stats and the watched list at a glance.
 export default function TodayScreen() {
   const router = useRouter();
-  const account = useAccountButton();
   const watchedIds = useWatchlist((state) => state.ids);
   const alertsEnabled = useAlertPrefs((state) => Object.values(state.events).some(Boolean));
 
@@ -82,7 +81,9 @@ export default function TodayScreen() {
           accessibilityLabel="Preferințe alerte"
           onPress={() => router.push("/alert-preferences")}
         />
-        <Stack.Toolbar.Button {...account} />
+        <Stack.Toolbar.View>
+          <AccountAvatarButton />
+        </Stack.Toolbar.View>
       </Stack.Toolbar>
 
       <ScrollView

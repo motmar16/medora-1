@@ -4,7 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { Text, View } from "react-native";
 
-import { useAccountButton } from "@/components/account-button";
+import { AccountAvatarButton } from "@/components/account-button";
 import { ActionButton } from "@/components/action-button";
 import { Card } from "@/components/card";
 import { EmptyState } from "@/components/empty-state";
@@ -43,7 +43,6 @@ function SyncPrompt({ onSignIn }: { onSignIn: () => void }) {
 export default function WatchScreen() {
   const router = useRouter();
   const signedIn = useSession((state) => state.user !== null);
-  const account = useAccountButton();
   const ids = useWatchlist((state) => state.ids);
   const watched = useMemo(() => MEDICINES.filter((m) => ids.includes(m.id)), [ids]);
   const activeAlerts = watched.filter((m) => m.status === "temporary" || m.status === "permanent").length;
@@ -51,7 +50,9 @@ export default function WatchScreen() {
   return (
     <>
       <Stack.Toolbar placement="right">
-        <Stack.Toolbar.Button {...account} />
+        <Stack.Toolbar.View>
+          <AccountAvatarButton />
+        </Stack.Toolbar.View>
       </Stack.Toolbar>
 
       <FlashList

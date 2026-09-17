@@ -5,7 +5,7 @@ import { SymbolView, type SFSymbol } from "expo-symbols";
 import { ScrollView, StyleSheet, Text, View, type ColorValue } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { useAccountButton } from "@/components/account-button";
+import { AccountAvatarButton } from "@/components/account-button";
 import { Card, cardStyle } from "@/components/card";
 import { PressableScale } from "@/components/pressable-scale";
 import { MEDICINES, type Medicine } from "@/constants/medicines";
@@ -80,7 +80,6 @@ export default function CompareScreen() {
   const a = findMedicine(useCompare((state) => state.A));
   const b = findMedicine(useCompare((state) => state.B));
   const swap = useCompare((state) => state.swap);
-  const account = useAccountButton();
   const result = verdict(a, b);
 
   const rows = [
@@ -94,7 +93,9 @@ export default function CompareScreen() {
   return (
     <>
       <Stack.Toolbar placement="right">
-        <Stack.Toolbar.Button {...account} />
+        <Stack.Toolbar.View>
+          <AccountAvatarButton />
+        </Stack.Toolbar.View>
       </Stack.Toolbar>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
