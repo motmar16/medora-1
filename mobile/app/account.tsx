@@ -1,6 +1,7 @@
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useEffect, useRef } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { ActionButton } from "@/components/action-button";
@@ -25,19 +26,21 @@ export default function AccountSheet() {
   const router = useRouter();
   const user = useSession((state) => state.user);
   const signOut = useSession((state) => state.signOut);
-  const resetOnboarding = useSession((state) => state.resetOnboarding);
+  const leaving = useRef(false);
 
-  // Dev-only escape hatch for testing first launch; the Keychain survives reinstalls.
-  const devReset = __DEV__ ? (
-    <ActionButton
-      label="Dev: resetează onboarding"
-      variant="plain"
-      onPress={() => {
-        router.back();
-        setTimeout(resetOnboarding, 500);
-      }}
-    />
-  ) : null;
+  // Signing out flips the Welcome guard in the root stack; do it once this sheet has dismissed.
+  useEffect(
+    () => () => {
+      if (leaving.current) signOut();
+    },
+    [signOut]
+  );
+
+  const leaveToWelcome = () => {
+    if (process.env.EXPO_OS === "ios") Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    leaving.current = true;
+    router.back();
+  };
   const watchedCount = useWatchlist((state) => state.ids.length);
 
   if (!user) {
@@ -61,7 +64,7 @@ export default function AccountSheet() {
             variant="secondary"
             onPress={() => router.replace({ pathname: "/sign-in", params: { mode: "signup" } })}
           />
-          {devReset}
+          <ActionButton label="Înapoi la ecranul de start" variant="plain" onPress={leaveToWelcome} />
         </View>
       </ScrollView>
     );
@@ -123,21 +126,16 @@ export default function AccountSheet() {
         label="Deconectează-te"
         variant="secondary"
         onPress={() =>
-          Alert.alert("Te deconectezi?", "Lista mea rămâne salvată pe acest iPhone.", [
+          Alert.alert("Te deconectezi?", "Revii la ecranul de start. Lista mea rămâne salvată pe acest iPhone.", [
             { text: "Anulează", style: "cancel" },
             {
               text: "Deconectează-te",
               style: "destructive",
-              onPress: () => {
-                if (process.env.EXPO_OS === "ios") Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-                signOut();
-                router.back();
-              },
+              onPress: leaveToWelcome,
             },
           ])
         }
       />
-      {devReset}
     </ScrollView>
   );
 }

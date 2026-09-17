@@ -18,10 +18,9 @@ type SessionState = {
   pendingHref: string | null;
   continueAsGuest: (href?: string) => void;
   signIn: (user: SessionUser, href?: string) => void;
+  /** Signing out (or leaving guest mode) returns to Welcome. Bookmarks stay on the device. */
   signOut: () => void;
   takePendingHref: () => string | null;
-  /** Development only: return to the first-launch Welcome screen. */
-  resetOnboarding: () => void;
 };
 
 // Mock session: the screens are real, the provider calls are not wired yet.
@@ -34,13 +33,12 @@ export const useSession = create<SessionState>()(
       pendingHref: null,
       continueAsGuest: (href) => set({ hasOnboarded: true, pendingHref: href ?? null }),
       signIn: (user, href) => set({ user, hasOnboarded: true, pendingHref: href ?? null }),
-      signOut: () => set({ user: null }),
+      signOut: () => set({ user: null, hasOnboarded: false, pendingHref: null }),
       takePendingHref: () => {
         const href = get().pendingHref;
         if (href) set({ pendingHref: null });
         return href;
       },
-      resetOnboarding: () => set({ user: null, hasOnboarded: false, pendingHref: null }),
     }),
     {
       name: "medora.session",
