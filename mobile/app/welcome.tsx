@@ -10,12 +10,14 @@ import { PressableScale } from "@/components/pressable-scale";
 import { SearchField } from "@/components/search-field";
 import { catalogHref, MODULES } from "@/constants/modules";
 import { Colors, Motion, Space, Type } from "@/constants/theme";
+import { useSession } from "@/store/session";
 
 export default function WelcomeScreen() {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
+  const continueAsGuest = useSession((state) => state.continueAsGuest);
 
   // Every entry point into the app asks once: account or guest.
   const getStarted = (href: string) => router.push({ pathname: "/get-started", params: { href } });
@@ -124,9 +126,10 @@ export default function WelcomeScreen() {
         />
         <ActionButton
           label="Am deja cont"
-          variant="plain"
+          variant="secondary"
           onPress={() => router.push({ pathname: "/sign-in", params: { mode: "signin" } })}
         />
+        <ActionButton label="Continuă fără cont" variant="plain" onPress={() => continueAsGuest()} />
       </Animated.View>
     </View>
   );
