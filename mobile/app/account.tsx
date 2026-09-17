@@ -1,3 +1,4 @@
+import { MeshAvatar } from "@/components/mesh-avatar";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -83,18 +84,7 @@ export default function AccountSheet() {
       contentContainerStyle={{ padding: Space.xxl, paddingTop: Space.xxl + Space.sm, gap: Space.xl }}
     >
       <View style={{ alignItems: "center", gap: Space.sm }}>
-        <View
-          style={{
-            width: 72,
-            height: 72,
-            borderRadius: Radii.pill,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: Brand.pink,
-          }}
-        >
-          <Text style={{ fontSize: 28, fontWeight: "600", color: Brand.ink }}>{initials(user.name) || "M"}</Text>
-        </View>
+        <MeshAvatar name={user.name} email={user.email} size={76} />
         <Text selectable style={{ ...Type.title3, color: Colors.label }}>
           {user.name}
         </Text>
