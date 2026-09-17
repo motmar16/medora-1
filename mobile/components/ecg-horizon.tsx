@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { View, useColorScheme, type StyleProp, type ViewStyle } from "react-native";
-import Animated, {
+import React, { useEffect, useRef } from "react";
+import {
+  Animated,
   Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
-} from "react-native-reanimated";
+  View,
+  useColorScheme,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 
 const CONTAINER_WIDTH = 320;
 const CONTAINER_HEIGHT = 52;
@@ -65,25 +64,23 @@ export function ECGHorizon({
   glowColor = "rgba(134, 86, 179, 0.35)",
 }: ECGHorizonProps) {
   const isDark = useColorScheme() === "dark";
-  const translateX = useSharedValue(0);
+  const translateX = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    translateX.value = 0;
-    // Seamless infinite horizontal scroll: moves by exactly one cycle (-160px) in 1200ms
-    // and repeats forever with 0ms reset so it never freezes
-    translateX.value = withRepeat(
-      withSequence(
-        withTiming(-CYCLE_WIDTH, { duration: 1200, easing: Easing.linear }),
-        withTiming(0, { duration: 0 })
-      ),
-      -1,
-      false
+    translateX.setValue(0);
+    // Bulletproof Native Driver loop: Runs directly on iOS CoreAnimation / CADisplayLink
+    // 100% immune to Reanimated reduceMotion gating or repeat bugs
+    const animation = Animated.loop(
+      Animated.timing(translateX, {
+        toValue: -CYCLE_WIDTH,
+        duration: 1200,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
     );
+    animation.start();
+    return () => animation.stop();
   }, [translateX]);
-
-  const animatedWaveStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
-  }));
 
   // Edge fade colors matching screen backdrop
   const fadeBg = isDark ? "rgba(5, 5, 5," : "rgba(251, 250, 247,";
@@ -110,16 +107,14 @@ export function ECGHorizon({
     >
       {/* Moving Waveform Track (4 contiguous cycles) */}
       <Animated.View
-        style={[
-          {
-            width: CYCLE_WIDTH * NUM_CYCLES,
-            height: CONTAINER_HEIGHT,
-            position: "absolute",
-            left: 0,
-            top: 0,
-          },
-          animatedWaveStyle,
-        ]}
+        style={{
+          width: CYCLE_WIDTH * NUM_CYCLES,
+          height: CONTAINER_HEIGHT,
+          position: "absolute",
+          left: 0,
+          top: 0,
+          transform: [{ translateX }],
+        }}
       >
         {/* Layer 1: Ambient Luminous Glow Underlay */}
         {SEGMENTS.map((seg, idx) => (

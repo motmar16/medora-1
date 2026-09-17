@@ -1,19 +1,18 @@
-import React, { useEffect } from "react";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  Animated as RNAnimated,
+  Easing as RNEasing,
+  Image,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import Animated, {
   FadeIn,
   FadeInDown,
   useReducedMotion,
-  useSharedValue,
-  useAnimatedStyle,
-  withRepeat,
-  withSequence,
-  withTiming,
-  withSpring,
-  Easing,
-  withDelay,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ActionButton } from "@/components/action-button";
@@ -25,55 +24,91 @@ import { catalogHref, MODULES } from "@/constants/modules";
 import { Colors, Motion, Space, Type } from "@/constants/theme";
 import { useSession } from "@/store/session";
 
-
 function HeroCapsule() {
-  const floatY = useSharedValue(0);
-  const userScale = useSharedValue(1);
-  const heartbeatScale = useSharedValue(1);
+  const floatAnim = useRef(new RNAnimated.Value(0)).current;
+  const pulseAnim = useRef(new RNAnimated.Value(1)).current;
+  const pressScale = useRef(new RNAnimated.Value(1)).current;
 
-  React.useEffect(() => {
-    // 1. Continuous smooth 3D levitation (unconditional, silky smooth)
-    floatY.value = withRepeat(
-      withTiming(-8, { duration: 1800, easing: Easing.inOut(Easing.quad) }),
-      -1,
-      true
+  useEffect(() => {
+    // 1. Continuous smooth 3D levitation using native iOS CoreAnimation driver
+    const floatLoop = RNAnimated.loop(
+      RNAnimated.sequence([
+        RNAnimated.timing(floatAnim, {
+          toValue: -8,
+          duration: 1800,
+          easing: RNEasing.inOut(RNEasing.quad),
+          useNativeDriver: true,
+        }),
+        RNAnimated.timing(floatAnim, {
+          toValue: 0,
+          duration: 1800,
+          easing: RNEasing.inOut(RNEasing.quad),
+          useNativeDriver: true,
+        }),
+      ])
     );
+    floatLoop.start();
 
-    // 2. Cardiac pulse (lub-dub) synchronized with the 1200ms ECG heartbeat wave
-    heartbeatScale.value = withRepeat(
-      withSequence(
-        withDelay(
-          600,
-          withSequence(
-            withTiming(1.055, { duration: 75, easing: Easing.out(Easing.quad) }),
-            withTiming(0.985, { duration: 65, easing: Easing.inOut(Easing.quad) }),
-            withTiming(1.025, { duration: 75, easing: Easing.out(Easing.quad) }),
-            withTiming(1.0, { duration: 220, easing: Easing.out(Easing.quad) })
-          )
-        ),
-        withDelay(165, withTiming(1.0, { duration: 0 }))
-      ),
-      -1,
-      false
+    // 2. Cardiac pulse (lub-dub) synchronized with the ECG heartbeat wave
+    const pulseLoop = RNAnimated.loop(
+      RNAnimated.sequence([
+        RNAnimated.delay(600),
+        RNAnimated.timing(pulseAnim, {
+          toValue: 1.055,
+          duration: 75,
+          easing: RNEasing.out(RNEasing.quad),
+          useNativeDriver: true,
+        }),
+        RNAnimated.timing(pulseAnim, {
+          toValue: 0.985,
+          duration: 65,
+          easing: RNEasing.inOut(RNEasing.quad),
+          useNativeDriver: true,
+        }),
+        RNAnimated.timing(pulseAnim, {
+          toValue: 1.025,
+          duration: 75,
+          easing: RNEasing.out(RNEasing.quad),
+          useNativeDriver: true,
+        }),
+        RNAnimated.timing(pulseAnim, {
+          toValue: 1.0,
+          duration: 220,
+          easing: RNEasing.out(RNEasing.quad),
+          useNativeDriver: true,
+        }),
+        RNAnimated.delay(165),
+      ])
     );
-  }, [floatY, heartbeatScale]);
+    pulseLoop.start();
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateY: floatY.value },
-      { scale: userScale.value * heartbeatScale.value },
-    ],
-  }));
+    return () => {
+      floatLoop.stop();
+      pulseLoop.stop();
+    };
+  }, [floatAnim, pulseAnim]);
 
   const handlePress = () => {
     if (process.env.EXPO_OS === "ios") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
-    userScale.value = withSequence(
-      withSpring(1.18, { damping: 6, stiffness: 350 }),
-      withSpring(1, { damping: 9, stiffness: 200 })
-    );
+    RNAnimated.sequence([
+      RNAnimated.spring(pressScale, {
+        toValue: 1.18,
+        damping: 6,
+        stiffness: 350,
+        useNativeDriver: true,
+      }),
+      RNAnimated.spring(pressScale, {
+        toValue: 1,
+        damping: 9,
+        stiffness: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
   };
+
+  const combinedScale = RNAnimated.multiply(pulseAnim, pressScale);
 
   return (
     <View style={{ alignItems: "center", position: "relative", marginBottom: Space.xs }}>
@@ -87,21 +122,27 @@ function HeroCapsule() {
       />
 
       <PressableScale onPress={handlePress} style={{ zIndex: 2, alignItems: "center" }}>
-        <Animated.View style={animatedStyle}>
+        <RNAnimated.View
+          style={{
+            transform: [
+              { translateY: floatAnim },
+              { scale: combinedScale },
+            ],
+          }}
+        >
           <Image
             source={require("@/assets/images/capsule-hero.png")}
             style={{ width: 84, height: 120 }}
             resizeMode="contain"
             accessibilityLabel="Flacon Medora 3D"
           />
-        </Animated.View>
+        </RNAnimated.View>
       </PressableScale>
     </View>
   );
 }
 
-
-function AnimatedTitle({ reduceMotion }: { reduceMotion: boolean }) {
+function AnimatedTitle() {
   const words = ["Găsește", "rapid", "informații", "despre", "medicamente"];
   return (
     <View
@@ -114,28 +155,23 @@ function AnimatedTitle({ reduceMotion }: { reduceMotion: boolean }) {
       accessibilityRole="header"
       accessibilityLabel="Găsește rapid informații despre medicamente"
     >
-      {words.map((word, index) => {
-        const wordEntrance = reduceMotion
-          ? FadeIn.duration(200)
-          : FadeInDown.duration(480).delay(100 + index * 75).springify().damping(13).stiffness(150);
-        return (
-          <Animated.Text
-            key={index}
-            entering={wordEntrance}
-            style={{
-              fontSize: 30,
-              lineHeight: 38,
-              fontWeight: "700",
-              letterSpacing: -0.8,
-              textAlign: "center",
-              color: Colors.label,
-              marginRight: 7,
-            }}
-          >
-            {word}
-          </Animated.Text>
-        );
-      })}
+      {words.map((word, index) => (
+        <Animated.Text
+          key={index}
+          entering={FadeInDown.duration(480).delay(100 + index * 75).springify().damping(13).stiffness(150)}
+          style={{
+            fontSize: 30,
+            lineHeight: 38,
+            fontWeight: "700",
+            letterSpacing: -0.8,
+            textAlign: "center",
+            color: Colors.label,
+            marginRight: 7,
+          }}
+        >
+          {word}
+        </Animated.Text>
+      ))}
     </View>
   );
 }
@@ -145,20 +181,17 @@ export default function WelcomeScreen() {
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
-  const user = useSession((state) => state.user);
   const continueAsGuest = useSession((state) => state.continueAsGuest);
 
   // Every entry point into the app asks once: account or guest.
   const getStarted = (href: string) => router.push({ pathname: "/get-started", params: { href } });
 
-  // First-launch moment: a short staggered entrance; Reduce Motion gets a plain fade.
   const enter = (index: number) =>
     reduceMotion
       ? FadeIn.duration(200)
       : FadeInDown.duration(460).delay(60 + index * 70).easing(Motion.easeOut);
 
   return (
-    // The scroll view starts below the status bar: if it runs under it, iOS 26+ draws a scroll edge divider there.
     <View style={[background, { paddingTop: insets.top }]}>
       <ScrollView
         contentInsetAdjustmentBehavior="never"
@@ -174,11 +207,9 @@ export default function WelcomeScreen() {
           gap: Space.xxl,
         }}
       >
-
-
         <Animated.View entering={enter(0)} style={{ gap: Space.lg, alignItems: "center" }}>
           <HeroCapsule />
-          <AnimatedTitle reduceMotion={Boolean(reduceMotion)} />
+          <AnimatedTitle />
 
           <SearchField onSearch={(q) => getStarted(catalogHref(q))} />
 
@@ -190,36 +221,37 @@ export default function WelcomeScreen() {
         <Animated.View entering={enter(1)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
           {MODULES.map((module, index) => {
             const available = module.href !== null;
-            const tileEntrance = reduceMotion ? FadeIn.duration(200) : FadeInDown.duration(520).delay(180 + index * 65).springify().damping(13);
             return (
-              <Animated.View key={module.key} entering={tileEntrance} style={{ width: "33.33%", alignItems: "center" }}>
-            const available = module.href !== null;
-            return (
-              <PressableScale
-                accessibilityRole="button"
-                accessibilityLabel={available ? module.label : `${module.label}, în curând`}
-                accessibilityState={{ disabled: !available }}
-                disabled={!available}
-                onPress={() => module.href && getStarted(module.href)}
-                style={{ alignItems: "center", gap: 2 }}
+              <Animated.View
+                key={module.key}
+                entering={FadeInDown.duration(520).delay(180 + index * 65).springify().damping(13)}
+                style={{ width: "33.33%", alignItems: "center" }}
               >
-                <Image
-                  source={module.icon}
-                  style={{ width: 84, height: 84, opacity: available ? 1 : 0.45 }}
-                  accessibilityIgnoresInvertColors
-                />
-                <Text
-                  style={{
-                    ...Type.subhead,
-                    fontWeight: "500",
-                    color: available ? Colors.label : Colors.tertiaryLabel,
-                  }}
+                <PressableScale
+                  accessibilityRole="button"
+                  accessibilityLabel={available ? module.label : `${module.label}, în curând`}
+                  accessibilityState={{ disabled: !available }}
+                  disabled={!available}
+                  onPress={() => module.href && getStarted(module.href)}
+                  style={{ alignItems: "center", gap: 2 }}
                 >
-                  {module.label}
-                </Text>
-                {!available && (
-                  <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, marginTop: -2 }}>În curând</Text>
-                )}
+                  <Image
+                    source={module.icon}
+                    style={{ width: 84, height: 84, opacity: available ? 1 : 0.45 }}
+                    accessibilityIgnoresInvertColors
+                  />
+                  <Text
+                    style={{
+                      ...Type.subhead,
+                      fontWeight: "500",
+                      color: available ? Colors.label : Colors.tertiaryLabel,
+                    }}
+                  >
+                    {module.label}
+                  </Text>
+                  {!available && (
+                    <Text style={{ ...Type.caption, color: Colors.tertiaryLabel, marginTop: -2 }}>În curând</Text>
+                  )}
                 </PressableScale>
               </Animated.View>
             );
@@ -227,9 +259,9 @@ export default function WelcomeScreen() {
         </Animated.View>
       </ScrollView>
 
-      {/* Actions stay pinned above the home indicator; the content scrolls if it doesn't fit. */}
+      {/* Actions stay pinned above the home indicator */}
       <Animated.View
-        entering={enter(3)}
+        entering={enter(2)}
         style={{
           width: "100%",
           maxWidth: 560,
