@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useReducedMotion } from "react-native-reanimated";
 import {
   Animated,
   Easing,
@@ -64,12 +65,17 @@ export function ECGHorizon({
   glowColor = "rgba(134, 86, 179, 0.35)",
 }: ECGHorizonProps) {
   const isDark = useColorScheme() === "dark";
+  const reduceMotion = useReducedMotion();
   const translateX = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    // Reduce Motion: keep the trace readable but still, no scrolling loop.
+    if (reduceMotion) {
+      translateX.setValue(0);
+      return;
+    }
     translateX.setValue(0);
-    // Bulletproof Native Driver loop: Runs directly on iOS CoreAnimation / CADisplayLink
-    // 100% immune to Reanimated reduceMotion gating or repeat bugs
+    // Native driver loop on CoreAnimation, so the trace stays smooth while it scrolls.
     const animation = Animated.loop(
       Animated.timing(translateX, {
         toValue: -CYCLE_WIDTH,
@@ -80,7 +86,7 @@ export function ECGHorizon({
     );
     animation.start();
     return () => animation.stop();
-  }, [translateX]);
+  }, [translateX, reduceMotion]);
 
   // Edge fade colors matching screen backdrop
   const fadeBg = isDark ? "rgba(5, 5, 5," : "rgba(251, 250, 247,";
@@ -103,7 +109,7 @@ export function ECGHorizon({
       ]}
       pointerEvents="none"
       accessibilityRole="image"
-      accessibilityLabel="Monitor ritm cardiac ECG activ"
+      accessibilityLabel="Grafic ritm cardiac, element decorativ"
     >
       {/* Moving Waveform Track (4 contiguous cycles) */}
       <Animated.View

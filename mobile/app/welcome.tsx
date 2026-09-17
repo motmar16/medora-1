@@ -25,11 +25,15 @@ import { Colors, Motion, Space, Type } from "@/constants/theme";
 import { useSession } from "@/store/session";
 
 function HeroCapsule() {
+  const reduceMotion = useReducedMotion();
   const floatAnim = useRef(new RNAnimated.Value(0)).current;
   const pulseAnim = useRef(new RNAnimated.Value(1)).current;
   const pressScale = useRef(new RNAnimated.Value(1)).current;
 
   useEffect(() => {
+    // Reduce Motion: the flacon sits still instead of floating and pulsing.
+    if (reduceMotion) return;
+
     // 1. Continuous smooth 3D levitation using native iOS CoreAnimation driver
     const floatLoop = RNAnimated.loop(
       RNAnimated.sequence([
@@ -86,12 +90,13 @@ function HeroCapsule() {
       floatLoop.stop();
       pulseLoop.stop();
     };
-  }, [floatAnim, pulseAnim]);
+  }, [floatAnim, pulseAnim, reduceMotion]);
 
   const handlePress = () => {
     if (process.env.EXPO_OS === "ios") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
+    if (reduceMotion) return;
     RNAnimated.sequence([
       RNAnimated.spring(pressScale, {
         toValue: 1.18,
@@ -116,7 +121,7 @@ function HeroCapsule() {
       <ECGHorizon
         style={{
           position: "absolute",
-          top: 62,
+          top: 52,
           zIndex: 1,
         }}
       />
@@ -132,7 +137,7 @@ function HeroCapsule() {
         >
           <Image
             source={require("@/assets/images/capsule-hero.png")}
-            style={{ width: 84, height: 120 }}
+            style={{ width: 72, height: 104 }}
             resizeMode="contain"
             accessibilityLabel="Flacon Medora 3D"
           />
@@ -203,8 +208,8 @@ export default function WelcomeScreen() {
           alignSelf: "center",
           paddingHorizontal: Space.xl,
           paddingTop: Space.sm,
-          paddingBottom: Space.xxl,
-          gap: Space.xxl,
+          paddingBottom: Space.lg,
+          gap: Space.lg,
         }}
       >
         <Animated.View entering={enter(0)} style={{ gap: Space.lg, alignItems: "center" }}>
@@ -237,7 +242,7 @@ export default function WelcomeScreen() {
                 >
                   <Image
                     source={module.icon}
-                    style={{ width: 84, height: 84, opacity: available ? 1 : 0.45 }}
+                    style={{ width: 76, height: 76, opacity: available ? 1 : 0.45 }}
                     accessibilityIgnoresInvertColors
                   />
                   <Text
