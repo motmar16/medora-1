@@ -13,7 +13,8 @@ export default function TabsLayout() {
   // Coming from Welcome: open the module or search the user tapped there.
   useEffect(() => {
     const href = useSession.getState().takePendingHref();
-    if (!href) return;
+    // The catalog is already the first tab; re-navigating to it collapses its large title.
+    if (!href || href === "/(tabs)/(index)") return;
     // Wait for the first layout pass; switching tabs mid-layout collapses the large title.
     const timer = setTimeout(() => router.navigate(href as Href), 250);
     return () => clearTimeout(timer);
