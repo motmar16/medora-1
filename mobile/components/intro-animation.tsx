@@ -158,22 +158,24 @@ export function IntroAnimation({ onDone }: { onDone: () => void }) {
     let subscription: { remove: () => void } | undefined;
     // Only touch expo-sensors when the running build actually links it; importing it
     // in a build without the native module throws.
-    const linked = Boolean((globalThis as { expo?: { modules?: Record<string, unknown> } }).expo?.modules
-      ?.ExponentDeviceMotion);
-    if (!linked) return;
-    const DeviceMotion = (require("expo-sensors") as typeof import("expo-sensors")).DeviceMotion;
-    Promise.resolve()
-      .then(() => DeviceMotion.isAvailableAsync())
-      .then((available) => {
-        if (!available) return;
-        DeviceMotion.setUpdateInterval(60);
-        subscription = DeviceMotion.addListener(({ rotation }) => {
-          if (!rotation) return;
-          tiltX.set(withSpring(Math.max(-1, Math.min(1, rotation.gamma)) * 14, { damping: 18, stiffness: 90 }));
-          tiltY.set(withSpring(Math.max(-1, Math.min(1, rotation.beta)) * 10, { damping: 18, stiffness: 90 }));
-        });
-      })
-      .catch(() => {});
+    try {
+      const DeviceMotion = require("expo-sensors/build/DeviceMotion")?.DeviceMotion;
+      if (!DeviceMotion) return;
+      Promise.resolve()
+        .then(() => DeviceMotion.isAvailableAsync())
+        .then((available: boolean) => {
+          if (!available) return;
+          DeviceMotion.setUpdateInterval(60);
+          subscription = DeviceMotion.addListener(({ rotation }: { rotation?: { gamma: number; beta: number } }) => {
+            if (!rotation) return;
+            tiltX.set(withSpring(Math.max(-1, Math.min(1, rotation.gamma)) * 14, { damping: 18, stiffness: 90 }));
+            tiltY.set(withSpring(Math.max(-1, Math.min(1, rotation.beta)) * 10, { damping: 18, stiffness: 90 }));
+          });
+        })
+        .catch(() => {});
+    } catch (e) {
+      // Safe fallback if module cannot be resolved
+    }
     return () => subscription?.remove();
   }, [tiltX, tiltY, reduceMotion]);
 
