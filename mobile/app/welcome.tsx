@@ -38,13 +38,13 @@ function HeroCapsule({ size }: { size: number }) {
       RNAnimated.sequence([
         RNAnimated.timing(lift, {
           toValue: 1,
-          duration: 3000,
+          duration: 2300,
           easing: RNEasing.inOut(RNEasing.sin),
           useNativeDriver: true,
         }),
         RNAnimated.timing(lift, {
           toValue: 0,
-          duration: 3000,
+          duration: 2300,
           easing: RNEasing.inOut(RNEasing.sin),
           useNativeDriver: true,
         }),
@@ -65,8 +65,8 @@ function HeroCapsule({ size }: { size: number }) {
     ]).start();
   };
 
-  const translateY = lift.interpolate({ inputRange: [0, 1], outputRange: [0, -7] });
-  const breathe = lift.interpolate({ inputRange: [0, 1], outputRange: [1, 1.018] });
+  const translateY = lift.interpolate({ inputRange: [0, 1], outputRange: [0, -14] });
+  const breathe = lift.interpolate({ inputRange: [0, 1], outputRange: [1, 1.035] });
   const scale = RNAnimated.multiply(breathe, pressScale);
 
   return (
@@ -84,46 +84,36 @@ function HeroCapsule({ size }: { size: number }) {
 }
 
 function AnimatedTitle({ fontSize, lineHeight }: { fontSize: number; lineHeight: number }) {
-  const words = ["Găsește", "rapid", "informații", "despre", "medicamente"];
+  // One text block, not one box per word: words in separate boxes get clipped once the
+  // system text size grows. The line still animates in with the rest of the screen.
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        paddingHorizontal: Space.sm,
-      }}
+    <Animated.Text
       accessibilityRole="header"
-      accessibilityLabel="Găsește rapid informații despre medicamente"
+      entering={FadeInDown.duration(520).delay(120).springify().damping(14).stiffness(150)}
+      style={{
+        alignSelf: "stretch",
+        paddingHorizontal: Space.sm,
+        fontSize,
+        lineHeight,
+        fontWeight: "700",
+        letterSpacing: -0.8,
+        textAlign: "center",
+        color: Colors.label,
+      }}
     >
-      {words.map((word, index) => (
-        <Animated.Text
-          key={index}
-          maxFontSizeMultiplier={1.5}
-          entering={FadeInDown.duration(480).delay(100 + index * 75).springify().damping(13).stiffness(150)}
-          style={{
-            fontSize,
-            lineHeight,
-            fontWeight: "700",
-            letterSpacing: -0.8,
-            textAlign: "center",
-            color: Colors.label,
-            marginRight: 7,
-          }}
-        >
-          {word}
-        </Animated.Text>
-      ))}
-    </View>
+      Găsește rapid informații despre medicamente
+    </Animated.Text>
   );
 }
 
 // Welcome must fit one screen at any Dynamic Type size: measure, then step down.
+// Icons and headline keep their size; only the decorative flacon and the spacing give way,
+// so a tight screen never shrinks what people actually read and tap.
 const DENSITIES = [
   { hero: 104, icon: 76, gap: Space.lg, title: 30, titleLine: 38 },
-  { hero: 88, icon: 62, gap: Space.md, title: 26, titleLine: 33 },
-  { hero: 72, icon: 52, gap: Space.sm, title: 23, titleLine: 29 },
-  { hero: 58, icon: 44, gap: Space.xs, title: 21, titleLine: 26 },
+  { hero: 88, icon: 76, gap: Space.md, title: 30, titleLine: 38 },
+  { hero: 72, icon: 76, gap: Space.sm, title: 30, titleLine: 38 },
+  { hero: 56, icon: 76, gap: Space.xs, title: 30, titleLine: 38 },
 ];
 
 export default function WelcomeScreen() {
@@ -187,7 +177,13 @@ export default function WelcomeScreen() {
 
           <Text
             maxFontSizeMultiplier={1.3}
-            style={{ ...Type.footnote, lineHeight: 18, color: Colors.secondaryLabel, textAlign: "center" }}
+            style={{
+              ...Type.footnote,
+              width: "100%",
+              lineHeight: 18,
+              color: Colors.secondaryLabel,
+              textAlign: "center",
+            }}
           >
             Catalogul medicamentelor autorizate în România · Surse: ANMDMR, EMA · versiune demonstrativă
           </Text>

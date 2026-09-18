@@ -25,6 +25,7 @@ export function ActionButton({ label, onPress, variant = "primary", symbol, disa
       onPress={onPress}
       style={{
         minHeight: variant === "plain" ? 44 : 54,
+        paddingVertical: Space.sm,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
@@ -39,8 +40,13 @@ export function ActionButton({ label, onPress, variant = "primary", symbol, disa
       {symbol && <SymbolView name={symbol} size={17} weight="semibold" tintColor={foreground} />}
       <Text
         maxFontSizeMultiplier={1.4}
-        numberOfLines={1}
-        style={{ ...Type.headline, fontWeight: variant === "plain" ? "500" : "600", color: foreground }}
+        numberOfLines={2}
+        style={{
+          ...Type.headline,
+          textAlign: "center",
+          fontWeight: variant === "plain" ? "500" : "600",
+          color: foreground,
+        }}
       >
         {label}
       </Text>

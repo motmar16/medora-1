@@ -34,7 +34,7 @@ export function SearchField({ onSearch }: { onSearch: (query: string) => void })
         onSubmitEditing={() => onSearch(query.current)}
         returnKeyType="search"
         autoCorrect={false}
-        style={{ ...Type.callout, flex: 1, minHeight: 44, color: Colors.label }}
+        style={{ ...Type.callout, flex: 1, minWidth: 0, minHeight: 44, color: Colors.label }}
       />
       <PressableScale
         accessibilityRole="button"
@@ -43,13 +43,18 @@ export function SearchField({ onSearch }: { onSearch: (query: string) => void })
           flexDirection: "row",
           alignItems: "center",
           gap: 6,
+          flexShrink: 0,
           minHeight: 46,
           paddingHorizontal: Space.lg,
           borderRadius: Radii.pill,
           backgroundColor: Colors.primary,
         }}
       >
-        <Text maxFontSizeMultiplier={1.3} style={{ ...Type.subhead, fontWeight: "600", color: Colors.onPrimary }}>
+        <Text
+          maxFontSizeMultiplier={1.3}
+          numberOfLines={1}
+          style={{ ...Type.subhead, flexShrink: 0, fontWeight: "600", color: Colors.onPrimary }}
+        >
           Caută
         </Text>
         <SymbolView name="arrow.right" size={13} weight="semibold" tintColor={Colors.onPrimary} />
