@@ -45,40 +45,42 @@
     }
   } catch (_) {}
 
-  const storageKey = 'medora-theme';
-  const themes = [
-    { id: 'iridescent', label: 'Iridescent', colors: ['#fef2f1', '#e5f1fa', '#f6edfb', '#9567bf'] },
-    { id: 'sage', label: 'Sage clinic', colors: ['#e4edd8', '#ddf1e8', '#f5e3e8', '#72865d'] },
-    { id: 'lavender', label: 'Lavandă', colors: ['#ede4fa', '#e2eefa', '#f8e2ef', '#8064a8'] },
-    { id: 'ivory', label: 'Ivory cald', colors: ['#f4e6d4', '#f8ddd2', '#dfe8d5', '#856f58'] },
-    { id: 'ice', label: 'Ice blue', colors: ['#dcecf5', '#ddf4f1', '#e9e7f7', '#527487'] },
-    { id: 'pharmacy', label: 'Soft pharmacy', colors: ['#dde9d4', '#f5e8bb', '#f3dce6', '#657a55'] },
-    { id: 'premium', label: 'Alb premium', colors: ['#faf0f1', '#eff5fa', '#f3eff8', '#756582'] }
+  // Appearance follows iOS: system default, with light/dark override.
+  // The old 7-palette picker (medora-theme) is retired — the brand is locked,
+  // so any stored palette resolves to the same tokens and is cleaned up.
+  try { localStorage.removeItem('medora-theme'); } catch (_) {}
+  try { delete document.documentElement.dataset.medoraTheme; } catch (_) {}
+
+  const storageKey = 'medora-appearance';
+  const modes = [
+    { id: 'system', label: 'Sistem' },
+    { id: 'light', label: 'Luminos' },
+    { id: 'dark', label: 'Întunecat' }
   ];
 
-  const validTheme = id => themes.some(theme => theme.id === id) ? id : 'iridescent';
-  const getSavedTheme = () => {
-    try { return validTheme(localStorage.getItem(storageKey)); }
-    catch (_) { return 'iridescent'; }
+  const validMode = id => modes.some(mode => mode.id === id) ? id : 'system';
+  const getSavedMode = () => {
+    try { return validMode(localStorage.getItem(storageKey)); }
+    catch (_) { return 'system'; }
   };
-  const saveTheme = id => {
+  const saveMode = id => {
     try { localStorage.setItem(storageKey, id); }
     catch (_) {}
   };
 
-  const selected = validTheme(document.documentElement.dataset.medoraTheme || getSavedTheme());
-  document.documentElement.dataset.medoraTheme = selected;
+  const selected = validMode(document.documentElement.dataset.medoraAppearance || getSavedMode());
+  document.documentElement.dataset.medoraAppearance = selected;
 
   const control = document.createElement('div');
   control.className = 'medora-theme-control';
   control.innerHTML = `
     <div class="medora-theme-menu" id="medora-theme-menu" hidden>
-      <div class="medora-theme-title">Alege atmosfera</div>
-      <div class="medora-theme-options" role="radiogroup" aria-label="Tema cromatică"></div>
+      <div class="medora-theme-title">Aspect</div>
+      <div class="medora-theme-options" role="radiogroup" aria-label="Aspect"></div>
     </div>
-    <button class="medora-theme-trigger" type="button" aria-expanded="false" aria-controls="medora-theme-menu" aria-label="Schimbă tema cromatică">
+    <button class="medora-theme-trigger" type="button" aria-expanded="false" aria-controls="medora-theme-menu" aria-label="Schimbă aspectul">
       <span class="medora-theme-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span>Temă</span>
+      <span>Aspect</span>
     </button>`;
 
   const options = control.querySelector('.medora-theme-options');
@@ -87,27 +89,26 @@
 
   const renderSelection = id => {
     control.querySelectorAll('.medora-theme-option').forEach(button => {
-      button.setAttribute('aria-checked', String(button.dataset.theme === id));
+      button.setAttribute('aria-checked', String(button.dataset.appearance === id));
     });
   };
 
-  themes.forEach(theme => {
+  modes.forEach(mode => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'medora-theme-option';
-    button.dataset.theme = theme.id;
+    button.dataset.appearance = mode.id;
     button.setAttribute('role', 'radio');
-    button.setAttribute('aria-checked', String(theme.id === selected));
-    const blocks = theme.colors.map(color => `<i style="background:${color}"></i>`).join('');
-    button.innerHTML = `<span class="medora-theme-swatch" aria-hidden="true">${blocks}</span><span>${theme.label}</span>`;
+    button.setAttribute('aria-checked', String(mode.id === selected));
+    button.innerHTML = `<span>${mode.label}</span>`;
     button.addEventListener('click', () => {
-      document.documentElement.dataset.medoraTheme = theme.id;
-      saveTheme(theme.id);
-      renderSelection(theme.id);
+      document.documentElement.dataset.medoraAppearance = mode.id;
+      saveMode(mode.id);
+      renderSelection(mode.id);
       menu.hidden = true;
       trigger.setAttribute('aria-expanded', 'false');
       trigger.focus();
-      window.dispatchEvent(new CustomEvent('medora-theme-change', { detail: { theme: theme.id } }));
+      window.dispatchEvent(new CustomEvent('medora-appearance-change', { detail: { appearance: mode.id } }));
     });
     options.append(button);
   });

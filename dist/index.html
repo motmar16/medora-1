@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f0e4">
+  <meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Medora centralizează informațiile despre medicamente și schimbările de disponibilitate din România.">
   <title>Medora — Informații despre medicamente</title>
-  <script>try{document.documentElement.dataset.medoraTheme=localStorage.getItem('medora-theme')||'iridescent'}catch(e){document.documentElement.dataset.medoraTheme='iridescent'}</script>
+  <script>try{var a=localStorage.getItem('medora-appearance');if(a!=='light'&&a!=='dark')a='system';document.documentElement.dataset.medoraAppearance=a}catch(e){document.documentElement.dataset.medoraAppearance='system'}</script>
   <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&Element.prototype.animate)document.documentElement.classList.add('ops-entrance-pending')</script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Inter:wght@400;500;600;700&display=swap');
     @font-face{font-family:"Mazzard H";font-style:normal;font-weight:400;font-display:swap;src:url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff2") format("woff2"),url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.woff") format("woff"),url("https://db.onlinewebfonts.com/t/eb5b5ee332420add9a40ee988cb6ac37.ttf") format("truetype")}
     @font-face{font-family:"Mazzard H";font-style:normal;font-weight:500;font-display:swap;src:url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff2") format("woff2"),url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.woff") format("woff"),url("https://db.onlinewebfonts.com/t/875fffdfa62169a0f131e90f37f1faf4.ttf") format("truetype")}
-    :root{--forest:#f6f0e4;--deep:#181817;--soft:#a7b77c;--mint:#f2a8cf;--mint-soft:#f8dcec;--paper:#f6f0e4;--white:#fffdfa;--ink:#181817;--line:rgba(24,24,23,.13);--muted:rgba(24,24,23,.58);--sage:#a7b77c;--pink:#f2a8cf;--yellow:#f2d35e;--blue:#b9cff0;--teal:#0e8176;--navy:#17154a}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:var(--deep);color:var(--white);font:16px/1.5 Karla,Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:0}a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inherit}a,button,input{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+    :root{--forest:#f5f2ec;--deep:#181817;--soft:#8656b3;--mint:#f2a8cf;--mint-soft:#f2dff5;--paper:#f5f2ec;--white:#fffdfa;--ink:#181817;--line:rgba(24,24,23,.12);--muted:rgba(24,24,23,.62);--sage:#8656b3;--pink:#f2a8cf;--yellow:#f2d35e;--blue:#b9cff0;--teal:#0e8176;--navy:#17154a}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:var(--deep);color:var(--white);font:16px/1.5 Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;letter-spacing:-0.01em}a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inherit}a,button,input{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
     .home{min-height:auto;overflow:hidden;background:var(--forest);border-radius:0 0 8px 8px}.topbar{width:min(1120px,calc(100% - 64px));height:96px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:inline-flex;align-items:center;gap:12px;font-size:35px;font-weight:720}.brand-mark{display:grid;place-items:center;width:34px;height:34px;color:var(--deep);background:var(--mint);border-radius:8px}.brand-mark svg{width:22px;height:22px;stroke-width:2}.top-actions{display:flex;align-items:center;gap:12px}.experience-switch{position:relative}.experience-switch summary{cursor:pointer;list-style:none;color:var(--muted);font-size:12px;font-weight:650;white-space:nowrap}.experience-switch summary::-webkit-details-marker{display:none}.experience-switch summary:after{content:"⌄";margin-left:5px}.experience-switch[open] summary{color:var(--ink)}.experience-menu{position:absolute;z-index:40;top:calc(100% + 12px);right:0;min-width:174px;padding:7px;background:rgba(255,253,250,.96);border:1px solid rgba(24,24,23,.12);border-radius:13px;box-shadow:0 18px 44px rgba(52,44,37,.16);backdrop-filter:blur(16px)}.experience-menu a{display:block;padding:9px 11px;border-radius:8px;color:var(--ink);font-size:11px;font-weight:600;white-space:nowrap}.experience-menu a:hover{background:#f3ede2}.experience-menu a[aria-current="page"]{color:#9567bf;background:#f7edf9}.simulator-link{display:inline-flex;align-items:center;gap:6px;color:var(--ink);background:rgba(255,255,255,.75);border:1px solid rgba(24,24,23,.14);padding:0 13px;min-height:40px;border-radius:20px;font-size:12px;font-weight:650;text-decoration:none;white-space:nowrap;transition:all .2s ease;box-shadow:0 2px 8px rgba(0,0,0,.04)}.simulator-link:hover{transform:translateY(-1px);background:var(--white);border-color:var(--ink);box-shadow:0 6px 18px rgba(0,0,0,.08);color:var(--ink)}.simulator-link svg{width:15px;height:15px;stroke-width:2}.market{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}.market svg{width:14px;height:14px}.open-app{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 17px;color:var(--ink);background:var(--paper);border:1px solid rgba(255,255,255,.35);border-radius:8px;font-size:13px;font-weight:650;transition:transform .2s ease,background .2s ease}.open-app:hover{transform:translateY(-2px);background:var(--white)}.open-app svg{width:17px;height:17px}
     .hero{width:min(1080px,calc(100% - 64px));margin:auto;padding:28px 0 36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,490px);gap:44px;align-items:center;justify-content:center;text-align:left}
     .hero-copy{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
@@ -697,14 +698,14 @@
       }
     }
     </style>
-  <link rel="stylesheet" href="theme.css?v=4">
+  <link rel="stylesheet" href="theme.css?v=5">
   <link rel="stylesheet" href="landing-mobile.css?v=1">
-  <script src="theme.js?v=4" defer></script>
+  <script src="theme.js?v=5" defer></script>
 </head>
 <body>
   <main class="home">
     <header class="topbar">
-      <a class="brand" href="index.html" aria-label="Medora, pagina principală"><span class="brand-mark"><i data-lucide="asterisk"></i></span>medora</a>
+      <a class="brand" href="index.html" aria-label="Medora, pagina principală"><span class="brand-mark"><img src="capsule-hero.png" alt="" aria-hidden="true"></span>medora</a>
       <div class="top-actions"><span class="market"><i data-lucide="map-pin"></i> România</span><a class="user-top-profile" id="top-auth-link" href="medora.html#overview" title="Profil activ: Dr. Andrei Popescu">
         <div class="heroui-avatar heroui-avatar-topbar" id="top-user-avatar" style="background: radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%);">
           <span id="top-user-initials">AP</span>
@@ -713,6 +714,7 @@
     </header>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
+        <p class="medora-script" aria-hidden="true" style="margin:0 0 4px;font-size:clamp(30px,3.4vw,42px);line-height:1;color:var(--ink)">salutare</p>
         <h1 id="hero-title">Informația potrivită. <span>Înainte de prescripție.</span></h1>
         <div class="search-area">
           <form class="search" id="search-form" action="medora.html#catalog" method="get">

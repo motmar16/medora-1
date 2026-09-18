@@ -18,6 +18,8 @@ const exclude = new Set([
   "server.mjs",
   "build.mjs",
   ".DS_Store",
+  ".claude",
+  "skills-lock.json",
   "ui-prompt-library",
   "ios",
   "mobile",
