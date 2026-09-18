@@ -33,7 +33,7 @@ export default function RootLayout() {
   const signedIn = useSession((state) => state.user !== null);
   const [introDone, setIntroDone] = useState(introPlayed);
   // Signed-in people go straight to their data; everyone else gets the brand intro.
-  const showIntro = hydrated && !signedIn && !introDone;
+  const showIntro = hydrated && !introDone;
 
   useEffect(() => {
     if (hydrated) SplashScreen.hideAsync().catch(() => {});
