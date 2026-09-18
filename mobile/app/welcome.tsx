@@ -17,7 +17,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ActionButton } from "@/components/action-button";
-import { ECGHorizon } from "@/components/ecg-horizon";
 import { useAmbientBackground } from "@/components/ambient-background";
 import { PressableScale } from "@/components/pressable-scale";
 import { SearchField } from "@/components/search-field";
@@ -25,73 +24,35 @@ import { catalogHref, MODULES } from "@/constants/modules";
 import { Colors, Motion, Space, Type } from "@/constants/theme";
 import { useSession } from "@/store/session";
 
-function HeroCapsule({ size, ecgTop }: { size: number; ecgTop: number }) {
+function HeroCapsule({ size }: { size: number }) {
   const reduceMotion = useReducedMotion();
-  const floatAnim = useRef(new RNAnimated.Value(0)).current;
-  const pulseAnim = useRef(new RNAnimated.Value(1)).current;
+  const lift = useRef(new RNAnimated.Value(0)).current;
   const pressScale = useRef(new RNAnimated.Value(1)).current;
 
   useEffect(() => {
-    // Reduce Motion: the flacon sits still instead of floating and pulsing.
+    // Reduce Motion: the flacon simply rests.
     if (reduceMotion) return;
 
-    // 1. Continuous smooth 3D levitation using native iOS CoreAnimation driver
-    const floatLoop = RNAnimated.loop(
+    // Subtle levitation: one slow rise and fall, with a touch of scale for depth.
+    const float = RNAnimated.loop(
       RNAnimated.sequence([
-        RNAnimated.timing(floatAnim, {
-          toValue: -9,
-          duration: 2400,
-          easing: RNEasing.inOut(RNEasing.quad),
+        RNAnimated.timing(lift, {
+          toValue: 1,
+          duration: 3000,
+          easing: RNEasing.inOut(RNEasing.sin),
           useNativeDriver: true,
         }),
-        RNAnimated.timing(floatAnim, {
+        RNAnimated.timing(lift, {
           toValue: 0,
-          duration: 2400,
-          easing: RNEasing.inOut(RNEasing.quad),
+          duration: 3000,
+          easing: RNEasing.inOut(RNEasing.sin),
           useNativeDriver: true,
         }),
       ])
     );
-    floatLoop.start();
-
-    // 2. Cardiac pulse (lub-dub) synchronized with the ECG heartbeat wave
-    const pulseLoop = RNAnimated.loop(
-      RNAnimated.sequence([
-        RNAnimated.delay(600),
-        RNAnimated.timing(pulseAnim, {
-          toValue: 1.022,
-          duration: 140,
-          easing: RNEasing.out(RNEasing.quad),
-          useNativeDriver: true,
-        }),
-        RNAnimated.timing(pulseAnim, {
-          toValue: 0.994,
-          duration: 130,
-          easing: RNEasing.inOut(RNEasing.quad),
-          useNativeDriver: true,
-        }),
-        RNAnimated.timing(pulseAnim, {
-          toValue: 1.012,
-          duration: 140,
-          easing: RNEasing.out(RNEasing.quad),
-          useNativeDriver: true,
-        }),
-        RNAnimated.timing(pulseAnim, {
-          toValue: 1.0,
-          duration: 320,
-          easing: RNEasing.out(RNEasing.quad),
-          useNativeDriver: true,
-        }),
-        RNAnimated.delay(165),
-      ])
-    );
-    pulseLoop.start();
-
-    return () => {
-      floatLoop.stop();
-      pulseLoop.stop();
-    };
-  }, [floatAnim, pulseAnim, reduceMotion]);
+    float.start();
+    return () => float.stop();
+  }, [lift, reduceMotion]);
 
   const handlePress = () => {
     if (process.env.EXPO_OS === "ios") {
@@ -99,52 +60,26 @@ function HeroCapsule({ size, ecgTop }: { size: number; ecgTop: number }) {
     }
     if (reduceMotion) return;
     RNAnimated.sequence([
-      RNAnimated.spring(pressScale, {
-        toValue: 1.18,
-        damping: 6,
-        stiffness: 350,
-        useNativeDriver: true,
-      }),
-      RNAnimated.spring(pressScale, {
-        toValue: 1,
-        damping: 9,
-        stiffness: 200,
-        useNativeDriver: true,
-      }),
+      RNAnimated.spring(pressScale, { toValue: 1.1, damping: 7, stiffness: 320, useNativeDriver: true }),
+      RNAnimated.spring(pressScale, { toValue: 1, damping: 9, stiffness: 200, useNativeDriver: true }),
     ]).start();
   };
 
-  const combinedScale = RNAnimated.multiply(pulseAnim, pressScale);
+  const translateY = lift.interpolate({ inputRange: [0, 1], outputRange: [0, -7] });
+  const breathe = lift.interpolate({ inputRange: [0, 1], outputRange: [1, 1.018] });
+  const scale = RNAnimated.multiply(breathe, pressScale);
 
   return (
-    <View style={{ alignItems: "center", position: "relative", marginBottom: Space.xs }}>
-      {/* Grounded Vital Horizon ECG line continuously flowing behind the flacon */}
-      <ECGHorizon
-        style={{
-          position: "absolute",
-          top: ecgTop,
-          zIndex: 1,
-        }}
-      />
-
-      <PressableScale onPress={handlePress} style={{ zIndex: 2, alignItems: "center" }}>
-        <RNAnimated.View
-          style={{
-            transform: [
-              { translateY: floatAnim },
-              { scale: combinedScale },
-            ],
-          }}
-        >
-          <Image
-            source={require("@/assets/images/capsule-hero.png")}
-            style={{ width: size * 0.7, height: size }}
-            resizeMode="contain"
-            accessibilityLabel="Flacon Medora 3D"
-          />
-        </RNAnimated.View>
-      </PressableScale>
-    </View>
+    <PressableScale onPress={handlePress} style={{ alignItems: "center" }}>
+      <RNAnimated.View style={{ transform: [{ translateY }, { scale }] }}>
+        <Image
+          source={require("@/assets/images/capsule-hero.png")}
+          style={{ width: size * 0.7, height: size }}
+          resizeMode="contain"
+          accessibilityLabel="Flacon Medora"
+        />
+      </RNAnimated.View>
+    </PressableScale>
   );
 }
 
@@ -185,17 +120,30 @@ function AnimatedTitle({ fontSize, lineHeight }: { fontSize: number; lineHeight:
 
 // Welcome must fit one screen at any Dynamic Type size: measure, then step down.
 const DENSITIES = [
-  { hero: 104, ecgTop: 52, icon: 76, gap: Space.lg, title: 30, titleLine: 38 },
-  { hero: 88, ecgTop: 44, icon: 62, gap: Space.md, title: 26, titleLine: 33 },
-  { hero: 72, ecgTop: 36, icon: 52, gap: Space.sm, title: 23, titleLine: 29 },
-  { hero: 58, ecgTop: 28, icon: 44, gap: Space.xs, title: 21, titleLine: 26 },
+  { hero: 104, icon: 76, gap: Space.lg, title: 30, titleLine: 38 },
+  { hero: 88, icon: 62, gap: Space.md, title: 26, titleLine: 33 },
+  { hero: 72, icon: 52, gap: Space.sm, title: 23, titleLine: 29 },
+  { hero: 58, icon: 44, gap: Space.xs, title: 21, titleLine: 26 },
 ];
 
 export default function WelcomeScreen() {
   const router = useRouter();
   const [density, setDensity] = useState(0);
-  const viewportHeight = useRef(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [gridHeight, setGridHeight] = useState(0);
   const step = DENSITIES[density];
+
+  // Natural height of the two blocks plus the gaps around the spacer between them.
+  const naturalHeight = headerHeight + gridHeight + step.gap * 2 + Space.sm * 2;
+  const measured = viewportHeight > 0 && headerHeight > 0 && gridHeight > 0;
+  const overflows = measured && naturalHeight > viewportHeight + 1;
+  // Push the module grid down into the empty area instead of leaving a hole above the actions.
+  const spacerHeight = measured && !overflows ? (viewportHeight - naturalHeight) * 0.62 : 0;
+
+  useEffect(() => {
+    if (overflows && density < DENSITIES.length - 1) setDensity((value) => value + 1);
+  }, [overflows, density]);
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
@@ -216,15 +164,7 @@ export default function WelcomeScreen() {
         contentInsetAdjustmentBehavior="never"
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
-        onLayout={(event) => {
-          viewportHeight.current = event.nativeEvent.layout.height;
-        }}
-        onContentSizeChange={(_, contentHeight) => {
-          // Larger text pushes the module grid under the pinned actions: tighten a step.
-          if (viewportHeight.current && contentHeight > viewportHeight.current + 1 && density < DENSITIES.length - 1) {
-            setDensity((value) => value + 1);
-          }
-        }}
+        onLayout={(event) => setViewportHeight(event.nativeEvent.layout.height)}
         contentContainerStyle={{
           width: "100%",
           maxWidth: 560,
@@ -235,8 +175,12 @@ export default function WelcomeScreen() {
           gap: step.gap,
         }}
       >
-        <Animated.View entering={enter(0)} style={{ gap: step.gap, alignItems: "center" }}>
-          <HeroCapsule size={step.hero} ecgTop={step.ecgTop} />
+        <Animated.View
+          entering={enter(0)}
+          onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
+          style={{ gap: step.gap, alignItems: "center" }}
+        >
+          <HeroCapsule size={step.hero} />
           <AnimatedTitle fontSize={step.title} lineHeight={step.titleLine} />
 
           <SearchField onSearch={(q) => getStarted(catalogHref(q))} />
@@ -249,7 +193,13 @@ export default function WelcomeScreen() {
           </Text>
         </Animated.View>
 
-        <Animated.View entering={enter(1)} style={{ flexDirection: "row", flexWrap: "wrap", rowGap: Space.lg }}>
+        <View style={{ height: spacerHeight }} />
+
+        <Animated.View
+          entering={enter(1)}
+          onLayout={(event) => setGridHeight(event.nativeEvent.layout.height)}
+          style={{ flexDirection: "row", flexWrap: "wrap", rowGap: step.gap }}
+        >
           {MODULES.map((module, index) => (
             <Animated.View
               key={module.key}

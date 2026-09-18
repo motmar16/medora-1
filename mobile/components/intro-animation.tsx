@@ -14,7 +14,6 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { useAmbientBackground } from "@/components/ambient-background";
-import { ECGHorizon } from "@/components/ecg-horizon";
 import { Colors, Motion, Space } from "@/constants/theme";
 
 const HOLD = 900;
@@ -55,13 +54,6 @@ export function IntroAnimation({ onDone }: { onDone: () => void }) {
       ]}
     >
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Animated.View
-          entering={reduceMotion ? FadeIn.duration(220) : FadeIn.duration(420).delay(120)}
-          style={{ position: "absolute", top: 46 }}
-        >
-          <ECGHorizon />
-        </Animated.View>
-
         <Animated.View
           entering={
             reduceMotion
