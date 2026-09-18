@@ -19,6 +19,7 @@ export function SearchField({ onSearch }: { onSearch: (query: string) => void })
         minHeight: 58,
         paddingLeft: Space.lg,
         paddingRight: 6,
+        paddingVertical: 6,
         borderRadius: Radii.pill,
         backgroundColor: Colors.surface,
         boxShadow: "0 6px 20px rgba(24, 24, 23, 0.10)",
@@ -27,6 +28,7 @@ export function SearchField({ onSearch }: { onSearch: (query: string) => void })
       <SymbolView name="magnifyingglass" size={18} tintColor={Colors.secondaryLabel} />
       <TextInput
         placeholder="Medicament, DCI, ATC"
+        maxFontSizeMultiplier={1.3}
         placeholderTextColor={Colors.tertiaryLabel}
         onChangeText={(text) => (query.current = text)}
         onSubmitEditing={() => onSearch(query.current)}
@@ -47,7 +49,9 @@ export function SearchField({ onSearch }: { onSearch: (query: string) => void })
           backgroundColor: Colors.primary,
         }}
       >
-        <Text style={{ ...Type.subhead, fontWeight: "600", color: Colors.onPrimary }}>Caută</Text>
+        <Text maxFontSizeMultiplier={1.3} style={{ ...Type.subhead, fontWeight: "600", color: Colors.onPrimary }}>
+          Caută
+        </Text>
         <SymbolView name="arrow.right" size={13} weight="semibold" tintColor={Colors.onPrimary} />
       </PressableScale>
     </View>

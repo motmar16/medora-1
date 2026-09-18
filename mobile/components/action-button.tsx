@@ -37,7 +37,11 @@ export function ActionButton({ label, onPress, variant = "primary", symbol, disa
       }}
     >
       {symbol && <SymbolView name={symbol} size={17} weight="semibold" tintColor={foreground} />}
-      <Text style={{ ...Type.headline, fontWeight: variant === "plain" ? "500" : "600", color: foreground }}>
+      <Text
+        maxFontSizeMultiplier={1.4}
+        numberOfLines={1}
+        style={{ ...Type.headline, fontWeight: variant === "plain" ? "500" : "600", color: foreground }}
+      >
         {label}
       </Text>
     </PressableScale>

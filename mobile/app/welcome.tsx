@@ -1,6 +1,6 @@
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Animated as RNAnimated,
@@ -25,7 +25,7 @@ import { catalogHref, MODULES } from "@/constants/modules";
 import { Colors, Motion, Space, Type } from "@/constants/theme";
 import { useSession } from "@/store/session";
 
-function HeroCapsule() {
+function HeroCapsule({ size, ecgTop }: { size: number; ecgTop: number }) {
   const reduceMotion = useReducedMotion();
   const floatAnim = useRef(new RNAnimated.Value(0)).current;
   const pulseAnim = useRef(new RNAnimated.Value(1)).current;
@@ -122,7 +122,7 @@ function HeroCapsule() {
       <ECGHorizon
         style={{
           position: "absolute",
-          top: 52,
+          top: ecgTop,
           zIndex: 1,
         }}
       />
@@ -138,7 +138,7 @@ function HeroCapsule() {
         >
           <Image
             source={require("@/assets/images/capsule-hero.png")}
-            style={{ width: 72, height: 104 }}
+            style={{ width: size * 0.7, height: size }}
             resizeMode="contain"
             accessibilityLabel="Flacon Medora 3D"
           />
@@ -148,7 +148,7 @@ function HeroCapsule() {
   );
 }
 
-function AnimatedTitle() {
+function AnimatedTitle({ fontSize, lineHeight }: { fontSize: number; lineHeight: number }) {
   const words = ["Găsește", "rapid", "informații", "despre", "medicamente"];
   return (
     <View
@@ -164,10 +164,11 @@ function AnimatedTitle() {
       {words.map((word, index) => (
         <Animated.Text
           key={index}
+          maxFontSizeMultiplier={1.5}
           entering={FadeInDown.duration(480).delay(100 + index * 75).springify().damping(13).stiffness(150)}
           style={{
-            fontSize: 30,
-            lineHeight: 38,
+            fontSize,
+            lineHeight,
             fontWeight: "700",
             letterSpacing: -0.8,
             textAlign: "center",
@@ -182,8 +183,19 @@ function AnimatedTitle() {
   );
 }
 
+// Welcome must fit one screen at any Dynamic Type size: measure, then step down.
+const DENSITIES = [
+  { hero: 104, ecgTop: 52, icon: 76, gap: Space.lg, title: 30, titleLine: 38 },
+  { hero: 88, ecgTop: 44, icon: 62, gap: Space.md, title: 26, titleLine: 33 },
+  { hero: 72, ecgTop: 36, icon: 52, gap: Space.sm, title: 23, titleLine: 29 },
+  { hero: 58, ecgTop: 28, icon: 44, gap: Space.xs, title: 21, titleLine: 26 },
+];
+
 export default function WelcomeScreen() {
   const router = useRouter();
+  const [density, setDensity] = useState(0);
+  const viewportHeight = useRef(0);
+  const step = DENSITIES[density];
   const reduceMotion = useReducedMotion();
   const insets = useSafeAreaInsets();
   const background = useAmbientBackground();
@@ -200,27 +212,40 @@ export default function WelcomeScreen() {
   return (
     <View style={[background, { paddingTop: insets.top }]}>
       <ScrollView
+        style={{ flex: 1 }}
         contentInsetAdjustmentBehavior="never"
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
+        onLayout={(event) => {
+          viewportHeight.current = event.nativeEvent.layout.height;
+        }}
+        onContentSizeChange={(_, contentHeight) => {
+          // Larger text pushes the module grid under the pinned actions: tighten a step.
+          if (viewportHeight.current && contentHeight > viewportHeight.current + 1 && density < DENSITIES.length - 1) {
+            setDensity((value) => value + 1);
+          }
+        }}
         contentContainerStyle={{
           width: "100%",
           maxWidth: 560,
           alignSelf: "center",
           paddingHorizontal: Space.xl,
           paddingTop: Space.sm,
-          paddingBottom: Space.lg,
-          gap: Space.lg,
+          paddingBottom: Space.sm,
+          gap: step.gap,
         }}
       >
-        <Animated.View entering={enter(0)} style={{ gap: Space.lg, alignItems: "center" }}>
-          <HeroCapsule />
-          <AnimatedTitle />
+        <Animated.View entering={enter(0)} style={{ gap: step.gap, alignItems: "center" }}>
+          <HeroCapsule size={step.hero} ecgTop={step.ecgTop} />
+          <AnimatedTitle fontSize={step.title} lineHeight={step.titleLine} />
 
           <SearchField onSearch={(q) => getStarted(catalogHref(q))} />
 
-          <Text style={{ ...Type.footnote, lineHeight: 18, color: Colors.secondaryLabel, textAlign: "center" }}>
-            Catalogul medicamentelor autorizate în România{"\n"}Surse: ANMDMR, EMA · versiune demonstrativă
+          <Text
+            maxFontSizeMultiplier={1.3}
+            style={{ ...Type.footnote, lineHeight: 18, color: Colors.secondaryLabel, textAlign: "center" }}
+          >
+            Catalogul medicamentelor autorizate în România · Surse: ANMDMR, EMA · versiune demonstrativă
           </Text>
         </Animated.View>
 
@@ -247,10 +272,17 @@ export default function WelcomeScreen() {
               >
                 <Image
                   source={module.icon}
-                  style={{ width: 76, height: 76 }}
+                  style={{ width: step.icon, height: step.icon }}
                   accessibilityIgnoresInvertColors
                 />
-                <Text style={{ ...Type.subhead, fontWeight: "500", color: Colors.label }}>{module.label}</Text>
+                <Text
+                  maxFontSizeMultiplier={1.4}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  style={{ ...Type.subhead, fontWeight: "500", color: Colors.label }}
+                >
+                  {module.label}
+                </Text>
               </PressableScale>
             </Animated.View>
           ))}

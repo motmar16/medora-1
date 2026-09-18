@@ -1,9 +1,10 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router/stack";
-import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { useEffect, useState } from "react";
+import { useColorScheme, View } from "react-native";
 
+import { IntroAnimation } from "@/components/intro-animation";
 import { Colors } from "@/constants/theme";
 import { useStoresHydrated } from "@/store/hydration";
 import { useSession } from "@/store/session";
@@ -21,10 +22,18 @@ const sheet = {
   contentStyle: { backgroundColor: "transparent" },
 };
 
+// One intro per app launch: the flag lives outside React so re-renders and sign-outs
+// don't replay it, while a cold start always does.
+let introPlayed = false;
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const hydrated = useStoresHydrated();
   const hasOnboarded = useSession((state) => state.hasOnboarded);
+  const signedIn = useSession((state) => state.user !== null);
+  const [introDone, setIntroDone] = useState(introPlayed);
+  // Signed-in people go straight to their data; everyone else gets the brand intro.
+  const showIntro = hydrated && !signedIn && !introDone;
 
   useEffect(() => {
     if (hydrated) SplashScreen.hideAsync().catch(() => {});
@@ -34,6 +43,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <View style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }}>
         {/* One-way door: once past Welcome, back can never return to it. */}
         <Stack.Protected guard={hasOnboarded}>
@@ -64,6 +74,15 @@ export default function RootLayout() {
         <Stack.Screen name="pick-medicine" options={sheet} />
         <Stack.Screen name="alert-preferences" options={{ ...sheet, sheetAllowedDetents: [0.85, 1.0] }} />
       </Stack>
+      {showIntro && (
+        <IntroAnimation
+          onDone={() => {
+            introPlayed = true;
+            setIntroDone(true);
+          }}
+        />
+      )}
+      </View>
     </ThemeProvider>
   );
 }
