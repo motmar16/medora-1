@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { Card } from "@/components/card";
 import { EmptyState } from "@/components/empty-state";
+import { RiveBookmarkButton } from "@/components/rive-bookmark";
 import { StatusBadge } from "@/components/status-badge";
 import { MEDICINES } from "@/constants/medicines";
 import { Colors, Space, StatusStyle, Type } from "@/constants/theme";
@@ -76,6 +77,35 @@ export default function MedicineDetailScreen() {
           {/* The alert card below already names the status. */}
           {!medicine.event && <StatusBadge status={medicine.status} />}
         </View>
+
+        <Card
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingVertical: Space.md,
+            paddingHorizontal: Space.lg,
+          }}
+        >
+          <View style={{ gap: 2, flex: 1, paddingRight: Space.md }}>
+            <Text style={{ ...Type.headline, color: Colors.label }}>
+              {saved ? "Urmărit în Lista mea" : "Adaugă în Lista mea"}
+            </Text>
+            <Text style={{ ...Type.footnote, color: Colors.secondaryLabel }}>
+              {saved
+                ? "Primești notificări când apar alerte ANMDMR"
+                : "Apasă steluța pentru a urmări alertele live"}
+            </Text>
+          </View>
+          <RiveBookmarkButton
+            saved={saved}
+            size={40}
+            onToggle={() => {
+              if (process.env.EXPO_OS === "ios") Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              toggle(medicine.id);
+            }}
+          />
+        </Card>
 
         {medicine.event && (
           <Card>

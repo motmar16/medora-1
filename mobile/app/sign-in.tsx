@@ -6,6 +6,7 @@ import { ScrollView, StyleSheet, Text, TextInput, View, type TextInputProps } fr
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 import { ActionButton } from "@/components/action-button";
+import { RiveEmptyState } from "@/components/rive-empty-state";
 import { BrandMark } from "@/components/brand-mark";
 import { Colors, Radii, Space, Type } from "@/constants/theme";
 import { useSession, type SessionUser } from "@/store/session";
@@ -58,7 +59,7 @@ export default function SignInScreen() {
   const signIn = useSession((state) => state.signIn);
 
   const [mode, setMode] = useState<Mode>(params.mode === "signin" ? "signin" : "signup");
-  const [step, setStep] = useState<"email" | "code">("email");
+  const [step, setStep] = useState<"email" | "code" | "success">("email");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -81,7 +82,10 @@ export default function SignInScreen() {
   const finish = (user: SessionUser) => {
     if (process.env.EXPO_OS === "ios") Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     signedInUser.current = user;
-    router.back();
+    setStep("success");
+    setTimeout(() => {
+      router.back();
+    }, 1200);
   };
 
   // Mock providers: the flow is final, the network calls come with the auth backend.
@@ -121,17 +125,31 @@ export default function SignInScreen() {
           </Text>
         </View>
 
-        <SegmentedControl
-          values={["Înregistrare", "Autentificare"]}
-          selectedIndex={mode === "signup" ? 0 : 1}
-          onChange={(event) => {
-            setMode(event.nativeEvent.selectedSegmentIndex === 0 ? "signup" : "signin");
-            setStep("email");
-            setCode("");
-          }}
-        />
+        {step !== "success" && (
+          <SegmentedControl
+            values={["Înregistrare", "Autentificare"]}
+            selectedIndex={mode === "signup" ? 0 : 1}
+            onChange={(event) => {
+              setMode(event.nativeEvent.selectedSegmentIndex === 0 ? "signup" : "signin");
+              setStep("email");
+              setCode("");
+            }}
+          />
+        )}
 
-        {step === "email" ? (
+        {step === "success" ? (
+          <Animated.View key="success" entering={FadeIn.duration(200)} style={{ alignItems: "center", paddingVertical: Space.lg }}>
+            <RiveEmptyState
+              type="check"
+              title={mode === "signup" ? "Cont creat cu succes!" : "Conectat cu succes!"}
+              message={
+                mode === "signup"
+                  ? "Bine ai venit în Medora. Preferințele tale sunt salvate."
+                  : "Bun venit înapoi. Lista ta a fost sincronizată."
+              }
+            />
+          </Animated.View>
+        ) : step === "email" ? (
           <Animated.View key="email" entering={FadeIn.duration(180)} exiting={FadeOut.duration(120)} style={{ gap: Space.xl }}>
             <View style={{ gap: Space.sm }}>
               <ActionButton label="Continuă cu Apple" symbol="apple.logo" onPress={() => withProvider("apple")} />
