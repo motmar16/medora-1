@@ -1,0 +1,54 @@
+/* Mobile landing hierarchy: title, quick-access modules, then search. */
+@media (max-width: 620px) {
+  .home .hero {
+    display: block;
+    padding-top: 28px;
+  }
+
+  .home .hero-copy {
+    width: 100%;
+  }
+
+  .home #hero-title {
+    margin-bottom: 24px;
+  }
+
+  .home .hero-copy > .modules-grid {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto 30px;
+    gap: 14px 8px;
+  }
+
+  .home .hero-copy > .modules-grid .module-card {
+    min-width: 0;
+    padding: 4px 2px;
+  }
+
+  .home .hero-copy > .modules-grid .module-card-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .home .hero-copy > .modules-grid .module-card-icon img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .home .hero-copy > .modules-grid .module-card-label {
+    font-size: 12px;
+  }
+
+  .home .hero .search-area {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .home .hero .source-note {
+    margin-top: 14px;
+  }
+
+  .home .frequent-tags {
+    margin-top: 16px;
+  }
+}

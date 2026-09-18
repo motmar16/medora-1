@@ -111,3 +111,23 @@ Comparison history:
 - Theme P2: GitHub Pages briefly served cached `theme.css?v=2`. Fixed by versioning the shared assets as `v=4` and waiting for the final successful Pages deployment before the final comparison.
 
 final result: passed
+
+## Mobile hero order iteration — 2026-09-17
+
+- Source visual: `/tmp/codex-remote-attachments/01a0ac13-f182-7853-b5e7-0c38c374fe6f/3A1E4F23-ECE8-40BB-BD02-C048EB6D4A7F/1-Photo-1.jpg` (588 × 1280 px).
+- Implementation: `http://127.0.0.1:4173/index.html`.
+- Comparison evidence: a browser-rendered side-by-side QA view showed the supplied mobile screenshot next to the updated Medora page in a 393 × 852 CSS px frame at DPR 1.
+- Requested hierarchy: on viewports up to 620 px, the hero now renders title → six quick-access module icons → search field → source note → frequent-search chips.
+- Desktop preservation: at 1280 × 720 CSS px, the hero retains its original two-column structure and the module grid remains a direct child of `.hero`.
+- Responsive fit: at 393 × 852 CSS px, document client width and scroll width both measured 378 px; no horizontal overflow was detected.
+- Visual alignment: existing Medora typography, iridescent background, 3D spot icons, spacing language, control radii, and labels remain unchanged. Only the mobile information hierarchy and supporting spacing were adjusted.
+- Accessibility: the mobile DOM order matches the visible order, so keyboard and screen-reader navigation encounter the shortcuts before the search field. The desktop DOM order is restored when crossing the breakpoint.
+- Interaction tested: search suggestions were filtered with `amox`, displayed `Amoxi Demo`, and closed cleanly after clearing the input.
+- Console: no browser warnings or errors were recorded during the responsive and desktop checks.
+
+Comparison history:
+
+- P1: the supplied mobile composition placed search before the shortcut icons, while the requested iteration required the opposite priority. Fixed by moving the existing module grid ahead of the search area only at the mobile breakpoint.
+- P2: CSS visual reordering alone would have left keyboard navigation inconsistent with the screen. Fixed by synchronizing the actual DOM position with `matchMedia` and restoring the original desktop parent when the breakpoint changes.
+
+final result: passed
