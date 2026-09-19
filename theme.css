@@ -269,6 +269,25 @@ body.medora-app .hero {
 }
 body.medora-app .hero .eyebrow { color: var(--theme-accent) !important; }
 body.medora-app .brandmark { background: var(--theme-deep) !important; color: var(--theme-secondary) !important; }
+/* Except when the mark is the flacon itself: the tile was a backdrop for a glyph,
+   and behind a rendered bottle it reads as a dark box someone forgot to remove. */
+body.medora-app .brandmark:has(img),
+.brandmark:has(img) {
+  width: 24px !important;
+  height: 33px !important;
+  display: block !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+.brandmark:has(img) img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
 body.medora-app .stat-icon,
 body.medora-app .avatar { background: var(--theme-wash-1) !important; color: var(--theme-accent) !important; }
 body.medora-app .drugicon { background: transparent !important; }
