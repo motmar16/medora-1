@@ -15,8 +15,6 @@ Live demo (GitHub Pages): https://roblanc.github.io/medora/
 - `medora-pastel-glow.png` + `spot-icons/` — hero art + section icons
 - `design-qa.md` + `qa/` — design QA notes + screenshots
 - `server.mjs` (`npm run dev`) — local preview server
-- `landing-cinematic.html` — alternate cinematic landing (full-screen looping hero video, liquid-glass UI), direct URL only: https://roblanc.github.io/medora/landing-cinematic.html — not linked from the main landing
-- `landing-ambient.html` — supplied still photograph with subtle CSS/JS 2.5D depth, moving sunlight and reduced-motion support
 
 No install or API keys. Fonts, styles and mock JS are inlined in HTML.
 External documentation links need internet.
