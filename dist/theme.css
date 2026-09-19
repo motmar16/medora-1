@@ -703,13 +703,13 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 /* The flacon is portrait (0.70). Forced into the 34px square the old icon tile
    used, it rendered 34x48 and lost its base to the tile's overflow. It keeps its
    own proportion instead, and the tile stops clipping. */
-.brand .brand-mark {
+.brand-mark:has(img) {
   display: block !important;
   width: 31px !important;   /* 44 x 0.70, the flacon's own proportion */
   height: 44px !important;
   overflow: visible !important;
 }
-.brand .brand-mark img {
+.brand-mark:has(img) img {
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
