@@ -700,6 +700,20 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
   height: 100% !important;
   object-fit: contain !important;
 }
+/* The flacon is portrait (0.70). Forced into the 34px square the old icon tile
+   used, it rendered 34x48 and lost its base to the tile's overflow. It keeps its
+   own proportion instead, and the tile stops clipping. */
+.brand .brand-mark {
+  display: block !important;
+  width: 31px !important;   /* 44 x 0.70, the flacon's own proportion */
+  height: 44px !important;
+  overflow: visible !important;
+}
+.brand .brand-mark img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
 .hero h1,
 #hero-title {
   font-family: var(--font-system) !important;
@@ -708,10 +722,11 @@ article th { background: var(--theme-accent-soft) !important; color: var(--theme
 }
 .hero h1 span,
 #hero-title span {
-  color: var(--theme-accent) !important;
+  color: var(--theme-muted) !important;
   font-weight: 500 !important;
 }
-/* Middle line soft, like the iOS Welcome editorial headline (800 / 500 / 800). */
+/* Middle line soft, like the iOS Welcome editorial headline (800 / 500 / 800):
+   the app greys it rather than tinting it, so the eye lands on the two ink lines. */
 /* Primary actions are ink pills (iOS ActionButton): lock the shapes. */
 .open-app,
 .search button,

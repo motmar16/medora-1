@@ -71,6 +71,10 @@
   const selected = validMode(document.documentElement.dataset.medoraAppearance || getSavedMode());
   document.documentElement.dataset.medoraAppearance = selected;
 
+  // The landing page opts out of the control: it is a page you read, not one you
+  // configure, and the appearance still follows the system underneath.
+  if (document.documentElement.hasAttribute('data-medora-no-appearance-ui')) return;
+
   const control = document.createElement('div');
   control.className = 'medora-theme-control';
   control.innerHTML = `
