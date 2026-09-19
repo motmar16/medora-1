@@ -45,6 +45,76 @@
     }
   } catch (_) {}
 
+
+  // Boring Avatars "beam", the same maths the iOS app draws natively, so a person
+  // gets the same face on both. Seeded by email first: a rename must not change
+  // someone's avatar.
+  const AVATAR_PALETTES = [
+    ['#8656B3', '#ACDAFD', '#F2A8CF', '#8FA99A', '#F4A261'],
+    ['#2F6FD6', '#ACDAFD', '#F3E6D4', '#52B788', '#4A8BD4'],
+    ['#E76F51', '#F4A261', '#E9C46A', '#2A9D8F', '#5FA8D3'],
+    ['#9567BF', '#F8AD9D', '#FBC4AB', '#68D8D6', '#07B1CA'],
+    ['#3D5A80', '#98C1D9', '#E0FBFC', '#EE6C4D', '#293241']
+  ];
+
+  const avatarHash = name => {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = ((hash << 5) - hash + name.charCodeAt(i)) | 0;
+    return Math.abs(hash);
+  };
+  const digit = (n, ntn) => Math.floor((n / Math.pow(10, ntn)) % 10);
+  const bool = (n, ntn) => !(digit(n, ntn) % 2);
+  const unit = (n, range, index) => {
+    const value = n % range;
+    return index && digit(n, index) % 2 === 0 ? -value : value;
+  };
+  const contrast = hex => {
+    const h = hex.replace('#', '');
+    const yiq = (parseInt(h.slice(0, 2), 16) * 299 + parseInt(h.slice(2, 4), 16) * 587 + parseInt(h.slice(4, 6), 16) * 114) / 1000;
+    return yiq >= 128 ? '#181817' : '#FFFFFF';
+  };
+
+  window.medoraAvatarSvg = function (seed = 'Medora', size = 36) {
+    const key = String(seed || 'Medora');
+    const colors = AVATAR_PALETTES[avatarHash(key) % AVATAR_PALETTES.length];
+    const n = avatarHash(key);
+    const range = colors.length;
+    const wrapperColor = colors[n % range];
+    const face = contrast(wrapperColor);
+    const preX = unit(n, 10, 1);
+    const preY = unit(n, 10, 2);
+    const x = preX < 5 ? preX + 4 : preX;
+    const y = preY < 5 ? preY + 4 : preY;
+    const mouthSpread = unit(n, 3);
+    const eyeSpread = unit(n, 5);
+    const mouth = bool(n, 2)
+      ? `<path d="M14.5,${19 + mouthSpread} a3.5,3.5 0 0,0 7,0" fill="none" stroke="${face}" stroke-width="1.5" stroke-linecap="round"/>`
+      : `<path d="M13,${19 + mouthSpread} a5,4.5 0 0,0 10,0 z" fill="${face}"/>`;
+
+    return `<svg viewBox="0 0 36 36" width="${size}" height="${size}" role="img" aria-label="Avatar" style="display:block">
+      <mask id="m${n}"><rect width="36" height="36" rx="18" fill="#fff"/></mask>
+      <g mask="url(#m${n})">
+        <rect width="36" height="36" fill="${colors[(n + 13) % range]}"/>
+        <rect width="36" height="36" fill="${wrapperColor}" rx="${bool(n, 1) ? 36 : 6}"
+              transform="translate(${x} ${y}) rotate(${unit(n, 360)} 18 18) scale(${1 + unit(n, 3) / 10})"/>
+        <g transform="translate(${x > 6 ? x / 2 : unit(n, 8, 1)} ${y > 6 ? y / 2 : unit(n, 7, 2)}) rotate(${unit(n, 10, 3)} 18 18)">
+          ${mouth}
+          <rect x="${14 - eyeSpread}" y="14" width="1.8" height="2.4" rx="1.2" fill="${face}"/>
+          <rect x="${20 + eyeSpread}" y="14" width="1.8" height="2.4" rx="1.2" fill="${face}"/>
+        </g>
+      </g>
+    </svg>`;
+  };
+
+  // Paints one of the page's avatar elements, replacing the gradient-and-initials
+  // placeholder the web used before.
+  window.renderMedoraAvatar = function (element, seed) {
+    if (!element) return;
+    element.innerHTML = window.medoraAvatarSvg(seed, element.offsetWidth || 36);
+    element.style.background = 'none';
+    element.style.overflow = 'hidden';
+  };
+
   // Appearance follows iOS: system default, with light/dark override.
   // The old 7-palette picker (medora-theme) is retired — the brand is locked,
   // so any stored palette resolves to the same tokens and is cleaned up.

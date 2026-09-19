@@ -700,10 +700,10 @@
       }
     }
     </style>
-  <link rel="stylesheet" href="theme.css?v=7">
+  <link rel="stylesheet" href="theme.css?v=8">
   <link rel="stylesheet" href="intro.css?v=1">
   <link rel="stylesheet" href="landing-mobile.css?v=1">
-  <script src="theme.js?v=7" defer></script>
+  <script src="theme.js?v=8" defer></script>
 </head>
 <body>
   <script src="intro.js?v=1"></script>
@@ -1543,8 +1543,13 @@
         const initials = user.fallback || (window.getDoctorInitials ? window.getDoctorInitials(user.name) : 'AP');
         const gradient = user.gradient || 'radial-gradient(circle at 32% 28%, #bbf7d0 0%, #38bdf8 36%, #818cf8 68%, #4f46e5 100%)';
         
-        if (avatarEl) avatarEl.style.background = gradient;
-        if (initialsEl) initialsEl.textContent = initials;
+        // Same avatar as the app draws, from the same seed.
+        if (avatarEl && window.renderMedoraAvatar) {
+          window.renderMedoraAvatar(avatarEl, user.email || user.name);
+        } else {
+          if (avatarEl) avatarEl.style.background = gradient;
+          if (initialsEl) initialsEl.textContent = initials;
+        }
         if (link) {
           link.href = 'medora.html#overview';
           link.title = `Profil activ: ${user.name || 'Dr. Andrei Popescu'}`;
