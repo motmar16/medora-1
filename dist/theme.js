@@ -74,34 +74,50 @@
     return yiq >= 128 ? '#181817' : '#FFFFFF';
   };
 
+  // "Glass": a colour field with two heavily blurred letterforms floating over it,
+  // in the spirit of DiceBear's style of the same name. Generated here rather than
+  // fetched from their API on purpose — the seed is someone's email, and an avatar
+  // is not worth sending a doctor's address, IP and referrer to a third party on
+  // every page load, nor worth breaking when that service is slow.
+  const GLASS_BACKGROUNDS = ['#ff2e88', '#00e5ff', '#ffe600', '#7cff00', '#ff6a00', '#b400ff'];
+  const GLASS_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
   window.medoraAvatarSvg = function (seed = 'Medora', size = 36) {
     const key = String(seed || 'Medora');
-    const colors = AVATAR_PALETTES[avatarHash(key) % AVATAR_PALETTES.length];
     const n = avatarHash(key);
-    const range = colors.length;
-    const wrapperColor = colors[n % range];
-    const face = contrast(wrapperColor);
-    const preX = unit(n, 10, 1);
-    const preY = unit(n, 10, 2);
-    const x = preX < 5 ? preX + 4 : preX;
-    const y = preY < 5 ? preY + 4 : preY;
-    const mouthSpread = unit(n, 3);
-    const eyeSpread = unit(n, 5);
-    const mouth = bool(n, 2)
-      ? `<path d="M14.5,${19 + mouthSpread} a3.5,3.5 0 0,0 7,0" fill="none" stroke="${face}" stroke-width="1.5" stroke-linecap="round"/>`
-      : `<path d="M13,${19 + mouthSpread} a5,4.5 0 0,0 10,0 z" fill="${face}"/>`;
+    const id = 'g' + n.toString(36);
+    const background = GLASS_BACKGROUNDS[n % GLASS_BACKGROUNDS.length];
 
-    return `<svg viewBox="0 0 36 36" width="${size}" height="${size}" role="img" aria-label="Avatar" style="display:block">
-      <mask id="m${n}"><rect width="36" height="36" rx="18" fill="#fff"/></mask>
-      <g mask="url(#m${n})">
-        <rect width="36" height="36" fill="${colors[(n + 13) % range]}"/>
-        <rect width="36" height="36" fill="${wrapperColor}" rx="${bool(n, 1) ? 36 : 6}"
-              transform="translate(${x} ${y}) rotate(${unit(n, 360)} 18 18) scale(${1 + unit(n, 3) / 10})"/>
-        <g transform="translate(${x > 6 ? x / 2 : unit(n, 8, 1)} ${y > 6 ? y / 2 : unit(n, 7, 2)}) rotate(${unit(n, 10, 3)} 18 18)">
-          ${mouth}
-          <rect x="${14 - eyeSpread}" y="14" width="1.8" height="2.4" rx="1.2" fill="${face}"/>
-          <rect x="${20 + eyeSpread}" y="14" width="1.8" height="2.4" rx="1.2" fill="${face}"/>
-        </g>
+    const shape = (index, offset) => {
+      const h = avatarHash(key + index);
+      return {
+        letter: GLASS_LETTERS[h % GLASS_LETTERS.length],
+        x: 20 + (h % 60),
+        y: 30 + (digit(h, 2) * 5),
+        rotate: unit(h, 360),
+        scale: (1.1 + (h % 7) / 10).toFixed(2),
+        opacity: (0.75 + (digit(h, offset) % 3) / 10).toFixed(2)
+      };
+    };
+
+    const letters = [shape(1, 1), shape(2, 2)].map(part => `
+        <g style="mix-blend-mode:screen" opacity="${part.opacity}" filter="url(#blur-${id})">
+          <text x="${part.x}" y="${part.y}" fill="#fff" font-family="Karla, Helvetica, Arial, sans-serif"
+                font-size="120" font-weight="700" text-anchor="middle" dominant-baseline="middle"
+                transform="rotate(${part.rotate} ${part.x} ${part.y}) scale(${part.scale})"
+                transform-origin="${part.x} ${part.y}">${part.letter}</text>
+        </g>`).join('');
+
+    return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-label="Avatar" style="display:block">
+      <defs>
+        <filter id="blur-${id}" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="14"/>
+        </filter>
+        <clipPath id="clip-${id}"><rect width="100" height="100" rx="50"/></clipPath>
+      </defs>
+      <g clip-path="url(#clip-${id})">
+        <rect width="100" height="100" fill="${background}"/>
+        ${letters}
       </g>
     </svg>`;
   };
